@@ -48,7 +48,7 @@ Reference model: **Centaur-70B** (Llama-3.1-70B, LoRA `r=8`), reproduced.
 ## Quickstart
 
 ```bash
-git clone https://github.com/<you>/Centauri.git && cd Centauri
+git clone https://github.com/socius-org/Centauri.git && cd Centauri
 pip install torch transformers datasets peft unsloth trl wandb pandas numpy huggingface_hub
 pip install matplotlib scienceplots scipy scikit-learn        # analysis / figures
 ```
