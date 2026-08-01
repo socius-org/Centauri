@@ -1,0 +1,3 @@
+- dataset:
+    id: tinyBenchmarks/tinyTruthfulQA
+  value: 51.14

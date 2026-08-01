@@ -1,0 +1,20 @@
+- dataset:
+    id: hendrycks/ethics
+    task_id: ethics_cm
+  value: 56.6
+- dataset:
+    id: hendrycks/ethics
+    task_id: ethics_deontology
+  value: 54.28
+- dataset:
+    id: hendrycks/ethics
+    task_id: ethics_justice
+  value: 57.91
+- dataset:
+    id: hendrycks/ethics
+    task_id: ethics_utilitarianism
+  value: 49.77
+- dataset:
+    id: hendrycks/ethics
+    task_id: ethics_virtue
+  value: 47.46

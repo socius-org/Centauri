@@ -1,0 +1,135 @@
+% ============================================================================
+% Required packages and colour definitions for heatmap tables
+% ============================================================================
+% \usepackage{xcolor}
+% \usepackage{colortbl}
+% \usepackage{graphicx}
+% \usepackage{booktabs}
+% \usepackage{rotating}
+
+% ---- Heatmap colour bins (green=good to red=bad) ----
+\definecolor{c1}{HTML}{1a9850}
+\definecolor{c2}{HTML}{66bd63}
+\definecolor{c3}{HTML}{a6d96a}
+\definecolor{c4}{HTML}{d9ef8b}
+\definecolor{c5}{HTML}{fee08b}
+\definecolor{c6}{HTML}{fdae61}
+\definecolor{c7}{HTML}{f46d43}
+\definecolor{c8}{HTML}{d73027}
+\definecolor{c9}{HTML}{a50026}
+
+% ---- Normal cell ----
+\newcommand{\hc}[1]{%
+  \ifdim #1 pt < 0.20pt \cellcolor{c1!45}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c2!40}%
+  \else\ifdim #1 pt < 0.60pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.80pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 1.00pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 1.20pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 1.50pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 2.00pt \cellcolor{c8!40}%
+  \else \cellcolor{c9!35}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  #1%
+}
+
+% ---- Underline = 2nd best ----
+\newcommand{\hcu}[1]{%
+  \ifdim #1 pt < 0.20pt \cellcolor{c1!45}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c2!40}%
+  \else\ifdim #1 pt < 0.60pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.80pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 1.00pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 1.20pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 1.50pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 2.00pt \cellcolor{c8!40}%
+  \else \cellcolor{c9!35}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  \underline{#1}%
+}
+
+% ---- Bold + underline = best ----
+\newcommand{\hcbu}[1]{%
+  \ifdim #1 pt < 0.20pt \cellcolor{c1!45}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c2!40}%
+  \else\ifdim #1 pt < 0.60pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.80pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 1.00pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 1.20pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 1.50pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 2.00pt \cellcolor{c8!40}%
+  \else \cellcolor{c9!35}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  \underline{\textbf{#1}}%
+}
+
+% ---- No baseline ----
+\newcommand{\hcn}{\cellcolor{white}{---}}
+
+
+\begin{table}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l l r r r r r@{}}
+\toprule
+\textbf{Experiment} & \textbf{Type} & \textbf{orig} & \textbf{inst} & \textbf{cont} & \textbf{hist} & $\ln(k)$ \\
+\midrule
+Gardening task {\fontsize{6}{7}\selectfont\citep{flesch2018comparing}} & Decision & \hc{0.49} & \hc{0.49} & \hc{0.69} & \hc{0.69} & \hc{0.69} \\
+Columbia card task {\fontsize{6}{7}\selectfont\citep{frey2017risk}} & Decision & \hc{0.21} & \hc{0.24} & \hc{0.28} & \hc{0.29} & \hc{0.69} \\
+Experiential-symbolic task {\fontsize{6}{7}\selectfont\citep{garcia2023experiential}} & Decision & \hc{0.46} & \hc{0.46} & \hc{0.85} & \hc{1.43} & \hcn \\
+Multi-attribute DM {\fontsize{6}{7}\selectfont\citep{hilbig2014generalized}} & Decision & \hc{0.06} & \hc{0.08} & \hc{0.74} & \hc{0.74} & \hc{0.69} \\
+Risky choice {\fontsize{6}{7}\selectfont\citep{krueger2024identifying}} & Decision & \hc{0.43} & \hc{0.64} & \hc{0.82} & \hc{0.89} & \hcn \\
+choices13k {\fontsize{6}{7}\selectfont\citep{peterson2021using}} & Decision & \hc{0.43} & \hc{0.44} & \hc{0.52} & \hc{0.56} & \hc{0.69} \\
+CPC18 {\fontsize{6}{7}\selectfont\citep{plonsky2018when}} & Decision & \hc{0.35} & \hc{0.35} & \hc{0.38} & \hc{0.41} & \hc{0.69} \\
+Decisions from description {\fontsize{6}{7}\selectfont\citep{wulff2018sampling}} & Decision & \hc{0.59} & \hc{0.61} & \hc{0.69} & \hc{0.68} & \hc{0.69} \\
+\midrule
+Two-step task {\fontsize{6}{7}\selectfont\citep{kool2016when}} & MDP & \hc{0.48} & \hc{0.53} & \hc{1.18} & \hc{1.23} & \hc{0.69} \\
+Two-step task {\fontsize{6}{7}\selectfont\citep{kool2017cost}} & MDP & \hc{0.53} & \hc{0.54} & \hc{1.15} & \hc{1.16} & \hc{0.69} \\
+Virtual subway network {\fontsize{6}{7}\selectfont\citep{tomov2020discovery}} & MDP & \hc{1.16} & \hc{1.46} & \hc{1.41} & \hc{1.30} & \hc{1.61} \\
+Multi-task RL {\fontsize{6}{7}\selectfont\citep{tomov2021multitask}} & MDP & \hc{0.57} & \hc{0.66} & \hc{0.77} & \hc{0.82} & \hc{1.10} \\
+Two-step task {\fontsize{6}{7}\selectfont\citep{zorowitz2023data}} & MDP & \hc{0.51} & \hc{0.52} & \hc{0.97} & \hc{1.03} & \hc{0.69} \\
+\midrule
+Drifting four-armed bandit {\fontsize{6}{7}\selectfont\citep{bahrami2020four}} & Bandit & \hc{0.71} & \hc{0.85} & \hc{0.84} & \hc{0.86} & \hc{1.39} \\
+Horizon task {\fontsize{6}{7}\selectfont\citep{feng2021dynamics}} & Bandit & \hc{0.40} & \hc{0.39} & \hc{0.53} & \hc{0.55} & \hc{0.69} \\
+Two-armed bandit {\fontsize{6}{7}\selectfont\citep{gershman2018deconstructing}} & Bandit & \hc{0.30} & \hc{0.36} & \hc{0.39} & \hc{0.46} & \hc{0.69} \\
+Prob.\ instrumental learning {\fontsize{6}{7}\selectfont\citep{lefebvre2017behavioural}} & Bandit & \hc{0.50} & \hc{0.49} & \hc{2.07} & \hc{2.01} & \hc{0.69} \\
+Horizon task {\fontsize{6}{7}\selectfont\citep{sadeghiyeh2020temporal}} & Bandit & \hc{0.58} & \hc{0.59} & \hc{0.63} & \hc{0.68} & \hc{0.69} \\
+Structured bandit {\fontsize{6}{7}\selectfont\citep{schulz2020finding}} & Bandit & \hc{0.64} & \hc{0.68} & \hc{0.84} & \hc{1.00} & \hc{2.08} \\
+Horizon task {\fontsize{6}{7}\selectfont\citep{somerville2017charting}} & Bandit & \hc{0.35} & \hc{0.36} & \hc{0.53} & \hc{0.61} & \hc{0.69} \\
+Iowa gambling task {\fontsize{6}{7}\selectfont\citep{steingroever2015data}} & Bandit & \hc{0.91} & \hc{1.08} & \hc{0.97} & \hc{0.97} & \hc{1.39} \\
+Horizon task {\fontsize{6}{7}\selectfont\citep{waltz2020differential}} & Bandit & \hc{0.15} & \hc{0.15} & \hc{0.34} & \hc{0.43} & \hc{0.69} \\
+Horizon task {\fontsize{6}{7}\selectfont\citep{wilson2014humans}} & Bandit & \hc{0.48} & \hc{0.48} & \hc{0.56} & \hc{0.62} & \hc{0.69} \\
+Spatially correlated MAB {\fontsize{6}{7}\selectfont\citep{wu2018generalization}} & Bandit & \hc{1.82} & \hc{1.95} & \hc{2.45} & \hc{2.62} & \hc{3.40} \\
+Decisions from experience {\fontsize{6}{7}\selectfont\citep{wulff2018sampling}} & Bandit & \hc{0.47} & \hc{0.95} & \hc{0.54} & \hc{0.57} & \hcn \\
+Changing bandit {\fontsize{6}{7}\selectfont\citep{xiong2023neural}} & Bandit & \hc{0.45} & \hc{0.45} & \hc{1.28} & \hc{0.98} & \hc{0.69} \\
+\midrule
+Cond.\ assoc.\ learning {\fontsize{6}{7}\selectfont\citep{collins2014working}} & Memory & \hc{0.52} & \hc{0.55} & \hc{1.03} & \hc{1.06} & \hc{1.10} \\
+\midrule
+Shepard categorization {\fontsize{6}{7}\selectfont\citep{badham2017deficits}} & Sup.\ learn. & \hc{0.54} & \hc{0.58} & \hc{0.70} & \hc{0.70} & \hc{0.69} \\
+Multiple-cue judgment {\fontsize{6}{7}\selectfont\citep{collsioo2023numerical}} & Sup.\ learn. & \hc{1.14} & \hc{1.19} & \hc{1.94} & \hc{1.94} & \hc{2.20} \\
+Medin categorization {\fontsize{6}{7}\selectfont\citep{levering2020revisiting}} & Sup.\ learn. & \hc{0.50} & \hc{0.58} & \hc{0.79} & \hc{0.90} & \hcn \\
+Weather prediction task {\fontsize{6}{7}\selectfont\citep{speekenbrink2008learning}} & Sup.\ learn. & \hc{0.56} & \hc{0.60} & \hc{0.72} & \hc{0.72} & \hc{0.69} \\
+Aversive learning {\fontsize{6}{7}\selectfont\citep{wise2019computational}} & Sup.\ learn. & \hc{4.13} & \hc{4.17} & \hc{4.31} & \hc{4.29} & \hcn \\
+\midrule
+\textbf{Mean (32)} & & \hc{0.67} & \hc{0.73} & \hc{1.00} & \hc{1.04} & \hc{1.02} \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{4pt}
+\begin{center}\footnotesize
+\colorbox{c1!45}{\strut\hspace{5pt}} \scriptsize$<$0.20 \quad
+\colorbox{c2!40}{\strut\hspace{5pt}} \scriptsize 0.20--0.40 \quad
+\colorbox{c3!40}{\strut\hspace{5pt}} \scriptsize 0.40--0.60 \quad
+\colorbox{c4!45}{\strut\hspace{5pt}} \scriptsize 0.60--0.80 \quad
+\colorbox{c5!55}{\strut\hspace{5pt}} \scriptsize 0.80--1.00 \quad
+\colorbox{c6!50}{\strut\hspace{5pt}} \scriptsize 1.00--1.20 \quad
+\colorbox{c7!45}{\strut\hspace{5pt}} \scriptsize 1.20--1.50 \quad
+\colorbox{c8!40}{\strut\hspace{5pt}} \scriptsize 1.50--2.00 \quad
+\colorbox{c9!35}{\strut\hspace{5pt}} \scriptsize$>$2.00
+\end{center}
+\vspace{-2pt}
+{\tiny Lower is better. Condition labels: \textbf{orig}\,=\,original prompt, \textbf{inst}\,=\,instruction ablated, \textbf{cont}\,=\,content masked, \textbf{hist}\,=\,history only.}
+\caption{Per-experiment NLL under sequential ablation conditions for Centaur-70B \citep{binz2025foundation} on Psych-101 (in-distribution). Columns correspond to progressive prompt degradation: \emph{orig} retains the full prompt; \emph{inst} removes task instructions; \emph{cont} additionally masks stimulus values and feedback; \emph{hist} further removes trial structure, leaving only the response history. The $\ln(k)$ column shows the random-guessing baseline where $k$ is the number of per-trial response options. Experiments with mixed or continuous response formats have no well-defined $k$ and are shown as {---}.}
+\label{tab:ablation_centaur70b}
+\end{table}

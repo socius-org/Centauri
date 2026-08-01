@@ -1,0 +1,56 @@
+- dataset:
+    id: ibm-research/acp_bench
+    task_id: acp_app_bool
+  value: 62.31
+- dataset:
+    id: ibm-research/acp_bench
+    task_id: acp_app_mcq
+  value: 28.46
+- dataset:
+    id: ibm-research/acp_bench
+    task_id: acp_areach_bool
+  value: 52.5
+- dataset:
+    id: ibm-research/acp_bench
+    task_id: acp_areach_mcq
+  value: 26.67
+- dataset:
+    id: ibm-research/acp_bench
+    task_id: acp_just_bool
+  value: 53.08
+- dataset:
+    id: ibm-research/acp_bench
+    task_id: acp_just_mcq
+  value: 39.23
+- dataset:
+    id: ibm-research/acp_bench
+    task_id: acp_land_bool
+  value: 13.08
+- dataset:
+    id: ibm-research/acp_bench
+    task_id: acp_land_mcq
+  value: 33.08
+- dataset:
+    id: ibm-research/acp_bench
+    task_id: acp_prog_bool
+  value: 70.0
+- dataset:
+    id: ibm-research/acp_bench
+    task_id: acp_prog_mcq
+  value: 40.0
+- dataset:
+    id: ibm-research/acp_bench
+    task_id: acp_reach_bool
+  value: 53.08
+- dataset:
+    id: ibm-research/acp_bench
+    task_id: acp_reach_mcq
+  value: 23.08
+- dataset:
+    id: ibm-research/acp_bench
+    task_id: acp_val_bool
+  value: 59.23
+- dataset:
+    id: ibm-research/acp_bench
+    task_id: acp_val_mcq
+  value: 49.23

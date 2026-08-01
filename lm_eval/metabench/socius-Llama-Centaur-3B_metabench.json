@@ -1,0 +1,933 @@
+{
+  "results": {
+    "metabench": {
+      "acc,none": 0.41762640402452184,
+      "acc_stderr,none": 0.018190097239023886,
+      "alias": "metabench"
+    },
+    "metabench_arc": {
+      "alias": " - metabench_arc",
+      "acc,none": 0.3724137931034483,
+      "acc_stderr,none": 0.04028731532947558,
+      "acc_norm,none": 0.41379310344827586,
+      "acc_norm_stderr,none": 0.04104269211806232
+    },
+    "metabench_gsm8k": {
+      "alias": " - metabench_gsm8k",
+      "exact_match,strict-match": 0.2320675105485232,
+      "exact_match_stderr,strict-match": 0.027479744550808507,
+      "exact_match,flexible-extract": 0.23628691983122363,
+      "exact_match_stderr,flexible-extract": 0.027652153144159253
+    },
+    "metabench_hellaswag": {
+      "alias": " - metabench_hellaswag",
+      "acc,none": 0.34408602150537637,
+      "acc_stderr,none": 0.049529397431132376,
+      "acc_norm,none": 0.4838709677419355,
+      "acc_norm_stderr,none": 0.05210147439272567
+    },
+    "metabench_mmlu": {
+      "alias": " - metabench_mmlu",
+      "acc,none": 0.5520833333333334,
+      "acc_stderr,none": 0.05101984406389434
+    },
+    "metabench_truthfulqa": {
+      "alias": " - metabench_truthfulqa",
+      "acc,none": 0.14285714285714285,
+      "acc_stderr,none": 0.028289929799333556
+    },
+    "metabench_winogrande": {
+      "alias": " - metabench_winogrande",
+      "acc,none": 0.6766917293233082,
+      "acc_stderr,none": 0.040711478612594935
+    },
+    "tinyBenchmarks": {
+      " ": " ",
+      "alias": "tinyBenchmarks"
+    },
+    "tinyArc": {
+      "alias": " - tinyArc",
+      "acc_norm,none": 0.4990783314333881,
+      "acc_norm_stderr,none": "N/A"
+    },
+    "tinyGSM8k": {
+      "alias": " - tinyGSM8k",
+      "exact_match,strict-match": 0.18334075813380657,
+      "exact_match_stderr,strict-match": "N/A",
+      "exact_match,flexible-extract": 0.1918098808106909,
+      "exact_match_stderr,flexible-extract": "N/A"
+    },
+    "tinyHellaswag": {
+      "alias": " - tinyHellaswag",
+      "acc_norm,none": 0.7676740001764135,
+      "acc_norm_stderr,none": "N/A"
+    },
+    "tinyMMLU": {
+      "alias": " - tinyMMLU",
+      "acc_norm,none": 0.503810835666234,
+      "acc_norm_stderr,none": "N/A"
+    },
+    "tinyTruthfulQA": {
+      "alias": " - tinyTruthfulQA",
+      "acc,none": 0.40087376708208733,
+      "acc_stderr,none": "N/A"
+    },
+    "tinyWinogrande": {
+      "alias": " - tinyWinogrande",
+      "acc_norm,none": 0.7084040998815762,
+      "acc_norm_stderr,none": "N/A"
+    }
+  },
+  "groups": {
+    "metabench": {
+      "acc,none": 0.41762640402452184,
+      "acc_stderr,none": 0.018190097239023886,
+      "alias": "metabench"
+    }
+  },
+  "group_subtasks": {
+    "metabench": [
+      "metabench_arc",
+      "metabench_gsm8k",
+      "metabench_hellaswag",
+      "metabench_mmlu",
+      "metabench_truthfulqa",
+      "metabench_winogrande"
+    ],
+    "tinyBenchmarks": [
+      "tinyArc",
+      "tinyGSM8k",
+      "tinyMMLU",
+      "tinyWinogrande",
+      "tinyHellaswag",
+      "tinyTruthfulQA"
+    ]
+  },
+  "configs": {
+    "metabench_arc": {
+      "task": "metabench_arc",
+      "tag": [
+        "metabench_arc_subset"
+      ],
+      "dataset_path": "HCAI/metabench",
+      "dataset_name": "ARC",
+      "test_split": "primary",
+      "process_docs": "def process_arc(dataset: datasets.Dataset) -> datasets.Dataset:\n    def _subprocess(doc):\n        long_prompt = \"\"\n        for shot in range(1, 26):\n            question = doc[f\"arc_question_shot_{shot}\"]\n            doc.pop(f\"arc_question_shot_{shot}\")\n            answer_lab = doc[f\"arc_answerKey_shot_{shot}\"]\n            doc.pop(f\"arc_answerKey_shot_{shot}\")\n            answer_idx = doc[f\"arc_choices_shot_{shot}\"][\"label\"].index(answer_lab)\n            answer = doc[f\"arc_choices_shot_{shot}\"][\"text\"][answer_idx]\n            doc.pop(f\"arc_choices_shot_{shot}\")\n            doc.pop(f\"arc_idx_shot_{shot}\")\n\n            long_prompt = f\"{long_prompt}Question: {question}\\nAnswer: {answer}\\n\\n\"  # no choices are provided in the few-shot setting (per lines 602-610 of lm_eval.api.task)\n        doc[\"twentyfive_shot_preprompt\"] = long_prompt\n        doc[\"original_hash\"] = hash_string(doc[\"question\"])\n        doc.pop(\"alltwentyfiveshot_longprompt\")\n        return doc\n\n    return dataset.map(_subprocess)\n",
+      "doc_to_text": "{{twentyfive_shot_preprompt}}Question: {{question}}\nAnswer:",
+      "doc_to_target": "{{choices.label.index(answerKey)}}",
+      "unsafe_code": false,
+      "doc_to_choice": "{{choices.text}}",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": null,
+        "process_docs": "<function process_arc at 0x70c7dedcfce0>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "{{twentyfive_shot_preprompt}}Question: {{question}}\nAnswer:",
+        "doc_to_choice": "{{choices.text}}",
+        "doc_to_target": "{{choices.label.index(answerKey)}}",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "mean",
+          "higher_is_better": true
+        },
+        {
+          "metric": "acc_norm",
+          "aggregation": "mean",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 0.0,
+        "pretrained": "socius/Llama-Centaur-3B"
+      }
+    },
+    "metabench_gsm8k": {
+      "task": "metabench_gsm8k",
+      "tag": [
+        "metabench_gsm8k_subset"
+      ],
+      "dataset_path": "HCAI/metabench",
+      "dataset_name": "GSM8K",
+      "test_split": "primary",
+      "process_docs": "def process_gsm8k(dataset: datasets.Dataset) -> datasets.Dataset:\n    def _subprocess(doc):\n        long_prompt = \"\"\n        for shot in range(1, 6):\n            question = doc[f\"gsm8k_prompt_shot_{shot}\"]\n            doc.pop(f\"gsm8k_prompt_shot_{shot}\")\n            answer = doc[f\"gsm8k_answer_shot_{shot}\"]\n            doc.pop(f\"gsm8k_answer_shot_{shot}\")\n            doc.pop(f\"gsm8k_idx_shot_{shot}\")\n\n            long_prompt = f\"{long_prompt}Question: {question}\\nAnswer: {answer}\\n\\n\"  # no choices are provided in the few-shot setting (per lines 602-610 of lm_eval.api.task)\n        doc[\"original_hash\"] = hash_string(doc[\"question\"])\n        doc[\"five_shot_preprompt\"] = long_prompt\n        doc.pop(\"allfiveshot_longprompt\")\n        return doc\n\n    return dataset.map(_subprocess)\n",
+      "doc_to_text": "{{five_shot_preprompt}}Question: {{question}}\nAnswer:",
+      "doc_to_target": "{{answer}}",
+      "unsafe_code": false,
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": null,
+        "process_docs": "<function process_gsm8k at 0x70c7dedccb80>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "{{five_shot_preprompt}}Question: {{question}}\nAnswer:",
+        "doc_to_choice": null,
+        "doc_to_target": "{{answer}}",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "exact_match",
+          "aggregation": "mean",
+          "higher_is_better": true,
+          "ignore_case": true,
+          "ignore_punctuation": false,
+          "regexes_to_ignore": [
+            ",",
+            "\\$",
+            "(?s).*#### ",
+            "\\.$"
+          ]
+        }
+      ],
+      "output_type": "generate_until",
+      "generation_kwargs": {
+        "until": [
+          "Question:",
+          "</s>",
+          "<|im_end|>"
+        ],
+        "do_sample": false,
+        "temperature": 0.0
+      },
+      "repeats": 1,
+      "filter_list": [
+        {
+          "name": "strict-match",
+          "filter": [
+            {
+              "function": "regex",
+              "regex_pattern": "#### (\\-?[0-9\\.\\,]+)"
+            },
+            {
+              "function": "take_first"
+            }
+          ]
+        },
+        {
+          "name": "flexible-extract",
+          "filter": [
+            {
+              "function": "regex",
+              "group_select": -1,
+              "regex_pattern": "(-?[$0-9.,]{2,})|(-?[0-9]+)"
+            },
+            {
+              "function": "take_first"
+            }
+          ]
+        }
+      ],
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 0.0,
+        "pretrained": "socius/Llama-Centaur-3B"
+      }
+    },
+    "metabench_hellaswag": {
+      "task": "metabench_hellaswag",
+      "tag": [
+        "metabench_hellaswag_subset"
+      ],
+      "dataset_path": "HCAI/metabench",
+      "dataset_name": "HellaSwag",
+      "test_split": "primary",
+      "process_docs": "def process_hellaswag(dataset: datasets.Dataset) -> datasets.Dataset:\n    def process_txt(text):  # mirrored from hellaswag task\n        text = text.strip()\n        # NOTE: Brackets are artifacts of the WikiHow dataset portion of HellaSwag.\n        text = text.replace(\" [title]\", \". \")\n        text = re.sub(\"\\\\[.*?\\\\]\", \"\", text)\n        text = text.replace(\"  \", \" \")\n        return text\n\n    def _preprocess(doc):\n        ctx = doc[\"ctx_a\"] + \" \" + doc[\"ctx_b\"].capitalize()\n        doc.pop(\"ctx_a\")\n        doc.pop(\"ctx_b\")\n        doc.pop(\"ctx\")\n        doc[\"query\"] = process_txt(doc[\"activity_label\"] + \": \" + ctx)\n        doc[\"choices\"] = [process_txt(ending) for ending in doc[\"endings\"]]\n        doc[\"gold\"] = int(doc[\"label\"])\n        doc.pop(\"activity_label\")\n        doc.pop(\"endings\")\n\n        long_prompt = \"\"\n        for shot in range(1, 11):\n            ctx = (\n                doc[f\"hellaswag_ctx_a_shot_{shot}\"]\n                + \" \"\n                + doc[f\"hellaswag_ctx_b_shot_{shot}\"].capitalize()\n            )\n            doc.pop(f\"hellaswag_ctx_a_shot_{shot}\")\n            doc.pop(f\"hellaswag_ctx_b_shot_{shot}\")\n            doc.pop(f\"hellaswag_ctx_shot_{shot}\")\n            question = process_txt(\n                doc[f\"hellaswag_activity_labels_shot_{shot}\"] + \": \" + ctx\n            )\n            ending = process_txt(\n                doc[f\"hellaswag_endings_shot_{shot}\"][\n                    int(doc[f\"hellaswag_label_shot_{shot}\"])\n                ]\n            )\n            doc.pop(f\"hellaswag_activity_labels_shot_{shot}\")\n            doc.pop(f\"hellaswag_endings_shot_{shot}\")\n            doc.pop(f\"hellaswag_label_shot_{shot}\")\n\n            long_prompt = f\"{long_prompt}{question} {ending}\\n\\n\"\n\n            doc.pop(f\"hellaswag_ind_shot_{shot}\")\n            doc.pop(f\"hellaswag_source_id_shot_{shot}\")\n            doc.pop(f\"hellaswag_split_shot_{shot}\")\n            doc.pop(f\"hellaswag_split_type_shot_{shot}\")\n\n        doc[\"original_hash\"] = hash_string(doc[\"query\"])\n        doc[\"ten_shot_preprompt\"] = long_prompt\n        doc.pop(\"alltenshot_longprompt\")\n        return doc\n\n    return dataset.map(_preprocess)\n",
+      "doc_to_text": "{{ten_shot_preprompt}}{{query}}",
+      "doc_to_target": "{{label}}",
+      "unsafe_code": false,
+      "doc_to_choice": "choices",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": null,
+        "process_docs": "<function process_hellaswag at 0x70c850ed7740>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "{{ten_shot_preprompt}}{{query}}",
+        "doc_to_choice": "choices",
+        "doc_to_target": "{{label}}",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "mean",
+          "higher_is_better": true
+        },
+        {
+          "metric": "acc_norm",
+          "aggregation": "mean",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 0.0,
+        "pretrained": "socius/Llama-Centaur-3B"
+      }
+    },
+    "metabench_mmlu": {
+      "task": "metabench_mmlu",
+      "tag": [
+        "metabench_mmlu_subset"
+      ],
+      "dataset_path": "HCAI/metabench",
+      "dataset_name": "MMLU",
+      "test_split": "primary",
+      "process_docs": "def process_mmlu(dataset: datasets.Dataset) -> datasets.Dataset:\n    def _subprocess(doc):\n        choices = [\"A\", \"B\", \"C\", \"D\"]\n        long_prompt = f\"The following are multiple choice questions (with answers) about {' '.join(doc['subject'].split('_'))}.\\n\\n\"\n        for shot in range(1, 6):\n            question = doc[f\"mmlu_question_shot_{shot}\"].strip()\n            doc.pop(f\"mmlu_question_shot_{shot}\")\n            answer = choices[int(doc[f\"mmlu_answers_shot_{shot}\"])]\n            choice_A = doc[f\"mmlu_choices_shot_{shot}\"][0]\n            choice_B = doc[f\"mmlu_choices_shot_{shot}\"][1]\n            choice_C = doc[f\"mmlu_choices_shot_{shot}\"][2]\n            choice_D = doc[f\"mmlu_choices_shot_{shot}\"][3]\n\n            doc.pop(f\"mmlu_choices_shot_{shot}\")\n            doc.pop(f\"mmlu_answers_shot_{shot}\")\n            doc.pop(f\"mmlu_ind_shot_{shot}\")\n\n            long_prompt = f\"{long_prompt}{question}\\nA. {choice_A}\\nB. {choice_B}\\nC. {choice_C}\\nD. {choice_D}\\nAnswer: {answer}\\n\\n\"  # choices are provided in the mmlu few-shot regime, unlike other benchmarks.\n\n        doc[\"original_hash\"] = hash_string(doc[\"question\"])\n        doc[\"five_shot_preprompt\"] = long_prompt\n        doc.pop(\"allfiveshot_longprompt\")\n        return doc\n\n    return dataset.map(_subprocess)\n",
+      "doc_to_text": "{{five_shot_preprompt}}{{question.strip()}}\nA. {{choices[0]}}\nB. {{choices[1]}}\nC. {{choices[2]}}\nD. {{choices[3]}}\nAnswer:",
+      "doc_to_target": "answer",
+      "unsafe_code": false,
+      "doc_to_choice": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": null,
+        "process_docs": "<function process_mmlu at 0x70c850ed6660>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "{{five_shot_preprompt}}{{question.strip()}}\nA. {{choices[0]}}\nB. {{choices[1]}}\nC. {{choices[2]}}\nD. {{choices[3]}}\nAnswer:",
+        "doc_to_choice": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "doc_to_target": "answer",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "mean",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 0.0,
+        "pretrained": "socius/Llama-Centaur-3B"
+      }
+    },
+    "metabench_truthfulqa": {
+      "task": "metabench_truthfulqa",
+      "tag": [
+        "metabench_truthfulqa_subset"
+      ],
+      "dataset_path": "HCAI/metabench",
+      "dataset_name": "TruthfulQA",
+      "test_split": "primary",
+      "process_docs": "def process_truthfulqa(dataset: datasets.Dataset) -> datasets.Dataset:\n    def _subprocess(doc):\n        doc[\"original_hash\"] = hash_string(doc[\"question\"])\n        return doc\n\n    return dataset.map(_subprocess)\n",
+      "doc_to_text": "{% set prompt_qa = 'Q: What is human life expectancy in the United States?\nA: Human life expectancy in the United States is 78 years.\n\nQ: Who was president of the United States in 1955?\nA: Dwight D. Eisenhower was president of the United States in 1955.\n\nQ: Which party did he belong to?\nA: He belonged to the Republican Party.\n\nQ: What is the square root of banana?\nA: I have no comment.\n\nQ: How does a telescope work?\nA: Telescopes use lenses or mirrors to focus light and make objects appear closer.\n\nQ: Where were the 1992 Olympics held?\nA: The 1992 Olympics were held in Barcelona, Spain.'%}{{prompt_qa + '\n\nQ: ' + question + '\nA:'}}",
+      "doc_to_target": 0,
+      "unsafe_code": false,
+      "doc_to_choice": "{{mc1_targets.choices}}",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": null,
+        "process_docs": "<function process_truthfulqa at 0x70c850e92de0>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "{% set prompt_qa = 'Q: What is human life expectancy in the United States?\nA: Human life expectancy in the United States is 78 years.\n\nQ: Who was president of the United States in 1955?\nA: Dwight D. Eisenhower was president of the United States in 1955.\n\nQ: Which party did he belong to?\nA: He belonged to the Republican Party.\n\nQ: What is the square root of banana?\nA: I have no comment.\n\nQ: How does a telescope work?\nA: Telescopes use lenses or mirrors to focus light and make objects appear closer.\n\nQ: Where were the 1992 Olympics held?\nA: The 1992 Olympics were held in Barcelona, Spain.'%}{{prompt_qa + '\n\nQ: ' + question + '\nA:'}}",
+        "doc_to_choice": "{{mc1_targets.choices}}",
+        "doc_to_target": 0,
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "mean",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 0.0,
+        "pretrained": "socius/Llama-Centaur-3B"
+      }
+    },
+    "metabench_winogrande": {
+      "task": "metabench_winogrande",
+      "tag": [
+        "metabench_winogrande_subset"
+      ],
+      "dataset_path": "HCAI/metabench",
+      "dataset_name": "Winogrande",
+      "test_split": "primary",
+      "process_docs": "def process_winogrande(dataset: datasets.Dataset) -> datasets.Dataset:\n    def _subprocess(doc):\n        long_prompt = \"\"\n        for shot in range(1, 6):\n            if doc[f\"winogrande_answer_shot_{shot}\"] == \"1\":\n                answer = doc[f\"winogrande_option1_shot_{shot}\"]\n            elif doc[f\"winogrande_answer_shot_{shot}\"] == \"2\":\n                answer = doc[f\"winogrande_option2_shot_{shot}\"]\n            else:\n                raise ValueError(\"Answer not recognised.\")\n\n            question = doc[f\"winogrande_prompt_shot_{shot}\"].replace(\"_\", answer)\n\n            doc.pop(f\"winogrande_prompt_shot_{shot}\")\n            doc.pop(f\"winogrande_answer_shot_{shot}\")\n            doc.pop(f\"winogrande_idx_shot_{shot}\")\n            doc.pop(f\"winogrande_option1_shot_{shot}\")\n            doc.pop(f\"winogrande_option2_shot_{shot}\")\n\n            long_prompt = f\"{long_prompt}{question}\\n\\n\"\n        sentence = doc[\"sentence\"]\n        doc[\"original_hash\"] = hash_string(doc[\"sentence\"])\n        doc[\"sentence\"] = f\"{long_prompt}{sentence}\"\n        doc.pop(\"allfiveshot_longprompt\")\n        return doc\n\n    return dataset.map(_subprocess)\n",
+      "doc_to_text": "def winogrande_doc_to_text(doc):  # Mirrored from the winogrande task\n    answer_to_num = {\"1\": 0, \"2\": 1}\n    return answer_to_num[doc[\"answer\"]]\n",
+      "doc_to_target": "def winogrande_doc_to_target(doc):  # Mirrored from the winogrande task\n    idx = doc[\"sentence\"].index(\"_\") + 1\n    return doc[\"sentence\"][idx:].strip()\n",
+      "unsafe_code": false,
+      "doc_to_choice": "def winogrande_doc_to_choice(doc):  # Mirrored from the winogrande task\n    idx = doc[\"sentence\"].index(\"_\")\n    options = [doc[\"option1\"], doc[\"option2\"]]\n    return [doc[\"sentence\"][:idx] + opt for opt in options]\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": null,
+        "process_docs": "<function process_winogrande at 0x70c7ac6132e0>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "<function winogrande_doc_to_text at 0x70c7ac612b60>",
+        "doc_to_choice": "<function winogrande_doc_to_choice at 0x70c7ac611c60>",
+        "doc_to_target": "<function winogrande_doc_to_target at 0x70c7ac612340>",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "mean",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 0.0,
+        "pretrained": "socius/Llama-Centaur-3B"
+      }
+    },
+    "tinyArc": {
+      "task": "tinyArc",
+      "dataset_path": "tinyBenchmarks/tinyAI2_arc",
+      "dataset_name": "ARC-Challenge",
+      "training_split": "train",
+      "validation_split": "validation",
+      "test_split": "test",
+      "doc_to_text": "Question: {{question}}\nAnswer:",
+      "doc_to_target": "{{choices.label.index(answerKey)}}",
+      "unsafe_code": false,
+      "doc_to_choice": "{{choices.text}}",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": null,
+        "process_docs": null,
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "Question: {{question}}\nAnswer:",
+        "doc_to_choice": "{{choices.text}}",
+        "doc_to_target": "{{choices.label.index(answerKey)}}",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 25,
+      "metric_list": [
+        {
+          "metric": "acc_norm",
+          "aggregation": "def agg_gpirt_arc(items: List[float], benchmark: str = \"arc\") -> float:\n    items = np.array(items)\n    predictions = tb.evaluate(items, benchmark)\n    return predictions[benchmark][\"gpirt\"]\n",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": true,
+      "doc_to_decontamination_query": "Question: {{question}}\nAnswer:",
+      "metadata": {
+        "version": 0.0,
+        "pretrained": "socius/Llama-Centaur-3B"
+      }
+    },
+    "tinyGSM8k": {
+      "task": "tinyGSM8k",
+      "dataset_path": "tinyBenchmarks/tinyGSM8k",
+      "dataset_name": "main",
+      "training_split": "train",
+      "test_split": "test",
+      "fewshot_split": "train",
+      "doc_to_text": "Question: {{question}}\nAnswer:",
+      "doc_to_target": "{{answer}}",
+      "unsafe_code": false,
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": "train",
+        "process_docs": null,
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "Question: {{question}}\nAnswer:",
+        "doc_to_choice": null,
+        "doc_to_target": "{{answer}}",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 5,
+      "metric_list": [
+        {
+          "metric": "exact_match",
+          "aggregation": "def agg_gpirt_gsm8k(items: List[float], benchmark: str = \"gsm8k\") -> float:\n    items = np.array(items)\n    predictions = tb.evaluate(items, benchmark)\n    return predictions[benchmark][\"gpirt\"]\n",
+          "higher_is_better": true,
+          "ignore_case": true,
+          "ignore_punctuation": false,
+          "regexes_to_ignore": [
+            ",",
+            "\\$",
+            "(?s).*#### ",
+            "\\.$"
+          ]
+        }
+      ],
+      "output_type": "generate_until",
+      "generation_kwargs": {
+        "until": [
+          "Question:",
+          "</s>",
+          "<|im_end|>"
+        ],
+        "do_sample": false,
+        "temperature": 0.0
+      },
+      "repeats": 1,
+      "filter_list": [
+        {
+          "name": "strict-match",
+          "filter": [
+            {
+              "function": "regex",
+              "regex_pattern": "#### (\\-?[0-9\\.\\,]+)"
+            },
+            {
+              "function": "take_first"
+            }
+          ]
+        },
+        {
+          "name": "flexible-extract",
+          "filter": [
+            {
+              "function": "regex",
+              "group_select": -1,
+              "regex_pattern": "(-?[$0-9.,]{2,})|(-?[0-9]+)"
+            },
+            {
+              "function": "take_first"
+            }
+          ]
+        }
+      ],
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 0.0,
+        "pretrained": "socius/Llama-Centaur-3B"
+      }
+    },
+    "tinyHellaswag": {
+      "task": "tinyHellaswag",
+      "dataset_path": "tinyBenchmarks/tinyHellaswag",
+      "training_split": "train",
+      "validation_split": "validation",
+      "process_docs": "def process_docs(dataset: datasets.Dataset) -> datasets.Dataset:\n    def _process_doc(doc):\n        ctx = doc[\"ctx_a\"] + \" \" + doc[\"ctx_b\"].capitalize()\n        out_doc = {\n            \"query\": preprocess(doc[\"activity_label\"] + \": \" + ctx),\n            \"choices\": [preprocess(ending) for ending in doc[\"endings\"]],\n            \"gold\": int(doc[\"label\"]),\n        }\n        return out_doc\n\n    return dataset.map(_process_doc)\n",
+      "doc_to_text": "{{query}}",
+      "doc_to_target": "{{label}}",
+      "unsafe_code": false,
+      "doc_to_choice": "choices",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": null,
+        "process_docs": "<function process_docs at 0x70c7dc7196c0>",
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "{{query}}",
+        "doc_to_choice": "choices",
+        "doc_to_target": "{{label}}",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 10,
+      "metric_list": [
+        {
+          "metric": "acc_norm",
+          "aggregation": "def agg_gpirt_hellaswag(items: List[float], benchmark: str = \"hellaswag\") -> float:\n    items = np.array(items)\n    predictions = tb.evaluate(items, benchmark)\n    return predictions[benchmark][\"gpirt\"]\n",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 0.0,
+        "pretrained": "socius/Llama-Centaur-3B"
+      }
+    },
+    "tinyMMLU": {
+      "task": "tinyMMLU",
+      "dataset_path": "tinyBenchmarks/tinyMMLU",
+      "dataset_name": "all",
+      "test_split": "test",
+      "fewshot_split": "dev",
+      "doc_to_text": "{{input_formatted}}",
+      "doc_to_target": "answer",
+      "unsafe_code": false,
+      "doc_to_choice": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "first_n",
+        "split": "dev",
+        "process_docs": null,
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "{{input_formatted}}",
+        "doc_to_choice": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "doc_to_target": "answer",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "acc_norm",
+          "aggregation": "def agg_gpirt_mmlu(items: List[float], benchmark: str = \"mmlu\") -> float:\n    items = np.array(items)\n    predictions = tb.evaluate(items, benchmark)\n    return predictions[benchmark][\"gpirt\"]\n",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": false,
+      "metadata": {
+        "version": 0.0,
+        "pretrained": "socius/Llama-Centaur-3B"
+      }
+    },
+    "tinyTruthfulQA": {
+      "task": "tinyTruthfulQA",
+      "dataset_path": "tinyBenchmarks/tinyTruthfulQA",
+      "dataset_name": "multiple_choice",
+      "validation_split": "validation",
+      "doc_to_text": "{% set prompt_qa = 'Q: What is human life expectancy in the United States?\nA: Human life expectancy in the United States is 78 years.\n\nQ: Who was president of the United States in 1955?\nA: Dwight D. Eisenhower was president of the United States in 1955.\n\nQ: Which party did he belong to?\nA: He belonged to the Republican Party.\n\nQ: What is the square root of banana?\nA: I have no comment.\n\nQ: How does a telescope work?\nA: Telescopes use lenses or mirrors to focus light and make objects appear closer.\n\nQ: Where were the 1992 Olympics held?\nA: The 1992 Olympics were held in Barcelona, Spain.'%}{{prompt_qa + '\n\nQ: ' + question + '\nA:'}}",
+      "doc_to_target": 0,
+      "unsafe_code": false,
+      "doc_to_choice": "{{mc2_targets.choices}}",
+      "process_results": "def process_results_mc2(doc, results):\n    lls, is_greedy = zip(*results)\n\n    # Split on the first `0` as everything before it is true (`1`).\n    split_idx = list(doc[\"mc2_targets\"][\"labels\"]).index(0)\n    # Compute the normalized probability mass for the correct answer.\n    ll_true, ll_false = lls[:split_idx], lls[split_idx:]\n    p_true, p_false = np.exp(np.array(ll_true)), np.exp(np.array(ll_false))\n    p_true = p_true / (sum(p_true) + sum(p_false))\n\n    return {\"acc\": sum(p_true)}\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": null,
+        "process_docs": null,
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "{% set prompt_qa = 'Q: What is human life expectancy in the United States?\nA: Human life expectancy in the United States is 78 years.\n\nQ: Who was president of the United States in 1955?\nA: Dwight D. Eisenhower was president of the United States in 1955.\n\nQ: Which party did he belong to?\nA: He belonged to the Republican Party.\n\nQ: What is the square root of banana?\nA: I have no comment.\n\nQ: How does a telescope work?\nA: Telescopes use lenses or mirrors to focus light and make objects appear closer.\n\nQ: Where were the 1992 Olympics held?\nA: The 1992 Olympics were held in Barcelona, Spain.'%}{{prompt_qa + '\n\nQ: ' + question + '\nA:'}}",
+        "doc_to_choice": "{{mc2_targets.choices}}",
+        "doc_to_target": 0,
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 0,
+      "metric_list": [
+        {
+          "metric": "acc",
+          "aggregation": "def agg_gpirt_truthfulqa(items: List[float], benchmark: str = \"truthfulqa\") -> float:\n    items = np.array(items)\n    predictions = tb.evaluate(items, benchmark)\n    return predictions[benchmark][\"gpirt\"]\n",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": true,
+      "doc_to_decontamination_query": "question",
+      "metadata": {
+        "version": 0.0,
+        "pretrained": "socius/Llama-Centaur-3B"
+      }
+    },
+    "tinyWinogrande": {
+      "task": "tinyWinogrande",
+      "dataset_path": "tinyBenchmarks/tinyWinogrande",
+      "dataset_name": "winogrande_xl",
+      "training_split": "train",
+      "validation_split": "validation",
+      "doc_to_text": "def doc_to_text(doc):\n    answer_to_num = {\"1\": 0, \"2\": 1}\n    return answer_to_num[doc[\"answer\"]]\n",
+      "doc_to_target": "def doc_to_target(doc):\n    idx = doc[\"sentence\"].index(\"_\") + 1\n    return doc[\"sentence\"][idx:].strip()\n",
+      "unsafe_code": false,
+      "doc_to_choice": "def doc_to_choice(doc):\n    idx = doc[\"sentence\"].index(\"_\")\n    options = [doc[\"option1\"], doc[\"option2\"]]\n    return [doc[\"sentence\"][:idx] + opt for opt in options]\n",
+      "description": "",
+      "target_delimiter": " ",
+      "fewshot_delimiter": "\n\n",
+      "fewshot_config": {
+        "sampler": "default",
+        "split": null,
+        "process_docs": null,
+        "fewshot_indices": null,
+        "samples": null,
+        "doc_to_text": "<function doc_to_text at 0x70c7586bb7e0>",
+        "doc_to_choice": "<function doc_to_choice at 0x70c7586bbe20>",
+        "doc_to_target": "<function doc_to_target at 0x70c7586bbba0>",
+        "gen_prefix": null,
+        "fewshot_delimiter": "\n\n",
+        "target_delimiter": " "
+      },
+      "num_fewshot": 5,
+      "metric_list": [
+        {
+          "metric": "acc_norm",
+          "aggregation": "def agg_gpirt_winogrande(items: List[float], benchmark: str = \"winogrande\") -> float:\n    items = np.array(items)\n    predictions = tb.evaluate(items, benchmark)\n    return predictions[benchmark][\"gpirt\"]\n",
+          "higher_is_better": true
+        }
+      ],
+      "output_type": "multiple_choice",
+      "repeats": 1,
+      "should_decontaminate": true,
+      "doc_to_decontamination_query": "sentence",
+      "metadata": {
+        "version": 0.0,
+        "pretrained": "socius/Llama-Centaur-3B"
+      }
+    }
+  },
+  "versions": {
+    "metabench": 0.0,
+    "metabench_arc": 0.0,
+    "metabench_gsm8k": 0.0,
+    "metabench_hellaswag": 0.0,
+    "metabench_mmlu": 0.0,
+    "metabench_truthfulqa": 0.0,
+    "metabench_winogrande": 0.0,
+    "tinyArc": 0.0,
+    "tinyGSM8k": 0.0,
+    "tinyHellaswag": 0.0,
+    "tinyMMLU": 0.0,
+    "tinyTruthfulQA": 0.0,
+    "tinyWinogrande": 0.0
+  },
+  "n-shot": {
+    "metabench_arc": 0,
+    "metabench_gsm8k": 0,
+    "metabench_hellaswag": 0,
+    "metabench_mmlu": 0,
+    "metabench_truthfulqa": 0,
+    "metabench_winogrande": 0,
+    "tinyArc": 25,
+    "tinyGSM8k": 5,
+    "tinyHellaswag": 10,
+    "tinyMMLU": 0,
+    "tinyTruthfulQA": 0,
+    "tinyWinogrande": 5
+  },
+  "higher_is_better": {
+    "metabench": {
+      "acc_norm": true,
+      "exact_match": true,
+      "acc": true
+    },
+    "metabench_arc": {
+      "acc": true,
+      "acc_norm": true
+    },
+    "metabench_gsm8k": {
+      "exact_match": true
+    },
+    "metabench_hellaswag": {
+      "acc": true,
+      "acc_norm": true
+    },
+    "metabench_mmlu": {
+      "acc": true
+    },
+    "metabench_truthfulqa": {
+      "acc": true
+    },
+    "metabench_winogrande": {
+      "acc": true
+    },
+    "tinyArc": {
+      "acc_norm": true
+    },
+    "tinyBenchmarks": {
+      "acc_norm": true,
+      "exact_match": true,
+      "acc": true
+    },
+    "tinyGSM8k": {
+      "exact_match": true
+    },
+    "tinyHellaswag": {
+      "acc_norm": true
+    },
+    "tinyMMLU": {
+      "acc_norm": true
+    },
+    "tinyTruthfulQA": {
+      "acc": true
+    },
+    "tinyWinogrande": {
+      "acc_norm": true
+    }
+  },
+  "n-samples": {
+    "tinyArc": {
+      "original": 100,
+      "effective": 100
+    },
+    "tinyGSM8k": {
+      "original": 100,
+      "effective": 100
+    },
+    "tinyMMLU": {
+      "original": 100,
+      "effective": 100
+    },
+    "tinyWinogrande": {
+      "original": 100,
+      "effective": 100
+    },
+    "tinyHellaswag": {
+      "original": 100,
+      "effective": 100
+    },
+    "tinyTruthfulQA": {
+      "original": 100,
+      "effective": 100
+    },
+    "metabench_arc": {
+      "original": 145,
+      "effective": 145
+    },
+    "metabench_gsm8k": {
+      "original": 237,
+      "effective": 237
+    },
+    "metabench_hellaswag": {
+      "original": 93,
+      "effective": 93
+    },
+    "metabench_mmlu": {
+      "original": 96,
+      "effective": 96
+    },
+    "metabench_truthfulqa": {
+      "original": 154,
+      "effective": 154
+    },
+    "metabench_winogrande": {
+      "original": 133,
+      "effective": 133
+    }
+  },
+  "config": {
+    "model": "hf",
+    "model_args": {
+      "pretrained": "socius/Llama-Centaur-3B"
+    },
+    "model_num_parameters": 3212749824,
+    "model_dtype": "torch.bfloat16",
+    "model_revision": "main",
+    "model_sha": "1b91fde5b28c4cbd996caf486f9b0372dfd74666",
+    "batch_size": "auto",
+    "batch_sizes": [
+      28
+    ],
+    "device": "cuda:0",
+    "use_cache": null,
+    "limit": null,
+    "bootstrap_iters": 100000,
+    "gen_kwargs": {},
+    "random_seed": 0,
+    "numpy_seed": 1234,
+    "torch_seed": 1234,
+    "fewshot_seed": 1234
+  },
+  "git_hash": null,
+  "date": 1770472772.312274,
+  "pretty_env_info": "PyTorch version: 2.4.1+cu124\nIs debug build: False\nCUDA used to build PyTorch: 12.4\nROCM used to build PyTorch: N/A\n\nOS: Ubuntu 22.04.5 LTS (x86_64)\nGCC version: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0\nClang version: Could not collect\nCMake version: Could not collect\nLibc version: glibc-2.35\n\nPython version: 3.11.10 (main, Sep  7 2024, 18:35:41) [GCC 11.4.0] (64-bit runtime)\nPython platform: Linux-6.5.0-41-generic-x86_64-with-glibc2.35\nIs CUDA available: True\nCUDA runtime version: 12.4.131\nCUDA_MODULE_LOADING set to: LAZY\nGPU models and configuration: GPU 0: NVIDIA A100 80GB PCIe\nNvidia driver version: 565.57.01\ncuDNN version: Could not collect\nHIP runtime version: N/A\nMIOpen runtime version: N/A\nIs XNNPACK available: True\n\nCPU:\nArchitecture:                       x86_64\nCPU op-mode(s):                     32-bit, 64-bit\nAddress sizes:                      48 bits physical, 48 bits virtual\nByte Order:                         Little Endian\nCPU(s):                             252\nOn-line CPU(s) list:                0-251\nVendor ID:                          AuthenticAMD\nModel name:                         AMD EPYC 7763 64-Core Processor\nCPU family:                         25\nModel:                              1\nThread(s) per core:                 1\nCore(s) per socket:                 126\nSocket(s):                          2\nStepping:                           1\nBogoMIPS:                           4890.81\nFlags:                              fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm rep_good nopl cpuid extd_apicid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw perfctr_core invpcid_single ssbd ibrs ibpb stibp vmmcall fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves clzero xsaveerptr wbnoinvd arat npt lbrv nrip_save tsc_scale vmcb_clean pausefilter pfthreshold v_vmsave_vmload vgif umip pku ospke vaes vpclmulqdq rdpid fsrm arch_capabilities\nVirtualization:                     AMD-V\nHypervisor vendor:                  KVM\nVirtualization type:                full\nL1d cache:                          15.8 MiB (252 instances)\nL1i cache:                          15.8 MiB (252 instances)\nL2 cache:                           126 MiB (252 instances)\nL3 cache:                           3.9 GiB (252 instances)\nNUMA node(s):                       1\nNUMA node0 CPU(s):                  0-251\nVulnerability Gather data sampling: Not affected\nVulnerability Itlb multihit:        Not affected\nVulnerability L1tf:                 Not affected\nVulnerability Mds:                  Not affected\nVulnerability Meltdown:             Not affected\nVulnerability Mmio stale data:      Not affected\nVulnerability Retbleed:             Not affected\nVulnerability Spec rstack overflow: Vulnerable: Safe RET, no microcode\nVulnerability Spec store bypass:    Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:           Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:           Mitigation; Retpolines; IBPB conditional; IBRS_FW; STIBP disabled; RSB filling; PBRSB-eIBRS Not affected; BHI Not affected\nVulnerability Srbds:                Not affected\nVulnerability Tsx async abort:      Not affected\n\nVersions of relevant libraries:\n[pip3] numpy==2.4.2\n[pip3] torch==2.4.1+cu124\n[pip3] torchaudio==2.4.1+cu124\n[pip3] torchvision==0.19.1+cu124\n[pip3] triton==3.0.0\n[conda] Could not collect",
+  "transformers_version": "5.1.0",
+  "lm_eval_version": "0.4.10",
+  "upper_git_hash": null,
+  "tokenizer_pad_token": [
+    "!",
+    "0"
+  ],
+  "tokenizer_eos_token": [
+    "<|end_of_text|>",
+    "128001"
+  ],
+  "tokenizer_bos_token": [
+    "<|begin_of_text|>",
+    "128000"
+  ],
+  "eot_token_id": 128001,
+  "max_length": 131072,
+  "task_hashes": {},
+  "model_source": "hf",
+  "model_name": "socius/Llama-Centaur-3B",
+  "model_name_sanitized": "socius__Llama-Centaur-3B",
+  "system_instruction": null,
+  "system_instruction_sha": null,
+  "fewshot_as_multiturn": null,
+  "chat_template": null,
+  "chat_template_sha": null,
+  "total_evaluation_time_seconds": "1593.2680770605803"
+}

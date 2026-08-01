@@ -1,0 +1,3 @@
+- dataset:
+    id: tinyBenchmarks/tinyGSM8k
+  value: 71.19

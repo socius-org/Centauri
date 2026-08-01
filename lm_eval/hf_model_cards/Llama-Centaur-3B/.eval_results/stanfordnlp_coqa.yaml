@@ -1,0 +1,3 @@
+- dataset:
+    id: stanfordnlp/coqa
+  value: 60.77

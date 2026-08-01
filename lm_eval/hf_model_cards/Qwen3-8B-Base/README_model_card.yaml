@@ -1,0 +1,320 @@
+---
+model-index:
+- 
+  name: Qwen3-8B-Base
+  results:
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Acp Bench
+      type: ibm-research/acp_bench
+    metrics:
+    - 
+      name: Exact Match (acp_app_bool)
+      type: exact_match
+      value: 82.31
+    - 
+      name: Exact Match (acp_app_mcq)
+      type: exact_match
+      value: 37.69
+    - 
+      name: Exact Match (acp_areach_bool)
+      type: exact_match
+      value: 56.67
+    - 
+      name: Exact Match (acp_areach_mcq)
+      type: exact_match
+      value: 32.5
+    - 
+      name: Exact Match (acp_just_bool)
+      type: exact_match
+      value: 70.77
+    - 
+      name: Exact Match (acp_just_mcq)
+      type: exact_match
+      value: 51.54
+    - 
+      name: Exact Match (acp_land_bool)
+      type: exact_match
+      value: 41.54
+    - 
+      name: Exact Match (acp_land_mcq)
+      type: exact_match
+      value: 52.31
+    - 
+      name: Exact Match (acp_prog_bool)
+      type: exact_match
+      value: 73.08
+    - 
+      name: Exact Match (acp_prog_mcq)
+      type: exact_match
+      value: 68.46
+    - 
+      name: Exact Match (acp_reach_bool)
+      type: exact_match
+      value: 54.62
+    - 
+      name: Exact Match (acp_reach_mcq)
+      type: exact_match
+      value: 27.69
+    - 
+      name: Exact Match (acp_val_bool)
+      type: exact_match
+      value: 53.08
+    - 
+      name: Exact Match (acp_val_mcq)
+      type: exact_match
+      value: 22.31
+  - 
+    task:
+      type: question-answering
+    dataset:
+      name: Coqa
+      type: stanfordnlp/coqa
+    metrics:
+    - 
+      name: Exact Match
+      type: em
+      value: 73.57
+    - 
+      name: F1 Score
+      type: f1
+      value: 84.42
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Eq-Bench
+      type: pbevan11/EQ-Bench
+    metrics:
+    - 
+      name: EQ-Bench Score
+      type: eqbench
+      value: 66.96
+    - 
+      name: Percent Parseable
+      type: percent_parseable
+      value: 100.0
+  - 
+    task:
+      type: text-classification
+    dataset:
+      name: Ethics
+      type: hendrycks/ethics
+    metrics:
+    - 
+      name: Accuracy (ethics_cm)
+      type: acc
+      value: 65.59
+    - 
+      name: Accuracy (ethics_deontology)
+      type: acc
+      value: 58.84
+    - 
+      name: Accuracy (ethics_justice)
+      type: acc
+      value: 58.47
+    - 
+      name: Accuracy (ethics_utilitarianism)
+      type: acc
+      value: 67.87
+    - 
+      name: Accuracy (ethics_virtue)
+      type: acc
+      value: 87.26
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Lambada Openai
+      type: EleutherAI/lambada_openai
+    metrics:
+    - 
+      name: Perplexity
+      type: perplexity
+      value: 3.66
+    - 
+      name: Accuracy
+      type: acc
+      value: 70.95
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Lambada
+      type: cimec/lambada
+    metrics:
+    - 
+      name: Perplexity
+      type: perplexity
+      value: 4.24
+    - 
+      name: Accuracy
+      type: acc
+      value: 66.18
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Logiqa
+      type: EleutherAI/logiqa
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 38.56
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 34.72
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Piqa
+      type: ybisk/piqa
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 79.22
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 79.16
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Social I Qa
+      type: allenai/social_i_qa
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 54.71
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Metabench
+      type: HCAI/metabench
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 57.05
+    - 
+      name: Accuracy
+      type: acc
+      value: 64.14
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 71.72
+    - 
+      name: Exact Match
+      type: exact_match
+      value: 88.19
+    - 
+      name: Exact Match
+      type: exact_match
+      value: 88.19
+    - 
+      name: Accuracy
+      type: acc
+      value: 35.48
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 55.91
+    - 
+      name: Accuracy
+      type: acc
+      value: 82.29
+    - 
+      name: Accuracy
+      type: acc
+      value: 26.62
+    - 
+      name: Accuracy
+      type: acc
+      value: 76.69
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinyai2 Arc
+      type: tinyBenchmarks/tinyAI2_arc
+    metrics:
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 68.98
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Tinygsm8K
+      type: tinyBenchmarks/tinyGSM8k
+    metrics:
+    - 
+      name: Exact Match
+      type: exact_match
+      value: 84.93
+    - 
+      name: Exact Match
+      type: exact_match
+      value: 84.93
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinyhellaswag
+      type: tinyBenchmarks/tinyHellaswag
+    metrics:
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 77.18
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinymmlu
+      type: tinyBenchmarks/tinyMMLU
+    metrics:
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 72.86
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinytruthfulqa
+      type: tinyBenchmarks/tinyTruthfulQA
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 50.1
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinywinogrande
+      type: tinyBenchmarks/tinyWinogrande
+    metrics:
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 74.39
+---
+
+# Qwen3-8B-Base
+
+Model-index format for unsloth/Qwen3-8B-Base
+
+Copy the YAML section above (between the `---` markers) to the top of your model card README.md

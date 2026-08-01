@@ -1,0 +1,22 @@
+{
+  "model": "marcelbinz/Llama-3.1-Centaur-70B-adapter",
+  "experiments": [
+    "hebart2023things",
+    "ruggeri2022globalizability"
+  ],
+  "test": "order_permutation",
+  "n_permutations": 50,
+  "max_participants": null,
+  "max_trials_override": null,
+  "default_max_trials": {
+    "hebart2023things": 60,
+    "ruggeri2022globalizability": null
+  },
+  "min_context": 5,
+  "n_target_trials": 3,
+  "seed": 3407,
+  "dtype": "bfloat16",
+  "load_in_4bit": true,
+  "max_seq_length": 32768,
+  "timestamp": "2026-03-14 02:00:09"
+}

@@ -1,0 +1,54 @@
+Experiment: ruggeri2022globalizability (1295 total participants)
+================================================================================
+
+--- Sample 1 (full text) ---
+
+In the following you will be presented with multiple choices between two options W and F.
+Please name which option you would prefer by pressing the corresponding key.
+
+You have the choice between receiving 500$ immediately (press W) or receiving 550$ in one year (press F). You press <<W>>.
+You have the choice between receiving 500$ immediately (press W) or receiving 600$ in one year (press F). You press <<W>>.
+You have the choice between receiving 500$ immediately (press W) or receiving 750$ in one year (press F). You press <<F>>.
+You have the choice between paying 500$ immediately (press W) or paying 550$ in one year (press F). You press <<W>>.
+You have the choice between paying 500$ immediately (press W) or paying 510$ in one year (press F). You press <<F>>.
+You have the choice between receiving 5000$ immediately (press W) or receiving 5500$ in one year (press F). You press <<F>>.
+You have the choice between receiving 5000$ immediately (press W) or receiving 5100$ in one year (press F). You press <<W>>.
+You have the choice between receiving 500$ in one year (press W) or receiving 750$ in two years (press F). You press <<W>>.
+You have the choice between receiving 500$ immediately (press W) or receiving 1000$ in two years (press F). You press <<F>>.
+You have the choice between receiving 500$ immediately (press W) or receiving 750$ in one year (press F). You press <<W>>.
+You have the choice between reduce 500$ immediately (press W) or reduce 750$ in one year (press F). You press <<W>>.
+
+--- Sample 2 (full text) ---
+
+In the following you will be presented with multiple choices between two options X and Z.
+Please name which option you would prefer by pressing the corresponding key.
+
+You have the choice between receiving 500$ immediately (press X) or receiving 550$ in one year (press Z). You press <<X>>.
+You have the choice between receiving 500$ immediately (press X) or receiving 600$ in one year (press Z). You press <<X>>.
+You have the choice between receiving 500$ immediately (press X) or receiving 750$ in one year (press Z). You press <<Z>>.
+You have the choice between paying 500$ immediately (press X) or paying 550$ in one year (press Z). You press <<X>>.
+You have the choice between paying 500$ immediately (press X) or paying 510$ in one year (press Z). You press <<X>>.
+You have the choice between paying 500$ immediately (press X) or paying 505$ in one year (press Z). You press <<X>>.
+You have the choice between receiving 5000$ immediately (press X) or receiving 5500$ in one year (press Z). You press <<X>>.
+You have the choice between receiving 5000$ immediately (press X) or receiving 6000$ in one year (press Z). You press <<Z>>.
+You have the choice between receiving 500$ in one year (press X) or receiving 750$ in two years (press Z). You press <<X>>.
+You have the choice between receiving 500$ immediately (press X) or receiving 1000$ in two years (press Z). You press <<X>>.
+You have the choice between receiving 500$ immediately (press X) or receiving 750$ in one year (press Z). You press <<X>>.
+You have the choice between receive 500$ immediately (press X) or receive 750$ in one year (press Z). You press <<Z>>.
+
+--- Sample 3 (full text) ---
+
+In the following you will be presented with multiple choices between two options C and X.
+Please name which option you would prefer by pressing the corresponding key.
+
+You have the choice between receiving 500$ immediately (press C) or receiving 550$ in one year (press X). You press <<C>>.
+You have the choice between receiving 500$ immediately (press C) or receiving 600$ in one year (press X). You press <<X>>.
+You have the choice between paying 500$ immediately (press C) or paying 550$ in one year (press X). You press <<C>>.
+You have the choice between paying 500$ immediately (press C) or paying 510$ in one year (press X). You press <<C>>.
+You have the choice between paying 500$ immediately (press C) or paying 505$ in one year (press X). You press <<C>>.
+You have the choice between receiving 5000$ immediately (press C) or receiving 5500$ in one year (press X). You press <<C>>.
+You have the choice between receiving 5000$ immediately (press C) or receiving 6000$ in one year (press X). You press <<X>>.
+You have the choice between receiving 500$ in one year (press C) or receiving 600$ in two years (press X). You press <<X>>.
+You have the choice between receiving 500$ immediately (press C) or receiving 700$ in two years (press X). You press <<X>>.
+You have the choice between wait 500$ immediately (press C) or wait 600$ in one year (press X). You press <<X>>.
+You have the choice between receive 500$ immediately (press C) or receive 600$ in one year (press X). You press <<X>>.

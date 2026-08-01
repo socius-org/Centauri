@@ -1,0 +1,1223 @@
+Experiment: hebart2023things (1218 total participants)
+================================================================================
+
+--- Sample 1 (full text) ---
+
+You will be presented with triplets of objects, which will be assigned to the keys Q, A, and Z.
+In each trial, please indicate which object you think is the odd one out by pressing the corresponding key.
+In other words, please choose the object that is the least similar to the other two.
+
+Q: bassinet, A: raspberry, and Z: detonator. You press <<A>>.
+Q: dollhouse, A: bathtub, and Z: handcuff. You press <<Z>>.
+Q: undershirt, A: earwig, and Z: bamboo. You press <<Q>>.
+Q: hanger, A: chickpea, and Z: coin. You press <<Q>>.
+Q: baton, A: bomb, and Z: ginger. You press <<Z>>.
+Q: cash machine, A: umbrella, and Z: music box. You press <<A>>.
+Q: headrest, A: fireplace, and Z: curb. You press <<A>>.
+Q: peanut, A: costume, and Z: compost. You press <<A>>.
+Q: springboard, A: cannon, and Z: candlestick. You press <<Q>>.
+Q: porthole, A: ship, and Z: pom-pom. You press <<Z>>.
+Q: desk, A: recliner, and Z: airbag. You press <<Z>>.
+Q: napkin ring, A: chinchilla, and Z: mold. You press <<Q>>.
+Q: paper bag, A: dartboard, and Z: icemaker. You press <<A>>.
+Q: ice cube, A: bulletin board, and Z: poodle. You press <<Z>>.
+Q: plum, A: telegraph, and Z: beer. You press <<A>>.
+Q: milkshake, A: bullet, and Z: dandelion. You press <<A>>.
+Q: duct tape, A: dial, and Z: camel. You press <<Z>>.
+Q: panther, A: squirt gun, and Z: handcuff. You press <<Q>>.
+Q: hood, A: soldering iron, and Z: egg roll. You press <<A>>.
+Q: pepper mill, A: goat, and Z: cigarette butt. You press <<A>>.
+
+--- Sample 2 (full text) ---
+
+You will be presented with triplets of objects, which will be assigned to the keys J, R, and N.
+In each trial, please indicate which object you think is the odd one out by pressing the corresponding key.
+In other words, please choose the object that is the least similar to the other two.
+
+J: tractor, R: hawk, and N: pineapple. You press <<J>>.
+J: pants, R: pine tree, and N: scaffold. You press <<J>>.
+J: flatiron, R: inhaler, and N: banana. You press <<N>>.
+J: poppy, R: poster, and N: anvil. You press <<J>>.
+J: coat, R: propeller, and N: wire cutters. You press <<J>>.
+J: violin, R: guitar, and N: quad. You press <<N>>.
+J: rope, R: air pump, and N: taxi. You press <<J>>.
+J: scissors, R: guacamole, and N: mantle. You press <<R>>.
+J: catfish, R: tiger, and N: jackhammer. You press <<N>>.
+J: chain, R: drill, and N: whipped cream. You press <<N>>.
+J: gingerbread man, R: chair, and N: rearview mirror. You press <<J>>.
+J: pepper, R: turnstile, and N: pet food. You press <<R>>.
+J: poster, R: railing, and N: undershirt. You press <<N>>.
+J: sundial, R: yo-yo, and N: pie. You press <<N>>.
+J: sandpaper, R: trombone, and N: teacup. You press <<N>>.
+J: handcuff, R: oven, and N: gear. You press <<J>>.
+J: board game, R: finger, and N: leotard. You press <<J>>.
+J: amber, R: airboat, and N: wind chimes. You press <<J>>.
+J: record, R: branch, and N: camera. You press <<R>>.
+J: dessert, R: peanut, and N: cocoon. You press <<N>>.
+J: pretzel, R: crowbar, and N: turtleneck. You press <<J>>.
+J: bark, R: cushion, and N: cigarette butt. You press <<R>>.
+J: toe, R: drill, and N: sailboat. You press <<J>>.
+J: credit card, R: kaleidoscope, and N: figurine. You press <<J>>.
+J: pine needle, R: cheesecake, and N: pocket watch. You press <<J>>.
+J: powder, R: seatbelt, and N: photograph. You press <<J>>.
+J: bowling ball, R: hot-water bottle, and N: mistletoe. You press <<R>>.
+J: harness, R: radiator, and N: flip flop. You press <<R>>.
+J: frisbee, R: lectern, and N: viewfinder. You press <<J>>.
+J: road sign, R: rose, and N: vent. You press <<R>>.
+J: drumstick, R: notepad, and N: scalpel. You press <<R>>.
+J: candy cane, R: waterwheel, and N: vegetable. You press <<R>>.
+J: hydrant, R: jelly bean, and N: koala. You press <<R>>.
+J: chest, R: guillotine, and N: skateboard. You press <<J>>.
+J: penguin, R: straw, and N: engine. You press <<R>>.
+J: dog, R: flip flop, and N: helicopter. You press <<J>>.
+J: praying mantis, R: beetle, and N: handcuff. You press <<N>>.
+J: fireplace, R: cashew, and N: quesadilla. You press <<J>>.
+J: breakfast, R: mango, and N: chili. You press <<N>>.
+J: fireworks, R: crab, and N: quiche. You press <<J>>.
+
+--- Sample 3 (full text) ---
+
+You will be presented with triplets of objects, which will be assigned to the keys X, T, and B.
+In each trial, please indicate which object you think is the odd one out by pressing the corresponding key.
+In other words, please choose the object that is the least similar to the other two.
+
+X: watch, T: bat, and B: moose. You press <<X>>.
+X: headlamp, T: windshield wiper, and B: chessboard. You press <<B>>.
+X: chalkboard, T: waterwheel, and B: cable. You press <<X>>.
+X: artichoke, T: joystick, and B: coin. You press <<T>>.
+X: scoop, T: javelin, and B: hearse. You press <<X>>.
+X: crown, T: racket, and B: corkscrew. You press <<X>>.
+X: hubcap, T: jumpsuit, and B: film. You press <<T>>.
+X: jewelry, T: brush, and B: bassinet. You press <<B>>.
+X: steering wheel, T: mistletoe, and B: gate. You press <<T>>.
+X: bird, T: sticker, and B: robe. You press <<B>>.
+X: fingerprint, T: window, and B: walker. You press <<X>>.
+X: chest, T: chariot, and B: poodle. You press <<B>>.
+X: hook, T: possum, and B: badger. You press <<X>>.
+X: vending machine, T: dreidel, and B: fingerprint. You press <<T>>.
+X: stingray, T: mole, and B: shoe polish. You press <<B>>.
+X: buckle, T: pole, and B: trap. You press <<T>>.
+X: cotton candy, T: grapefruit, and B: wok. You press <<B>>.
+X: costume, T: punch, and B: hood. You press <<T>>.
+X: jigsaw puzzle, T: crystal, and B: razor. You press <<B>>.
+X: panties, T: accordion, and B: chip. You press <<X>>.
+X: grenade, T: boxing gloves, and B: yogurt. You press <<B>>.
+X: eggnog, T: pug, and B: toaster. You press <<T>>.
+X: hummus, T: fox, and B: camcorder. You press <<X>>.
+X: golf cart, T: sawhorse, and B: shuffleboard. You press <<X>>.
+X: wafer, T: rifle, and B: bracelet. You press <<T>>.
+X: tapestry, T: bead, and B: tape recorder. You press <<X>>.
+X: earwig, T: shower curtain, and B: anteater. You press <<T>>.
+X: thimble, T: bus, and B: coconut. You press <<T>>.
+X: mantle, T: face mask, and B: dishwasher. You press <<X>>.
+X: marmalade, T: ice cream, and B: television. You press <<B>>.
+X: jug, T: trumpet, and B: roadsweeper. You press <<B>>.
+X: peanut butter, T: bat, and B: noisemaker. You press <<T>>.
+X: brussels sprouts, T: scorpion, and B: soup. You press <<T>>.
+X: knob, T: pickax, and B: turnstile. You press <<T>>.
+X: tulip, T: rim, and B: cake. You press <<T>>.
+X: bathtub, T: videocassette, and B: elephant. You press <<B>>.
+X: powder, T: drawer, and B: propeller. You press <<T>>.
+X: drumstick, T: clock, and B: chicken wire. You press <<B>>.
+X: foam, T: necklace, and B: mongoose. You press <<B>>.
+X: sugar cube, T: shredder, and B: ski pole. You press <<B>>.
+X: teacup, T: floss, and B: slingshot. You press <<X>>.
+X: scooter, T: beanie, and B: mold. You press <<T>>.
+X: memory stick, T: kettle, and B: tree. You press <<B>>.
+X: chive, T: jellyfish, and B: cash register. You press <<T>>.
+X: accordion, T: cash register, and B: aircraft carrier. You press <<B>>.
+X: sushi, T: flip flop, and B: ink. You press <<T>>.
+X: bracket, T: yolk, and B: outfit. You press <<T>>.
+X: beetle, T: spinach, and B: lipstick. You press <<B>>.
+X: squash, T: airboat, and B: closet. You press <<X>>.
+X: shark, T: sprouts, and B: coffee. You press <<B>>.
+X: pear, T: basketball hoop, and B: ladder. You press <<X>>.
+X: torch, T: tile, and B: telephone pole. You press <<T>>.
+X: fingerprint, T: oyster, and B: thimble. You press <<X>>.
+X: slug, T: wheelchair, and B: fruitcake. You press <<T>>.
+X: airbag, T: hatchet, and B: flour. You press <<B>>.
+X: carousel, T: sundial, and B: kiwi. You press <<T>>.
+X: videocassette, T: bowtie, and B: map. You press <<T>>.
+X: balloon, T: tiramisu, and B: muffin. You press <<X>>.
+X: fish, T: barnacle, and B: caterpillar. You press <<T>>.
+X: leg, T: ice, and B: trailer. You press <<X>>.
+X: station wagon, T: soy sauce, and B: spatula. You press <<X>>.
+X: lollipop, T: aardvark, and B: cross. You press <<T>>.
+X: mango, T: playing card, and B: salami. You press <<T>>.
+X: french fries, T: pepperoni, and B: screw. You press <<B>>.
+X: hotplate, T: toaster, and B: snail. You press <<B>>.
+X: barbell, T: duck, and B: lamppost. You press <<T>>.
+X: shaving cream, T: amplifier, and B: knitting needle. You press <<T>>.
+X: stamp, T: skirt, and B: water bottle. You press <<T>>.
+X: parfait, T: dirt bike, and B: lid. You press <<T>>.
+X: radish, T: granola, and B: hearing aid. You press <<B>>.
+X: orange, T: ukulele, and B: artichoke. You press <<T>>.
+X: album, T: raincoat, and B: sail. You press <<B>>.
+X: apple tree, T: snake, and B: coin. You press <<T>>.
+X: grill, T: strawberry, and B: foot. You press <<B>>.
+X: birdhouse, T: hot tub, and B: candy bar. You press <<B>>.
+X: scalpel, T: floss, and B: orangutan. You press <<B>>.
+X: rattle, T: wrench, and B: flamethrower. You press <<X>>.
+X: wine bottle, T: mask, and B: sunroof. You press <<B>>.
+X: margarita, T: station wagon, and B: brick. You press <<B>>.
+X: keyhole, T: curling iron, and B: gopher. You press <<B>>.
+X: mandolin, T: okra, and B: tiger. You press <<T>>.
+X: speaker, T: cot, and B: pendulum. You press <<T>>.
+X: tube top, T: wreck, and B: puffin. You press <<X>>.
+X: snowshoe, T: sword, and B: coffee table. You press <<T>>.
+X: manhole, T: garbage, and B: stump. You press <<T>>.
+X: dart, T: kimono, and B: gingerbread man. You press <<T>>.
+X: snowball, T: cheese, and B: tackle. You press <<X>>.
+X: paddle, T: ottoman, and B: whoopee cushion. You press <<X>>.
+X: roll, T: dragonfly, and B: poodle. You press <<B>>.
+X: bok choy, T: duct tape, and B: dress. You press <<X>>.
+X: blazer, T: scallion, and B: bassoon. You press <<T>>.
+X: dashboard, T: bonsai, and B: leggings. You press <<T>>.
+X: branch, T: uniform, and B: baton. You press <<T>>.
+X: stretcher, T: boy, and B: red carpet. You press <<T>>.
+X: gorilla, T: mussel, and B: clove. You press <<X>>.
+X: airbag, T: camper, and B: stove. You press <<B>>.
+X: beet, T: tuba, and B: handbrake. You press <<T>>.
+X: lava, T: wax, and B: hat. You press <<B>>.
+X: roadsweeper, T: foam, and B: reel. You press <<T>>.
+X: hay, T: owl, and B: hammer. You press <<B>>.
+X: bean, T: scale, and B: velcro. You press <<B>>.
+X: hippopotamus, T: sandpaper, and B: pot. You press <<X>>.
+X: goose, T: beaker, and B: organ. You press <<X>>.
+X: sail, T: french horn, and B: elbow. You press <<X>>.
+X: umbrella, T: bathrobe, and B: ice cream. You press <<B>>.
+X: throne, T: pear, and B: metal detector. You press <<B>>.
+X: sombrero, T: snowsuit, and B: duffel bag. You press <<X>>.
+X: seal, T: weather vane, and B: juicer. You press <<B>>.
+X: breadstick, T: ring, and B: bamboo. You press <<T>>.
+X: ski, T: oil, and B: card. You press <<T>>.
+X: starfish, T: cigar, and B: chick. You press <<T>>.
+X: lamppost, T: microscope, and B: flower. You press <<X>>.
+X: sandal, T: antelope, and B: meat grinder. You press <<X>>.
+X: nail file, T: valve, and B: sunglasses. You press <<T>>.
+X: bed, T: flour, and B: girl. You press <<T>>.
+X: firetruck, T: arrow, and B: calamari. You press <<X>>.
+X: veil, T: bottle opener, and B: guinea pig. You press <<B>>.
+X: beetle, T: beachball, and B: mousetrap. You press <<T>>.
+X: berry, T: icepick, and B: radio. You press <<B>>.
+X: vegetable, T: envelope, and B: football helmet. You press <<T>>.
+X: sifter, T: bun, and B: tablet. You press <<T>>.
+X: birdcage, T: kaleidoscope, and B: sweater. You press <<B>>.
+X: bolt, T: handkerchief, and B: beer. You press <<X>>.
+X: clipper, T: chute, and B: mussel. You press <<B>>.
+X: peeler, T: sweet potato, and B: can. You press <<B>>.
+X: drawer, T: breakfast, and B: pretzel. You press <<X>>.
+X: scooter, T: leopard, and B: vegetable. You press <<T>>.
+X: handbrake, T: snowmobile, and B: dough. You press <<B>>.
+X: strawberry, T: grits, and B: scanner. You press <<B>>.
+X: saffron, T: branch, and B: sundial. You press <<B>>.
+X: chimney, T: broom, and B: soldering iron. You press <<X>>.
+X: jetski, T: poinsettia, and B: lavender. You press <<X>>.
+X: headlamp, T: file, and B: yolk. You press <<X>>.
+X: spoon, T: seaweed, and B: rickshaw. You press <<T>>.
+X: dish, T: tack, and B: skeleton. You press <<B>>.
+X: cement mixer, T: crown, and B: red carpet. You press <<X>>.
+X: punch, T: detonator, and B: hula hoop. You press <<T>>.
+X: pin, T: comic book, and B: iguana. You press <<B>>.
+X: brooch, T: meat grinder, and B: rust. You press <<X>>.
+X: sprinkler, T: leotard, and B: elbow. You press <<X>>.
+X: cauliflower, T: doll, and B: fishbowl. You press <<X>>.
+X: rake, T: gasket, and B: milkshake. You press <<T>>.
+X: plate, T: fishhook, and B: pepper. You press <<T>>.
+X: soldering iron, T: bullet, and B: pantyhose. You press <<B>>.
+X: eyeliner, T: pennant, and B: ant. You press <<B>>.
+X: eggnog, T: lion, and B: cash machine. You press <<T>>.
+X: ginger, T: sorbet, and B: leopard. You press <<B>>.
+X: necklace, T: column, and B: dustpan. You press <<X>>.
+X: scaffold, T: napkin, and B: urn. You press <<T>>.
+X: quesadilla, T: scraper, and B: wine. You press <<B>>.
+X: lip balm, T: ball, and B: ready meal. You press <<X>>.
+X: plastic film, T: telegraph, and B: bottle. You press <<T>>.
+X: hot tub, T: guacamole, and B: kneepad. You press <<T>>.
+X: hockey stick, T: contact lens, and B: keyhole. You press <<X>>.
+X: lamb, T: sailboat, and B: eel. You press <<T>>.
+X: jigsaw puzzle, T: biscuit, and B: stove. You press <<T>>.
+X: nut, T: staple, and B: kebab. You press <<T>>.
+X: match, T: slide, and B: retainer. You press <<X>>.
+X: leash, T: crayon, and B: porthole. You press <<B>>.
+X: eggbeater, T: walker, and B: handkerchief. You press <<T>>.
+X: bun, T: man, and B: egg. You press <<T>>.
+X: periscope, T: tugboat, and B: cilantro. You press <<B>>.
+X: scoreboard, T: handlebar, and B: missile. You press <<B>>.
+X: dollhouse, T: basketball, and B: rag. You press <<B>>.
+X: tomato sauce, T: squirrel, and B: moth. You press <<X>>.
+X: locket, T: squeegee, and B: potholder. You press <<X>>.
+X: toilet, T: bun, and B: souffle. You press <<X>>.
+X: steering wheel, T: eclair, and B: bulletin board. You press <<X>>.
+X: punching bag, T: chihuahua, and B: harmonica. You press <<T>>.
+X: telescope, T: pumpkin, and B: soap. You press <<X>>.
+X: sleeping bag, T: wall, and B: bulletproof vest. You press <<T>>.
+X: brace, T: comic book, and B: fishbowl. You press <<X>>.
+X: board, T: t-shirt, and B: bathmat. You press <<X>>.
+X: orangutan, T: honey, and B: blimp. You press <<X>>.
+X: lighter, T: blindfold, and B: pomegranate. You press <<T>>.
+X: hip, T: brace, and B: bathrobe. You press <<T>>.
+X: clay, T: cactus, and B: seafood. You press <<T>>.
+X: icepick, T: paper, and B: sloth. You press <<T>>.
+X: rabbit, T: marshmallow, and B: moose. You press <<T>>.
+X: go-kart, T: rattlesnake, and B: paintbrush. You press <<T>>.
+X: parsley, T: treasure, and B: penholder. You press <<T>>.
+X: hatbox, T: mussel, and B: log. You press <<X>>.
+X: hobbyhorse, T: iron, and B: denture. You press <<T>>.
+X: centrifuge, T: whoopee cushion, and B: headlight. You press <<X>>.
+X: creme brulee, T: buggy, and B: ant. You press <<B>>.
+X: grille, T: hyena, and B: dress. You press <<T>>.
+X: saucer, T: cane, and B: board game. You press <<T>>.
+X: chicken, T: game, and B: mole. You press <<T>>.
+X: mouse, T: kaleidoscope, and B: bucket. You press <<X>>.
+X: coconut, T: pearl, and B: javelin. You press <<B>>.
+X: can opener, T: sea urchin, and B: kangaroo. You press <<X>>.
+X: foam, T: sweater, and B: lollipop. You press <<T>>.
+X: abacus, T: lasagna, and B: telescope. You press <<T>>.
+X: jersey, T: cow, and B: bathtub. You press <<T>>.
+X: potpourri, T: hook, and B: thumb. You press <<X>>.
+X: teapot, T: reel, and B: ear. You press <<X>>.
+X: turntable, T: bulletin board, and B: pomegranate. You press <<B>>.
+X: springboard, T: urinal, and B: ketchup. You press <<T>>.
+X: honeycomb, T: totem pole, and B: platypus. You press <<X>>.
+X: wolf, T: bathmat, and B: wrapping paper. You press <<X>>.
+X: twig, T: brooch, and B: chandelier. You press <<X>>.
+X: rose, T: manatee, and B: eyedropper. You press <<B>>.
+X: peanut butter, T: grasshopper, and B: brooch. You press <<T>>.
+X: car, T: carriage, and B: hail. You press <<B>>.
+X: dice, T: dip, and B: cloak. You press <<B>>.
+X: bra, T: ramp, and B: lab coat. You press <<T>>.
+X: crow, T: fireworks, and B: candy. You press <<B>>.
+X: workbench, T: celery, and B: paper plate. You press <<X>>.
+X: tree, T: sparkler, and B: gong. You press <<X>>.
+X: bush, T: flashlight, and B: sweeper. You press <<B>>.
+X: gravestone, T: plant, and B: biscuit. You press <<B>>.
+X: saffron, T: polo shirt, and B: flask. You press <<X>>.
+X: teacup, T: gramophone, and B: boxing gloves. You press <<B>>.
+X: station wagon, T: corset, and B: megaphone. You press <<X>>.
+X: onion, T: origami, and B: totem pole. You press <<T>>.
+X: tuba, T: chain, and B: gingerbread man. You press <<T>>.
+X: binoculars, T: metal detector, and B: shell. You press <<X>>.
+X: bulldozer, T: tube top, and B: shower cap. You press <<X>>.
+X: tree trunk, T: meerkat, and B: maggot. You press <<B>>.
+X: fireworks, T: tricycle, and B: dirt bike. You press <<X>>.
+X: cleaver, T: radiator, and B: spark plug. You press <<X>>.
+X: hot chocolate, T: headrest, and B: centerpiece. You press <<T>>.
+X: rim, T: french fries, and B: bush. You press <<B>>.
+X: poster, T: headdress, and B: beanbag. You press <<T>>.
+X: handlebar, T: blimp, and B: thimble. You press <<B>>.
+X: slingshot, T: panties, and B: map. You press <<T>>.
+X: hawk, T: mulch, and B: cd player. You press <<T>>.
+X: eclair, T: turbine, and B: cleaver. You press <<T>>.
+X: mousepad, T: trigger, and B: burrito. You press <<T>>.
+X: crank, T: wasp, and B: kayak. You press <<X>>.
+X: bassoon, T: insole, and B: popcorn. You press <<T>>.
+X: tweezers, T: cantaloupe, and B: volleyball. You press <<B>>.
+X: tortilla, T: retainer, and B: exhaust pipe. You press <<B>>.
+X: plug, T: jetski, and B: pennant. You press <<B>>.
+X: horseshoe, T: odometer, and B: rack. You press <<T>>.
+X: electric chair, T: pomegranate, and B: valve. You press <<T>>.
+X: record, T: cleat, and B: stockings. You press <<B>>.
+X: mask, T: blowtorch, and B: coleslaw. You press <<X>>.
+X: groundhog, T: folder, and B: penholder. You press <<X>>.
+X: curtain, T: kitten, and B: centrifuge. You press <<T>>.
+X: record, T: stuffing, and B: lunchbox. You press <<T>>.
+X: pedal, T: jeans, and B: eye patch. You press <<X>>.
+X: smoke alarm, T: ice pack, and B: swordfish. You press <<B>>.
+X: shrimp, T: boot, and B: airboat. You press <<B>>.
+X: desk, T: clothes, and B: ski pole. You press <<B>>.
+X: camel, T: pony, and B: whisk. You press <<B>>.
+X: poodle, T: station wagon, and B: kangaroo. You press <<T>>.
+X: ostrich, T: train set, and B: bowtie. You press <<T>>.
+X: porcupine, T: seismograph, and B: hookah. You press <<X>>.
+X: screw, T: beard, and B: cd player. You press <<T>>.
+X: crepe, T: harmonica, and B: football. You press <<X>>.
+X: breadbox, T: sandal, and B: bok choy. You press <<T>>.
+X: drawer, T: candlestick, and B: sword. You press <<X>>.
+X: jackhammer, T: sunflower, and B: scoop. You press <<T>>.
+X: keyboard, T: skunk, and B: chalk. You press <<T>>.
+X: wind chimes, T: saltshaker, and B: cardinal. You press <<B>>.
+X: bowling ball, T: soda fountain, and B: hammock. You press <<T>>.
+X: penguin, T: mask, and B: chihuahua. You press <<T>>.
+X: hat, T: quiche, and B: helicopter. You press <<T>>.
+X: steering wheel, T: toilet paper, and B: flipper. You press <<T>>.
+X: bug, T: hourglass, and B: humvee. You press <<X>>.
+X: wing, T: torch, and B: blanket. You press <<X>>.
+X: octopus, T: vase, and B: blanket. You press <<B>>.
+X: boulder, T: machete, and B: clipboard. You press <<X>>.
+X: gravel, T: birthday cake, and B: truck. You press <<X>>.
+X: roller coaster, T: combination lock, and B: deodorant. You press <<B>>.
+X: comic book, T: basket, and B: pepperoni. You press <<X>>.
+X: frog, T: lunchbox, and B: sword. You press <<B>>.
+X: shower cap, T: vending machine, and B: drumstick. You press <<B>>.
+X: vegetable, T: mattress, and B: leech. You press <<B>>.
+X: license plate, T: charger, and B: doorknob. You press <<B>>.
+X: glass, T: thread, and B: carousel. You press <<B>>.
+X: guardrail, T: toothpaste, and B: station wagon. You press <<B>>.
+X: guinea pig, T: soy sauce, and B: chalice. You press <<X>>.
+X: wagon, T: shirt, and B: playing card. You press <<X>>.
+X: bed, T: corset, and B: boa. You press <<X>>.
+X: tree trunk, T: sandbag, and B: plastic film. You press <<X>>.
+X: plaster cast, T: pretzel, and B: headdress. You press <<B>>.
+X: road sign, T: light switch, and B: armor. You press <<X>>.
+X: burner, T: fire pit, and B: souffle. You press <<T>>.
+X: scraper, T: toolbox, and B: food processor. You press <<B>>.
+X: saw, T: roulette wheel, and B: sparkler. You press <<T>>.
+X: jacket, T: shower curtain, and B: cello. You press <<B>>.
+X: tab, T: riser, and B: weasel. You press <<B>>.
+X: perfume, T: hummus, and B: saddle. You press <<B>>.
+X: anvil, T: snowshoe, and B: scarf. You press <<X>>.
+X: hedge, T: scanner, and B: stomach. You press <<B>>.
+X: fruitcake, T: green beans, and B: outfit. You press <<B>>.
+X: leash, T: beaker, and B: bomb. You press <<X>>.
+X: cord, T: barrette, and B: walnut. You press <<X>>.
+X: blazer, T: guacamole, and B: jewel. You press <<T>>.
+X: handbrake, T: motorcycle, and B: jar. You press <<B>>.
+X: bedpost, T: polo shirt, and B: ski lift. You press <<X>>.
+X: duffel bag, T: potato, and B: baton. You press <<T>>.
+X: clasp, T: needle, and B: visor. You press <<B>>.
+X: cocktail, T: flamethrower, and B: guacamole. You press <<B>>.
+X: ottoman, T: scaffold, and B: cooker. You press <<B>>.
+X: cellphone, T: tongue, and B: paper. You press <<B>>.
+X: cigarette holder, T: ice cream, and B: motherboard. You press <<B>>.
+X: shower curtain, T: rope, and B: baton. You press <<X>>.
+X: test tube, T: potato, and B: toaster oven. You press <<X>>.
+X: shrimp, T: drain, and B: pumpkin. You press <<T>>.
+X: keyboard, T: costume, and B: clothespin. You press <<B>>.
+X: headband, T: siren, and B: pinecone. You press <<T>>.
+X: anchor, T: whisk, and B: grapefruit. You press <<B>>.
+X: hydrant, T: wire cutters, and B: fondue. You press <<B>>.
+X: drink, T: mulberry, and B: hourglass. You press <<B>>.
+X: belt, T: lava, and B: safety pin. You press <<T>>.
+X: pitchfork, T: cruise ship, and B: pepper. You press <<T>>.
+X: wine, T: videocassette, and B: asparagus. You press <<B>>.
+X: blazer, T: recliner, and B: moss. You press <<B>>.
+X: pecan, T: fur coat, and B: tiger. You press <<X>>.
+X: snowsuit, T: printer, and B: tile. You press <<B>>.
+X: fudge, T: sofa bed, and B: coffee pot. You press <<B>>.
+X: puck, T: wooden leg, and B: wheelbarrow. You press <<X>>.
+X: curtain, T: jet, and B: string cheese. You press <<T>>.
+X: garlic, T: face, and B: turf. You press <<B>>.
+X: fireworks, T: yolk, and B: water cooler. You press <<X>>.
+X: jetski, T: rim, and B: triangle. You press <<B>>.
+X: seafood, T: sequin, and B: wagon. You press <<X>>.
+X: wineglass, T: chip, and B: syringe. You press <<X>>.
+X: brace, T: applesauce, and B: fishing pole. You press <<T>>.
+X: paper towel, T: pole, and B: hummus. You press <<T>>.
+X: dice, T: macaroni, and B: ram. You press <<X>>.
+X: soda, T: christmas card, and B: umbrella. You press <<B>>.
+X: chickpea, T: christmas tree, and B: cordon bleu. You press <<X>>.
+X: wineglass, T: toucan, and B: fern. You press <<X>>.
+X: chinchilla, T: dishwasher, and B: loom. You press <<X>>.
+X: mask, T: crayon, and B: crank. You press <<B>>.
+X: telescope, T: magnet, and B: odometer. You press <<T>>.
+X: cashew, T: stick, and B: pug. You press <<T>>.
+X: nightstand, T: pepperoni, and B: meerkat. You press <<B>>.
+X: unicycle, T: slime, and B: mast. You press <<T>>.
+X: lunchbox, T: clothesline, and B: fire hydrant. You press <<X>>.
+X: skull, T: pet food, and B: baton. You press <<T>>.
+X: microphone, T: whisk, and B: pillow. You press <<B>>.
+X: slot machine, T: belt, and B: seismograph. You press <<T>>.
+X: tongue, T: metal detector, and B: potpourri. You press <<B>>.
+X: mousse, T: buckle, and B: hyena. You press <<B>>.
+X: graffiti, T: gear, and B: swimming pool. You press <<T>>.
+X: umbrella, T: knot, and B: jeep. You press <<X>>.
+X: snake, T: gear, and B: moth. You press <<T>>.
+X: nightstand, T: trough, and B: comic book. You press <<T>>.
+X: cranberry, T: seed, and B: fireplace. You press <<B>>.
+X: crystal, T: painting, and B: spider. You press <<B>>.
+X: flashbulb, T: fountain pen, and B: luggage. You press <<T>>.
+X: tadpole, T: face mask, and B: chickpea. You press <<T>>.
+X: stir fry, T: fishbowl, and B: retainer. You press <<X>>.
+X: camcorder, T: raincoat, and B: battery. You press <<T>>.
+X: racehorse, T: wheelbarrow, and B: shuffleboard. You press <<T>>.
+X: bell, T: cow, and B: fern. You press <<B>>.
+X: surfboard, T: sweatsuit, and B: pincushion. You press <<B>>.
+X: cornbread, T: spatula, and B: umbrella. You press <<B>>.
+X: oyster, T: chin, and B: blender. You press <<T>>.
+X: eclair, T: punch, and B: snowmobile. You press <<X>>.
+X: swing set, T: wolf, and B: pipe. You press <<X>>.
+X: scissors, T: walker, and B: paper bag. You press <<T>>.
+X: horn, T: sidecar, and B: foam. You press <<B>>.
+X: sloth, T: gum, and B: dessert. You press <<T>>.
+X: doorknocker, T: confetti, and B: volleyball. You press <<X>>.
+X: noodle, T: boomerang, and B: odometer. You press <<T>>.
+X: cot, T: chain, and B: tadpole. You press <<B>>.
+X: exerciser, T: bottle opener, and B: spout. You press <<X>>.
+X: candlestick, T: urn, and B: kebab. You press <<B>>.
+X: blender, T: electric chair, and B: sprouts. You press <<T>>.
+X: tablecloth, T: dartboard, and B: wasp. You press <<B>>.
+X: hotdog, T: moth, and B: pony. You press <<B>>.
+X: watering can, T: steering wheel, and B: mannequin. You press <<B>>.
+X: soup, T: trampoline, and B: panther. You press <<B>>.
+X: sleeping bag, T: antenna, and B: wall. You press <<X>>.
+X: awning, T: loincloth, and B: stretcher. You press <<B>>.
+X: oyster, T: milk, and B: cage. You press <<B>>.
+X: desk, T: stained glass, and B: dragonfly. You press <<B>>.
+X: seatbelt, T: piggy bank, and B: duct tape. You press <<T>>.
+X: baton, T: cornbread, and B: puppy. You press <<T>>.
+X: webcam, T: t-shirt, and B: pipe. You press <<B>>.
+X: cashew, T: golf club, and B: arch. You press <<X>>.
+X: poinsettia, T: dollhouse, and B: kneepad. You press <<X>>.
+X: splinter, T: coaster, and B: pothole. You press <<B>>.
+X: terrarium, T: bin, and B: beaver. You press <<B>>.
+X: burrito, T: bassinet, and B: tent. You press <<X>>.
+X: webcam, T: penholder, and B: platypus. You press <<B>>.
+X: bobsled, T: calf, and B: catfish. You press <<X>>.
+X: statue, T: caterpillar, and B: cigar. You press <<T>>.
+X: giraffe, T: pan, and B: hairspray. You press <<X>>.
+X: chess piece, T: toilet, and B: blender. You press <<T>>.
+X: food processor, T: vending machine, and B: pan. You press <<T>>.
+X: chain, T: rollerblade, and B: bumper. You press <<B>>.
+X: candle, T: telephone pole, and B: exerciser. You press <<B>>.
+X: rollerskate, T: cornucopia, and B: contact lens. You press <<T>>.
+X: buckle, T: pillow, and B: crow. You press <<T>>.
+X: go-kart, T: sleeping bag, and B: face mask. You press <<T>>.
+X: latte, T: target, and B: cannonball. You press <<B>>.
+X: saltshaker, T: telephone pole, and B: chocolate. You press <<T>>.
+X: tooth, T: painting, and B: bookmark. You press <<X>>.
+X: fox, T: tea, and B: cork. You press <<X>>.
+X: wheelbarrow, T: latte, and B: sheath. You press <<T>>.
+X: kneepad, T: staple gun, and B: purse. You press <<X>>.
+X: hammer, T: tadpole, and B: workbench. You press <<T>>.
+X: cake, T: sail, and B: brooch. You press <<T>>.
+X: fungus, T: quad, and B: harness. You press <<X>>.
+X: scaffolding, T: can opener, and B: tool. You press <<X>>.
+X: tape measure, T: soy sauce, and B: rug. You press <<T>>.
+X: raccoon, T: clam, and B: shower curtain. You press <<T>>.
+X: mint, T: satellite, and B: rice. You press <<T>>.
+X: statue, T: lightbulb, and B: piggy bank. You press <<T>>.
+X: boulder, T: bagel, and B: cot. You press <<T>>.
+X: showerhead, T: macadamia, and B: stem. You press <<T>>.
+X: lion, T: cream, and B: car door. You press <<X>>.
+X: syringe, T: hairbrush, and B: goalpost. You press <<B>>.
+X: pillbox, T: calzone, and B: chickpea. You press <<X>>.
+X: sweeper, T: wine, and B: tape measure. You press <<B>>.
+X: washboard, T: lemonade, and B: sock. You press <<T>>.
+X: red carpet, T: lime, and B: fingerprint. You press <<X>>.
+X: pineapple, T: stump, and B: spatula. You press <<T>>.
+X: sifter, T: blueberry, and B: bowtie. You press <<B>>.
+X: door, T: penlight, and B: eggnog. You press <<X>>.
+X: toga, T: brass knuckles, and B: dumpling. You press <<T>>.
+X: ferret, T: butterfly, and B: moose. You press <<T>>.
+X: leggings, T: lighter, and B: headscarf. You press <<T>>.
+X: guitar, T: aardvark, and B: moss. You press <<X>>.
+X: patty, T: flower, and B: eye patch. You press <<X>>.
+X: puck, T: belt buckle, and B: latte. You press <<B>>.
+X: ice, T: crate, and B: parsley. You press <<B>>.
+X: pedometer, T: powder, and B: blanket. You press <<B>>.
+X: aardvark, T: coverall, and B: sledgehammer. You press <<X>>.
+X: wooden leg, T: breadbox, and B: polygraph. You press <<T>>.
+X: knot, T: tick, and B: pomegranate. You press <<B>>.
+X: pillbox, T: roller, and B: machine gun. You press <<X>>.
+X: dessert, T: cap, and B: heater. You press <<B>>.
+X: coffee pot, T: trough, and B: shoe. You press <<X>>.
+X: chess piece, T: payphone, and B: sundial. You press <<X>>.
+X: blueberry, T: grass, and B: mold. You press <<X>>.
+X: motorcycle, T: beet, and B: reel. You press <<B>>.
+X: pecan, T: block, and B: torch. You press <<X>>.
+X: flag, T: wasp, and B: metronome. You press <<T>>.
+X: sombrero, T: slide, and B: diamond. You press <<T>>.
+X: corsage, T: stump, and B: catapult. You press <<X>>.
+X: sauerkraut, T: metal detector, and B: match. You press <<T>>.
+X: clasp, T: ear, and B: eclair. You press <<B>>.
+X: panther, T: nail clippers, and B: clasp. You press <<X>>.
+X: car door, T: strap, and B: backgammon. You press <<B>>.
+X: screw, T: wire, and B: hummus. You press <<B>>.
+X: hedge, T: snowball, and B: anteater. You press <<X>>.
+X: finger, T: chalk, and B: spareribs. You press <<B>>.
+X: duct tape, T: desk, and B: breakfast. You press <<X>>.
+X: coffee pot, T: ferret, and B: crutch. You press <<T>>.
+X: gingerbread man, T: traffic light, and B: box. You press <<T>>.
+X: cake, T: brussels sprouts, and B: lawnmower. You press <<X>>.
+X: coffee bean, T: outfit, and B: pickle. You press <<T>>.
+X: spark plug, T: robot, and B: aloe. You press <<B>>.
+X: coffin, T: hat, and B: skewer. You press <<X>>.
+X: candy bar, T: crossbow, and B: minivan. You press <<X>>.
+X: tuba, T: crystal, and B: stair. You press <<X>>.
+X: bulletproof vest, T: roller, and B: comic book. You press <<T>>.
+X: bean, T: granola, and B: chip. You press <<B>>.
+X: easel, T: syrup, and B: beaker. You press <<X>>.
+X: flashlight, T: carrot, and B: compass. You press <<T>>.
+X: flamingo, T: tumbleweed, and B: extinguisher. You press <<X>>.
+X: champagne, T: fishing pole, and B: aloe. You press <<T>>.
+X: flute, T: awning, and B: satellite dish. You press <<B>>.
+X: waffle iron, T: letter opener, and B: bubble wrap. You press <<T>>.
+X: pickax, T: counter, and B: tent. You press <<T>>.
+X: eclair, T: eyeliner, and B: violin. You press <<B>>.
+X: eggshell, T: match, and B: spinach. You press <<B>>.
+X: thorn, T: mulberry, and B: mullet. You press <<B>>.
+X: hammer, T: bone, and B: panda. You press <<B>>.
+X: sofa bed, T: navel, and B: flamingo. You press <<B>>.
+X: napkin ring, T: soldering iron, and B: lock. You press <<X>>.
+X: chainsaw, T: rack, and B: squirrel. You press <<B>>.
+X: calf, T: baton, and B: clay. You press <<B>>.
+X: moose, T: stretcher, and B: table. You press <<X>>.
+X: meat, T: envelope, and B: goose. You press <<T>>.
+X: bazooka, T: gravy, and B: bug. You press <<T>>.
+X: lip gloss, T: throne, and B: kite. You press <<T>>.
+X: jacket, T: punch, and B: lamb chop. You press <<B>>.
+X: guinea pig, T: catfish, and B: shower. You press <<B>>.
+X: snorkel, T: omelet, and B: oil. You press <<X>>.
+X: stove, T: cigarette holder, and B: baby. You press <<B>>.
+X: baklava, T: latch, and B: couch. You press <<X>>.
+X: parfait, T: sunroof, and B: grate. You press <<B>>.
+X: breadbox, T: bulldozer, and B: ladder. You press <<X>>.
+X: tuba, T: urinal, and B: wolf. You press <<B>>.
+X: walrus, T: speedboat, and B: alpaca. You press <<T>>.
+X: quesadilla, T: lime, and B: pill. You press <<B>>.
+X: garlic, T: airplane, and B: birthday cake. You press <<T>>.
+X: chainsaw, T: screen, and B: dustpan. You press <<T>>.
+X: branch, T: seesaw, and B: chalk. You press <<X>>.
+X: bear, T: sock, and B: oilcan. You press <<X>>.
+X: shower cap, T: garbage, and B: barbed wire. You press <<B>>.
+X: wallet, T: trunk, and B: gurney. You press <<B>>.
+X: sofa bed, T: latch, and B: yo-yo. You press <<B>>.
+X: pipe, T: bouquet, and B: plastic film. You press <<T>>.
+X: magnet, T: baseball glove, and B: briefcase. You press <<X>>.
+X: hovercraft, T: doorstop, and B: stick. You press <<X>>.
+X: noisemaker, T: trigger, and B: lemonade. You press <<B>>.
+X: duster, T: turntable, and B: anvil. You press <<B>>.
+X: pot, T: fountain pen, and B: sheet. You press <<T>>.
+X: tea, T: mosquito net, and B: saw. You press <<X>>.
+X: satellite dish, T: sweater, and B: license plate. You press <<T>>.
+X: boxer shorts, T: candy, and B: exerciser. You press <<T>>.
+X: panda, T: pacifier, and B: baton. You press <<B>>.
+X: breathalyzer, T: burrito, and B: napkin. You press <<X>>.
+X: butter, T: noose, and B: fruitcake. You press <<T>>.
+X: comic book, T: birdbath, and B: balloon. You press <<T>>.
+X: sausage, T: yarn, and B: drawer. You press <<B>>.
+X: wheat, T: tea, and B: toe. You press <<T>>.
+X: jump rope, T: jeans, and B: steamroller. You press <<T>>.
+X: clipper, T: gumdrop, and B: wine cooler. You press <<X>>.
+X: home plate, T: sundae, and B: pig. You press <<X>>.
+X: cream cheese, T: magnet, and B: mullet. You press <<B>>.
+X: taxi, T: goose, and B: cup. You press <<X>>.
+X: walker, T: hubcap, and B: joystick. You press <<X>>.
+X: iron, T: sock, and B: lego. You press <<B>>.
+X: file, T: cardigan, and B: tree. You press <<B>>.
+X: faucet, T: toaster, and B: rack. You press <<B>>.
+X: bib, T: sail, and B: cheesecake. You press <<T>>.
+X: cauliflower, T: pigeon, and B: printer. You press <<T>>.
+X: fencepost, T: coal, and B: counter. You press <<B>>.
+X: marmalade, T: highchair, and B: tree. You press <<B>>.
+X: mashed potato, T: leopard, and B: flute. You press <<X>>.
+X: backscratcher, T: wall, and B: music box. You press <<T>>.
+X: lock, T: steak, and B: doormat. You press <<T>>.
+X: balloon, T: duct, and B: light switch. You press <<X>>.
+X: guitar, T: finger, and B: prune. You press <<X>>.
+X: cannon, T: blouse, and B: snail. You press <<T>>.
+X: sewing machine, T: radiator, and B: target. You press <<T>>.
+X: worm, T: bucket, and B: anchor. You press <<B>>.
+X: bandage, T: chariot, and B: charcoal. You press <<X>>.
+X: bark, T: megaphone, and B: tostada. You press <<T>>.
+X: foam, T: eyepiece, and B: okra. You press <<T>>.
+X: triangle, T: paperclip, and B: sparkler. You press <<B>>.
+X: plum, T: scrabble, and B: weed. You press <<T>>.
+X: beetle, T: ottoman, and B: rock. You press <<X>>.
+X: wreck, T: speedometer, and B: hopscotch. You press <<X>>.
+X: slot machine, T: cuckoo clock, and B: top hat. You press <<T>>.
+X: rust, T: cotton candy, and B: pinball. You press <<X>>.
+X: manhole, T: guillotine, and B: beard. You press <<B>>.
+X: licorice, T: satellite, and B: eraser. You press <<T>>.
+X: hash, T: stained glass, and B: baby. You press <<B>>.
+X: highlighter, T: tattoo, and B: totem pole. You press <<X>>.
+X: jump rope, T: beer, and B: bulldozer. You press <<T>>.
+X: ladder, T: marble, and B: spider. You press <<X>>.
+X: bowling ball, T: roller, and B: gingerbread man. You press <<T>>.
+X: mitten, T: sail, and B: wick. You press <<T>>.
+X: silicone, T: nail, and B: muff. You press <<T>>.
+X: armor, T: owl, and B: whiteboard. You press <<T>>.
+X: hookah, T: curling iron, and B: moth. You press <<B>>.
+X: torch, T: lizard, and B: duckling. You press <<X>>.
+X: bed, T: tadpole, and B: needle. You press <<X>>.
+X: roll, T: scaffold, and B: gift. You press <<T>>.
+X: cake mix, T: goat, and B: van. You press <<B>>.
+X: kayak, T: washing machine, and B: broom. You press <<X>>.
+X: sheath, T: chair, and B: paint. You press <<X>>.
+X: peppermint, T: green beans, and B: elbow. You press <<B>>.
+X: spaghetti, T: rust, and B: guardrail. You press <<X>>.
+X: radiator, T: spatula, and B: power line. You press <<T>>.
+X: locket, T: red carpet, and B: moss. You press <<B>>.
+X: terrarium, T: gel, and B: sleeping bag. You press <<B>>.
+X: lamb, T: burner, and B: backscratcher. You press <<X>>.
+X: mousse, T: odometer, and B: dustpan. You press <<T>>.
+X: refrigerator, T: mascara, and B: tablecloth. You press <<T>>.
+X: boot, T: treasure, and B: juice. You press <<B>>.
+X: piano, T: hippopotamus, and B: sandwich. You press <<X>>.
+X: spider, T: bra, and B: hip. You press <<X>>.
+X: oil, T: banana, and B: cotton candy. You press <<X>>.
+X: ship, T: pill, and B: flyswatter. You press <<T>>.
+X: door, T: fire hydrant, and B: plunger. You press <<X>>.
+X: magnifier, T: medal, and B: chihuahua. You press <<B>>.
+X: keg, T: ice cube, and B: hamster. You press <<B>>.
+X: umbrella, T: candy cane, and B: buggy. You press <<B>>.
+X: handprint, T: hobbyhorse, and B: granite. You press <<X>>.
+X: doily, T: coal, and B: snowball. You press <<B>>.
+X: cougar, T: coal, and B: beet. You press <<X>>.
+X: clipper, T: clove, and B: coat rack. You press <<B>>.
+X: sundial, T: fuse, and B: cow. You press <<B>>.
+X: lighter, T: keyhole, and B: spark plug. You press <<X>>.
+X: car seat, T: cart, and B: lamp. You press <<B>>.
+X: orangutan, T: boulder, and B: duct tape. You press <<T>>.
+X: sweatsuit, T: origami, and B: palette. You press <<B>>.
+X: barbed wire, T: cash register, and B: generator. You press <<T>>.
+X: pepperoni, T: bean, and B: penguin. You press <<B>>.
+X: mud, T: wrist, and B: balloon. You press <<X>>.
+X: dishwashing liquid, T: mosquito net, and B: polygraph. You press <<B>>.
+X: hairbrush, T: button, and B: porthole. You press <<T>>.
+X: urinal, T: turf, and B: tag. You press <<B>>.
+X: accordion, T: bomb, and B: wooden leg. You press <<X>>.
+X: panda, T: harmonica, and B: mashed potato. You press <<X>>.
+X: collar, T: petal, and B: dice. You press <<X>>.
+X: paper bag, T: nail clippers, and B: recliner. You press <<X>>.
+X: airbag, T: windshield wiper, and B: mint. You press <<B>>.
+X: wallpaper, T: lock, and B: frame. You press <<X>>.
+X: computer, T: gravel, and B: closet. You press <<T>>.
+X: can opener, T: birdbath, and B: stump. You press <<T>>.
+X: totem pole, T: laser pointer, and B: orange rind. You press <<B>>.
+X: figurine, T: calf, and B: mistletoe. You press <<T>>.
+X: goose, T: goblet, and B: copier. You press <<X>>.
+X: balloon, T: clarinet, and B: mirror. You press <<X>>.
+X: pencil, T: teabag, and B: kayak. You press <<X>>.
+X: hearse, T: motorcycle, and B: bug. You press <<B>>.
+X: possum, T: log, and B: ladybug. You press <<T>>.
+X: punch, T: pet food, and B: lip gloss. You press <<T>>.
+X: checkbook, T: centrifuge, and B: earring. You press <<B>>.
+X: scalpel, T: noisemaker, and B: poster. You press <<B>>.
+X: turkey, T: trashcan, and B: meat grinder. You press <<T>>.
+X: baton, T: radiator, and B: rearview mirror. You press <<T>>.
+X: ferry, T: bun, and B: shield. You press <<T>>.
+X: cat, T: target, and B: quesadilla. You press <<X>>.
+X: cucumber, T: trampoline, and B: flower. You press <<T>>.
+X: starfish, T: tupperware, and B: board. You press <<X>>.
+X: buckle, T: pool table, and B: crumb. You press <<X>>.
+X: duffel bag, T: doorknocker, and B: hedge. You press <<B>>.
+X: tambourine, T: cabinet, and B: asparagus. You press <<B>>.
+X: ear, T: belt buckle, and B: sombrero. You press <<X>>.
+X: ticktacktoe, T: ivy, and B: juicer. You press <<X>>.
+X: compass, T: poppy, and B: cotton candy. You press <<X>>.
+X: french horn, T: airplane, and B: container. You press <<X>>.
+X: quad, T: chicken, and B: skeleton. You press <<X>>.
+X: mantle, T: flip flop, and B: strainer. You press <<T>>.
+X: mirror, T: harmonica, and B: barnacle. You press <<T>>.
+X: clipper, T: brass knuckles, and B: taillight. You press <<B>>.
+X: mole, T: napkin, and B: tiramisu. You press <<B>>.
+X: brussels sprouts, T: petal, and B: lamb. You press <<B>>.
+X: backgammon, T: gauze, and B: bonnet. You press <<X>>.
+X: cigarette holder, T: drill, and B: urinal. You press <<B>>.
+X: toy, T: barcode, and B: bow. You press <<T>>.
+X: bonnet, T: handbrake, and B: hummus. You press <<B>>.
+X: pepperoni, T: teapot, and B: cranberry. You press <<T>>.
+X: diving board, T: scaffolding, and B: guinea pig. You press <<T>>.
+X: washing machine, T: printer, and B: aquarium. You press <<B>>.
+X: tomato, T: toothbrush, and B: lawnmower. You press <<X>>.
+X: pallet, T: popsicle, and B: thumbtack. You press <<B>>.
+X: potholder, T: incense, and B: mousse. You press <<T>>.
+X: breakfast, T: bowl, and B: wick. You press <<B>>.
+X: ladder, T: doorbell, and B: okra. You press <<B>>.
+X: tinsel, T: teddy bear, and B: exhaust pipe. You press <<B>>.
+X: polisher, T: thermostat, and B: mint. You press <<B>>.
+X: horseshoe, T: gazelle, and B: eggnog. You press <<B>>.
+X: roulette wheel, T: polisher, and B: trumpet. You press <<B>>.
+X: calf, T: grater, and B: brick. You press <<X>>.
+X: panda, T: duct tape, and B: telephone pole. You press <<X>>.
+X: noisemaker, T: magnet, and B: fishbowl. You press <<T>>.
+X: stew, T: flag, and B: satellite. You press <<X>>.
+X: camera, T: screw, and B: braid. You press <<T>>.
+X: cranberry, T: grits, and B: drill. You press <<B>>.
+X: canvas, T: paddle, and B: ice-cream cone. You press <<B>>.
+X: sandal, T: springboard, and B: basketball. You press <<X>>.
+X: clove, T: marshmallow, and B: kite. You press <<X>>.
+X: kneepad, T: breathalyzer, and B: brick. You press <<B>>.
+X: plate, T: iron, and B: spareribs. You press <<T>>.
+X: contact lens, T: crutch, and B: tortellini. You press <<T>>.
+X: eagle, T: potpourri, and B: raccoon. You press <<T>>.
+X: net, T: thermos, and B: rollerskate. You press <<X>>.
+X: macadamia, T: nail file, and B: water heater. You press <<B>>.
+X: buoy, T: sweatsuit, and B: centerpiece. You press <<X>>.
+X: spur, T: dessert, and B: gyroscope. You press <<T>>.
+X: straightjacket, T: crane, and B: polo shirt. You press <<T>>.
+X: peppermint, T: saxophone, and B: hairdryer. You press <<X>>.
+X: sweater, T: scraper, and B: cheeseburger. You press <<X>>.
+X: coffin, T: stuffing, and B: bullet. You press <<T>>.
+X: can, T: coffee pot, and B: airplane. You press <<B>>.
+X: rhinoceros, T: bacon, and B: treadmill. You press <<B>>.
+X: syringe, T: papaya, and B: springboard. You press <<X>>.
+X: seafood, T: power line, and B: honey. You press <<T>>.
+X: medal, T: harp, and B: basketball hoop. You press <<T>>.
+X: visor, T: scoreboard, and B: toothbrush. You press <<B>>.
+X: gift, T: weather vane, and B: propeller. You press <<X>>.
+X: egg roll, T: whistle, and B: snack. You press <<T>>.
+X: bolo tie, T: bamboo, and B: cougar. You press <<B>>.
+X: boat, T: leotard, and B: flour. You press <<B>>.
+X: handprint, T: water fountain, and B: leopard. You press <<B>>.
+X: turban, T: lanyard, and B: napkin. You press <<B>>.
+X: icicle, T: mussel, and B: bee. You press <<X>>.
+X: mosquito, T: pennant, and B: shawl. You press <<X>>.
+X: fudge, T: eye patch, and B: praying mantis. You press <<B>>.
+X: anchor, T: shutter, and B: steering wheel. You press <<T>>.
+X: carousel, T: pie, and B: nest. You press <<B>>.
+X: hammer, T: seatbelt, and B: football. You press <<B>>.
+X: painting, T: string cheese, and B: trombone. You press <<T>>.
+X: flipper, T: napkin ring, and B: dragonfly. You press <<B>>.
+X: flagpole, T: stretcher, and B: parsley. You press <<B>>.
+X: charcoal, T: souffle, and B: rollerskate. You press <<B>>.
+X: headdress, T: brownie, and B: tomato. You press <<X>>.
+X: potato, T: girl, and B: ping-pong table. You press <<X>>.
+X: panther, T: blazer, and B: telephone pole. You press <<X>>.
+X: slug, T: truck, and B: sheet. You press <<X>>.
+X: sequin, T: shell, and B: cardinal. You press <<B>>.
+X: wine, T: sponge, and B: grape. You press <<T>>.
+X: game, T: bubble wrap, and B: lock. You press <<B>>.
+X: coffee pot, T: trombone, and B: scaffolding. You press <<X>>.
+X: kettle, T: steamroller, and B: spaghetti. You press <<B>>.
+X: taco, T: fur coat, and B: star fruit. You press <<T>>.
+X: bee, T: ruby, and B: shopping basket. You press <<X>>.
+X: paperweight, T: showerhead, and B: calzone. You press <<B>>.
+X: thumbtack, T: eyepiece, and B: lightning bug. You press <<X>>.
+X: cornhusk, T: antelope, and B: bamboo. You press <<T>>.
+X: handle, T: medal, and B: joystick. You press <<T>>.
+X: rocket, T: muffin, and B: gourd. You press <<X>>.
+X: dreidel, T: goldfish, and B: barrel. You press <<T>>.
+X: stove, T: rubber band, and B: shutter. You press <<T>>.
+X: hockey stick, T: torch, and B: lectern. You press <<T>>.
+X: fencepost, T: basketball hoop, and B: caterpillar. You press <<B>>.
+X: lab coat, T: skirt, and B: rolling pin. You press <<B>>.
+X: scissors, T: penlight, and B: rickshaw. You press <<T>>.
+X: margarita, T: scaffolding, and B: puffin. You press <<B>>.
+X: blazer, T: grill, and B: nacho. You press <<X>>.
+X: possum, T: game, and B: viewfinder. You press <<X>>.
+X: warthog, T: omelet, and B: potpourri. You press <<X>>.
+X: hotdog, T: thermos, and B: lunchbox. You press <<B>>.
+X: staple gun, T: guardrail, and B: mascara. You press <<T>>.
+X: crumb, T: seed, and B: cocoon. You press <<B>>.
+X: mulch, T: balloon, and B: ram. You press <<B>>.
+X: pantsuit, T: trap, and B: bobsled. You press <<T>>.
+X: doily, T: chili, and B: poppy. You press <<T>>.
+X: mosquito net, T: curry, and B: ruby. You press <<B>>.
+X: hip, T: girl, and B: brick. You press <<B>>.
+X: wind chimes, T: toga, and B: shark. You press <<B>>.
+X: saucer, T: payphone, and B: flamingo. You press <<T>>.
+X: chicken wire, T: vase, and B: kangaroo. You press <<X>>.
+X: pelican, T: rice, and B: thread. You press <<B>>.
+X: biscuit, T: blazer, and B: weed. You press <<X>>.
+X: owl, T: wax, and B: tick. You press <<T>>.
+X: eggbeater, T: bedpost, and B: gift. You press <<X>>.
+X: olive, T: rattle, and B: hula hoop. You press <<X>>.
+X: fossil, T: fish, and B: incense. You press <<B>>.
+X: aloe, T: checkbook, and B: backdrop. You press <<B>>.
+X: train set, T: pulpit, and B: tiger. You press <<B>>.
+X: antelope, T: tortellini, and B: icemaker. You press <<B>>.
+X: polar bear, T: flamethrower, and B: cigarette holder. You press <<X>>.
+X: spam, T: button, and B: ivy. You press <<T>>.
+X: riser, T: limousine, and B: microphone. You press <<T>>.
+X: step stool, T: kangaroo, and B: highlighter. You press <<T>>.
+X: jet, T: lab coat, and B: ferry. You press <<B>>.
+X: sundial, T: honeycomb, and B: orange rind. You press <<X>>.
+X: dip, T: petri dish, and B: wrist. You press <<T>>.
+X: pom-pom, T: wine cooler, and B: cardinal. You press <<T>>.
+X: margarita, T: monkey, and B: boa. You press <<T>>.
+X: icicle, T: wok, and B: rattlesnake. You press <<B>>.
+X: pedal, T: kettle, and B: wing. You press <<B>>.
+X: poodle, T: sand, and B: stove. You press <<X>>.
+X: spider, T: mussel, and B: soup. You press <<X>>.
+X: coral, T: outfit, and B: bonnet. You press <<X>>.
+X: magnifying glass, T: jetski, and B: retainer. You press <<B>>.
+X: remote control, T: sequin, and B: arrow. You press <<T>>.
+X: tie, T: snowshoe, and B: swing set. You press <<B>>.
+X: bomb, T: raft, and B: rickshaw. You press <<T>>.
+X: bagpipe, T: smoothie, and B: tortellini. You press <<X>>.
+X: tuxedo, T: eyepiece, and B: suitcase. You press <<B>>.
+X: diaper, T: boxing gloves, and B: wedding cake. You press <<B>>.
+X: tinsel, T: straw, and B: defibrillator. You press <<B>>.
+X: lamb chop, T: pajamas, and B: cake. You press <<T>>.
+X: kitten, T: porthole, and B: candy. You press <<T>>.
+X: razor, T: rust, and B: ferry. You press <<T>>.
+X: dart, T: moss, and B: loveseat. You press <<T>>.
+X: measuring cup, T: remote control, and B: landmine. You press <<B>>.
+X: blind, T: avocado, and B: terrarium. You press <<X>>.
+X: bowling ball, T: milkshake, and B: nut. You press <<X>>.
+X: tricycle, T: thermometer, and B: bomb. You press <<X>>.
+X: lightning bug, T: flag, and B: bib. You press <<X>>.
+X: clipper, T: domino, and B: latch. You press <<T>>.
+X: stair, T: sewing kit, and B: tea. You press <<B>>.
+X: plastic film, T: neck, and B: strap. You press <<T>>.
+X: bathtub, T: pacifier, and B: tent. You press <<B>>.
+X: ratchet, T: can, and B: cigarette holder. You press <<T>>.
+X: clove, T: rooster, and B: fireplace. You press <<T>>.
+X: fruitcake, T: dough, and B: asparagus. You press <<B>>.
+X: pickax, T: sewing kit, and B: filing cabinet. You press <<T>>.
+X: toaster oven, T: jigsaw puzzle, and B: headband. You press <<X>>.
+X: film, T: shield, and B: chair. You press <<T>>.
+X: eel, T: melon, and B: nut. You press <<X>>.
+X: taxi, T: porcupine, and B: raspberry. You press <<X>>.
+X: record, T: comb, and B: chain. You press <<T>>.
+X: goose, T: ladder, and B: snack. You press <<T>>.
+X: recliner, T: cloud, and B: eclair. You press <<B>>.
+X: rust, T: exerciser, and B: knitting. You press <<X>>.
+X: sauce, T: eggshell, and B: rag. You press <<B>>.
+X: earplug, T: tuning fork, and B: braid. You press <<X>>.
+X: bologna, T: cello, and B: dryer. You press <<X>>.
+X: lettuce, T: maple syrup, and B: mashed potato. You press <<X>>.
+X: shower, T: jewelry, and B: gas mask. You press <<X>>.
+X: hood, T: sardine, and B: headlamp. You press <<T>>.
+X: fishing pole, T: wire cutters, and B: lime. You press <<B>>.
+X: coat rack, T: barcode, and B: gumdrop. You press <<X>>.
+X: bologna, T: bagel, and B: clam. You press <<B>>.
+X: pineapple, T: jewel, and B: snail. You press <<X>>.
+X: bonsai, T: cutting board, and B: crumb. You press <<X>>.
+X: hook, T: car, and B: lid. You press <<B>>.
+X: mulberry, T: cleaver, and B: lawnmower. You press <<X>>.
+X: hot chocolate, T: lemonade, and B: giraffe. You press <<B>>.
+X: mantle, T: beaver, and B: pickle. You press <<T>>.
+X: glue, T: ballot box, and B: jump rope. You press <<T>>.
+X: firewood, T: toothpick, and B: butterfly. You press <<B>>.
+X: canister, T: cranberry, and B: ravioli. You press <<X>>.
+X: patch, T: boar, and B: eel. You press <<X>>.
+X: scone, T: cornmeal, and B: lettuce. You press <<X>>.
+X: breathalyzer, T: globe, and B: button. You press <<X>>.
+X: doghouse, T: headband, and B: fuse. You press <<T>>.
+X: gas mask, T: otter, and B: ball. You press <<T>>.
+X: ukulele, T: ottoman, and B: rake. You press <<B>>.
+X: jersey, T: crystal, and B: snowplow. You press <<T>>.
+X: chalk, T: peg, and B: puppet. You press <<B>>.
+X: van, T: sweeper, and B: stool. You press <<T>>.
+X: polar bear, T: tongue, and B: turtle. You press <<T>>.
+X: machine gun, T: tuba, and B: hot-air balloon. You press <<T>>.
+X: golf club, T: sausage, and B: blanket. You press <<B>>.
+X: pom-pom, T: bun, and B: harmonica. You press <<B>>.
+X: machine gun, T: basketball, and B: rack. You press <<X>>.
+X: granola, T: airbag, and B: cigar. You press <<T>>.
+X: bandage, T: ladle, and B: lid. You press <<X>>.
+X: alligator, T: windowsill, and B: green beans. You press <<X>>.
+X: vase, T: duckling, and B: puddle. You press <<B>>.
+X: collar, T: cart, and B: slipper. You press <<T>>.
+X: coral, T: bush, and B: gun. You press <<B>>.
+X: feather, T: grater, and B: hoodie. You press <<T>>.
+X: crib, T: dishrag, and B: handcuff. You press <<B>>.
+X: counter, T: cranberry, and B: velcro. You press <<B>>.
+X: grass, T: diskette, and B: coffee table. You press <<X>>.
+X: knee, T: octopus, and B: thermometer. You press <<X>>.
+X: mascara, T: table, and B: phone. You press <<X>>.
+X: pigeon, T: shell, and B: seesaw. You press <<B>>.
+X: milkshake, T: bin, and B: mongoose. You press <<B>>.
+X: bench, T: bonnet, and B: detonator. You press <<B>>.
+X: sidecar, T: doorknocker, and B: mold. You press <<X>>.
+X: knot, T: cotton candy, and B: lemon. You press <<X>>.
+X: oil, T: mousse, and B: graffiti. You press <<B>>.
+X: smoothie, T: chest, and B: mouth. You press <<T>>.
+X: grain, T: grasshopper, and B: soldering iron. You press <<B>>.
+X: quad, T: christmas tree, and B: whale. You press <<B>>.
+X: fossil, T: pendulum, and B: tree trunk. You press <<T>>.
+X: soy sauce, T: candy cane, and B: ski pole. You press <<B>>.
+X: tinsel, T: pothole, and B: whip. You press <<T>>.
+X: duster, T: polaroid, and B: sushi. You press <<B>>.
+X: donut, T: checkbook, and B: slot. You press <<X>>.
+X: robe, T: smoothie, and B: sidecar. You press <<B>>.
+X: beanbag, T: christmas tree, and B: doily. You press <<T>>.
+X: breadbox, T: hoodie, and B: mulch. You press <<B>>.
+X: wheelchair, T: mat, and B: minivan. You press <<T>>.
+X: milkshake, T: calf, and B: mistletoe. You press <<T>>.
+X: lasagna, T: trailer, and B: pumpkin. You press <<T>>.
+X: minivan, T: bobsled, and B: brake. You press <<B>>.
+X: boxing gloves, T: bullet, and B: lion. You press <<B>>.
+X: tape measure, T: holster, and B: staple. You press <<B>>.
+X: taxi, T: gel, and B: poinsettia. You press <<X>>.
+X: sundae, T: ski boots, and B: feather. You press <<B>>.
+X: soccer ball, T: lollipop, and B: lego. You press <<B>>.
+X: sardine, T: column, and B: humvee. You press <<X>>.
+X: flipper, T: organ, and B: cookie cutter. You press <<X>>.
+X: pipe, T: cart, and B: jet. You press <<X>>.
+X: easter egg, T: christmas tree, and B: bowling ball. You press <<T>>.
+X: cornhusk, T: mongoose, and B: tack. You press <<T>>.
+X: javelin, T: road sign, and B: torpedo. You press <<B>>.
+X: groundhog, T: yo-yo, and B: pom-pom. You press <<X>>.
+X: cereal, T: bat, and B: memory stick. You press <<B>>.
+X: roof rack, T: steak, and B: cheeseburger. You press <<X>>.
+X: wok, T: teddy bear, and B: sprouts. You press <<T>>.
+X: backdrop, T: aircraft carrier, and B: badge. You press <<X>>.
+X: smoke alarm, T: letter opener, and B: pitcher. You press <<X>>.
+X: boot, T: charger, and B: hatchet. You press <<T>>.
+X: cake, T: dough, and B: turf. You press <<B>>.
+X: bee, T: baklava, and B: ambulance. You press <<X>>.
+X: buggy, T: ready meal, and B: shredder. You press <<T>>.
+X: paperweight, T: pinecone, and B: pickle. You press <<X>>.
+X: jelly bean, T: saxophone, and B: coffee filter. You press <<T>>.
+X: bracelet, T: sponge, and B: airboat. You press <<T>>.
+X: router, T: pine tree, and B: roller. You press <<T>>.
+X: nail clippers, T: domino, and B: dip. You press <<B>>.
+X: cuckoo clock, T: lab coat, and B: bird. You press <<B>>.
+X: gravy, T: hole, and B: music box. You press <<B>>.
+X: swan, T: flower, and B: sponge. You press <<B>>.
+X: gallows, T: roof rack, and B: parfait. You press <<B>>.
+X: punch, T: puppet, and B: saddle. You press <<T>>.
+X: harmonica, T: pepper, and B: stretcher. You press <<T>>.
+X: springboard, T: paper towel, and B: hawk. You press <<B>>.
+X: carousel, T: quilt, and B: lemonade. You press <<B>>.
+X: shears, T: scooter, and B: skirt. You press <<B>>.
+X: nightstand, T: washboard, and B: safety pin. You press <<X>>.
+X: pomegranate, T: ballot box, and B: eggnog. You press <<T>>.
+X: pepper, T: silicone, and B: ladder. You press <<B>>.
+X: cantaloupe, T: batter, and B: measuring cup. You press <<B>>.
+X: pea, T: locker, and B: jar. You press <<B>>.
+X: swing set, T: garter, and B: lampshade. You press <<T>>.
+X: humvee, T: saffron, and B: balance beam. You press <<T>>.
+X: punch, T: log, and B: grits. You press <<B>>.
+X: rat, T: pie, and B: girl. You press <<X>>.
+X: seaweed, T: floss, and B: harness. You press <<B>>.
+X: speedboat, T: candy bar, and B: worm. You press <<T>>.
+X: comb, T: home plate, and B: bag. You press <<T>>.
+X: board game, T: washboard, and B: rifle. You press <<X>>.
+X: bumper, T: soy sauce, and B: dishrag. You press <<X>>.
+X: bench, T: cannon, and B: barbell. You press <<X>>.
+X: rug, T: timer, and B: toast. You press <<B>>.
+X: grits, T: pacifier, and B: corn. You press <<T>>.
+X: sea urchin, T: doorknocker, and B: tomato sauce. You press <<T>>.
+X: game, T: cucumber, and B: sickle. You press <<X>>.
+X: scale, T: ketchup, and B: ice cream. You press <<X>>.
+X: diamond, T: photograph, and B: pliers. You press <<T>>.
+X: scoreboard, T: teapot, and B: log. You press <<B>>.
+X: knitting needle, T: frisbee, and B: candelabra. You press <<T>>.
+X: cinnamon, T: patch, and B: girl. You press <<X>>.
+X: punching bag, T: slicer, and B: spatula. You press <<T>>.
+X: knee, T: cigarette holder, and B: crepe. You press <<B>>.
+X: clam, T: coop, and B: crossbow. You press <<X>>.
+X: lab coat, T: workbench, and B: coffee table. You press <<T>>.
+X: modem, T: elephant, and B: coffee filter. You press <<T>>.
+X: hot chocolate, T: scrambled egg, and B: donkey. You press <<B>>.
+X: orange rind, T: hair, and B: finger. You press <<X>>.
+X: thumbtack, T: marshmallow, and B: dirt bike. You press <<X>>.
+X: crayfish, T: ketchup, and B: harp. You press <<X>>.
+X: money, T: straightjacket, and B: doormat. You press <<B>>.
+X: cot, T: seatbelt, and B: eggplant. You press <<B>>.
+X: footprint, T: surfboard, and B: baklava. You press <<B>>.
+X: sandpaper, T: lumber, and B: nut. You press <<B>>.
+X: steak, T: crab, and B: shoulder. You press <<B>>.
+X: vending machine, T: apple, and B: snorkel. You press <<B>>.
+X: pumpkin, T: coyote, and B: watermelon. You press <<T>>.
+X: ice-cream cone, T: soccer ball, and B: drumstick. You press <<T>>.
+X: combination lock, T: tennis ball, and B: lasagna. You press <<B>>.
+X: column, T: bat, and B: face mask. You press <<B>>.
+X: coat, T: pajamas, and B: wreck. You press <<B>>.
+X: ram, T: treasure, and B: tree trunk. You press <<X>>.
+X: candy, T: camcorder, and B: dalmatian. You press <<X>>.
+X: button, T: pumpkin, and B: grape. You press <<X>>.
+X: kayak, T: binoculars, and B: washcloth. You press <<B>>.
+X: rickshaw, T: envelope, and B: filing cabinet. You press <<X>>.
+X: chicken, T: bow, and B: cd player. You press <<X>>.
+X: pasta, T: cannonball, and B: guardrail. You press <<B>>.
+X: knife, T: comb, and B: gauze. You press <<T>>.
+X: fuse, T: workbench, and B: vise. You press <<X>>.
+X: whiteboard, T: thread, and B: artichoke. You press <<B>>.
+X: tennis ball, T: keg, and B: cymbal. You press <<X>>.
+X: muff, T: meerkat, and B: corkscrew. You press <<B>>.
+X: stalagmite, T: gun, and B: rattlesnake. You press <<T>>.
+X: railing, T: sword, and B: wine bottle. You press <<B>>.
+X: pitcher, T: shell, and B: wire. You press <<B>>.
+X: shawl, T: shield, and B: shovel. You press <<X>>.
+X: sewing kit, T: saffron, and B: workbench. You press <<T>>.
+X: nail, T: plastic film, and B: umbrella. You press <<B>>.
+X: cot, T: phone, and B: toolbox. You press <<T>>.
+X: envelope, T: sticker, and B: bread. You press <<B>>.
+X: hedge, T: dip, and B: mongoose. You press <<B>>.
+X: milk, T: ski pole, and B: card. You press <<X>>.
+X: curb, T: submarine, and B: silverware. You press <<B>>.
+X: furnace, T: puddle, and B: snowman. You press <<T>>.
+X: brake, T: altar, and B: bead. You press <<B>>.
+X: watermelon, T: sling, and B: clay. You press <<T>>.
+X: raccoon, T: hobbyhorse, and B: sled. You press <<B>>.
+X: snowplow, T: baseball bat, and B: pomegranate. You press <<X>>.
+X: banana peel, T: walker, and B: ladle. You press <<B>>.
+X: pillow, T: mint, and B: pretzel. You press <<T>>.
+X: shaving cream, T: moose, and B: motherboard. You press <<T>>.
+X: tadpole, T: gasket, and B: magnifier. You press <<X>>.
+X: ski, T: guillotine, and B: cement mixer. You press <<X>>.
+X: corkboard, T: tattoo, and B: air mattress. You press <<T>>.
+X: closet, T: kebab, and B: ski lift. You press <<T>>.
+X: scraper, T: station wagon, and B: sundial. You press <<B>>.
+X: cardigan, T: string cheese, and B: scraper. You press <<X>>.
+X: gourd, T: jellyfish, and B: box. You press <<B>>.
+X: teepee, T: pelican, and B: pecan. You press <<X>>.
+X: doily, T: overalls, and B: panther. You press <<B>>.
+X: metronome, T: woman, and B: hammock. You press <<X>>.
+X: cannon, T: papaya, and B: skateboard. You press <<T>>.
+X: raccoon, T: ladder, and B: mat. You press <<X>>.
+X: space shuttle, T: polisher, and B: water fountain. You press <<T>>.
+X: shoelace, T: crucifix, and B: tapestry. You press <<T>>.
+X: blanket, T: cotton candy, and B: tumbleweed. You press <<X>>.
+X: bag, T: lighter, and B: thumbtack. You press <<B>>.
+X: iceskate, T: grapefruit, and B: sprinkler. You press <<T>>.
+X: juicer, T: outfit, and B: hourglass. You press <<T>>.
+X: mail, T: bear, and B: poppy. You press <<T>>.
+X: petri dish, T: food processor, and B: airboat. You press <<B>>.
+X: giraffe, T: gate, and B: rudder. You press <<X>>.
+X: cougar, T: gargoyle, and B: camel. You press <<T>>.
+X: handlebar, T: rickshaw, and B: incubator. You press <<B>>.
+X: gorilla, T: chest, and B: bracelet. You press <<X>>.
+X: rickshaw, T: frisbee, and B: wand. You press <<B>>.
+X: crutch, T: breakfast, and B: gumball. You press <<T>>.
+X: mask, T: stove, and B: suspenders. You press <<X>>.
+X: ambulance, T: noodle, and B: snowball. You press <<T>>.
+X: wrench, T: float, and B: cooler. You press <<T>>.
+X: towel, T: eggbeater, and B: wind chimes. You press <<X>>.
+X: coffee table, T: stethoscope, and B: icemaker. You press <<X>>.
+X: bow, T: windshield wiper, and B: purse. You press <<B>>.
+X: sauerkraut, T: spool, and B: tuxedo. You press <<X>>.
+X: lightning bug, T: scarf, and B: duct. You press <<X>>.
+X: pug, T: pomegranate, and B: flan. You press <<X>>.
+X: basket, T: album, and B: dryer. You press <<B>>.
+X: handle, T: bow, and B: candy bar. You press <<X>>.
+X: mallet, T: sardine, and B: hatbox. You press <<X>>.
+X: rifle, T: mouthpiece, and B: sandwich. You press <<B>>.
+X: squirt gun, T: pillow, and B: pipe. You press <<T>>.
+X: checkers, T: ladybug, and B: mouthpiece. You press <<T>>.
+X: hoe, T: egg, and B: icepick. You press <<T>>.
+X: sofa bed, T: bok choy, and B: guitar. You press <<T>>.
+X: keg, T: diaper, and B: lampshade. You press <<T>>.
+X: sleeping bag, T: ice, and B: punch. You press <<B>>.
+X: leopard, T: lamp, and B: cigarette butt. You press <<X>>.
+X: hairbrush, T: flyswatter, and B: sparkler. You press <<B>>.
+X: doorknocker, T: zucchini, and B: boy. You press <<B>>.
+X: stilt, T: bell pepper, and B: flashbulb. You press <<X>>.
+X: railing, T: harp, and B: powder. You press <<B>>.
+X: mirror, T: smoke alarm, and B: baseball glove. You press <<B>>.
+X: boar, T: map, and B: leek. You press <<T>>.
+X: goggles, T: dagger, and B: chisel. You press <<X>>.
+X: stomach, T: curb, and B: aloe. You press <<T>>.
+X: dashboard, T: baton, and B: taffy. You press <<X>>.
+X: bassoon, T: gazelle, and B: anteater. You press <<X>>.
+X: tuxedo, T: sushi, and B: yacht. You press <<B>>.
+X: coffee, T: sledgehammer, and B: awning. You press <<T>>.
+X: swan, T: braid, and B: camper. You press <<B>>.
+X: meat, T: cigarette holder, and B: chainsaw. You press <<T>>.
+X: curb, T: beard, and B: wax paper. You press <<X>>.
+X: dough, T: wasp, and B: toothbrush. You press <<T>>.
+X: needle, T: beet, and B: razor. You press <<X>>.
+X: space shuttle, T: smoke alarm, and B: kimono. You press <<B>>.
+X: nacho, T: dollhouse, and B: cane. You press <<X>>.
+X: oatmeal, T: clipboard, and B: helmet. You press <<X>>.
+X: coop, T: blueberry, and B: minivan. You press <<B>>.
+X: saffron, T: poodle, and B: egg. You press <<T>>.
+X: photo booth, T: seagull, and B: possum. You press <<X>>.
+X: hard disk, T: coffee, and B: ice pack. You press <<X>>.
+X: headlamp, T: football helmet, and B: anvil. You press <<B>>.
+X: sloth, T: gift, and B: red carpet. You press <<X>>.
+X: stir fry, T: lawnmower, and B: food processor. You press <<T>>.
+X: quiche, T: doormat, and B: bear. You press <<X>>.
+X: squeegee, T: brussels sprouts, and B: pool table. You press <<B>>.
+X: laser pointer, T: sea urchin, and B: saw. You press <<T>>.
+X: steamroller, T: tea, and B: goose. You press <<X>>.
+X: cannon, T: candy cane, and B: loincloth. You press <<X>>.
+X: pomegranate, T: sparkler, and B: dishwashing liquid. You press <<T>>.
+X: blower, T: bubble wrap, and B: sweatsuit. You press <<X>>.
+X: owl, T: sandpaper, and B: mallet. You press <<X>>.
+X: life jacket, T: headlamp, and B: charger. You press <<X>>.
+X: loom, T: folder, and B: bat. You press <<B>>.
+X: stalagmite, T: shelf, and B: sock. You press <<X>>.
+X: pliers, T: roll, and B: wineglass. You press <<X>>.
+X: dragonfly, T: handbrake, and B: pickle. You press <<B>>.
+X: hat, T: weasel, and B: treadmill. You press <<T>>.
+X: bracket, T: switch, and B: lizard. You press <<B>>.
+X: pumpkin, T: flagpole, and B: pill. You press <<T>>.
+X: origami, T: notebook, and B: lightbulb. You press <<B>>.
+X: glasses, T: chicken, and B: doll. You press <<X>>.
+X: catapult, T: eclair, and B: hole. You press <<B>>.
+X: skin, T: bouquet, and B: pill. You press <<T>>.
+X: vegetable, T: kayak, and B: calamari. You press <<T>>.
+X: gazelle, T: butterfly, and B: popcorn. You press <<B>>.
+X: flour, T: candy cane, and B: cabinet. You press <<T>>.
+X: horseshoe, T: pickle, and B: food processor. You press <<X>>.
+X: extinguisher, T: stick, and B: vise. You press <<B>>.
+X: rust, T: okra, and B: hat. You press <<T>>.
+X: pecan, T: hair, and B: canoe. You press <<X>>.
+X: trigger, T: satellite, and B: wheel. You press <<B>>.
+X: top hat, T: flan, and B: wire cutters. You press <<T>>.
+X: handkerchief, T: desk, and B: muffin. You press <<X>>.
+X: confetti, T: roof rack, and B: ostrich. You press <<B>>.
+X: crayon, T: taco, and B: polaroid. You press <<T>>.
+X: cheesecake, T: clothespin, and B: totem pole. You press <<X>>.
+X: water cooler, T: garter, and B: mustache. You press <<X>>.
+X: pencil, T: chain, and B: bubble wrap. You press <<X>>.
+X: anteater, T: bowl, and B: dress. You press <<X>>.
+X: cornucopia, T: grinder, and B: shell. You press <<T>>.
+X: owl, T: table, and B: bank. You press <<T>>.
+X: forklift, T: marble, and B: corset. You press <<X>>.
+X: pistachio, T: octopus, and B: dip. You press <<T>>.
+X: raisin, T: hamburger, and B: trigger. You press <<B>>.
+X: wok, T: bumper, and B: satellite dish. You press <<T>>.
+X: sandwich, T: notepad, and B: bib. You press <<X>>.
+X: trailer, T: pizza, and B: blueberry. You press <<X>>.
+X: braid, T: binoculars, and B: burrito. You press <<B>>.
+X: doily, T: pantsuit, and B: origami. You press <<B>>.
+X: chalice, T: tumbleweed, and B: flipper. You press <<T>>.
+X: tortilla, T: catfish, and B: money. You press <<B>>.
+X: scanner, T: origami, and B: bassoon. You press <<B>>.
+X: root, T: flower, and B: possum. You press <<B>>.
+X: grits, T: trophy, and B: teepee. You press <<X>>.
+X: puffin, T: traffic light, and B: flashbulb. You press <<X>>.
+X: gutter, T: penlight, and B: diamond. You press <<X>>.
+X: sandal, T: cardboard, and B: stake. You press <<X>>.
+X: stump, T: nacho, and B: lampshade. You press <<T>>.
+X: pump, T: fishnet stockings, and B: battery. You press <<B>>.
+X: cassette, T: hopscotch, and B: patty. You press <<B>>.
+X: battery, T: coyote, and B: pepperoni. You press <<X>>.
+X: ski pole, T: tricycle, and B: headscarf. You press <<B>>.
+X: gearshift, T: lipstick, and B: banana peel. You press <<B>>.
+X: marker, T: hood, and B: mistletoe. You press <<T>>.
+X: necklace, T: sheep, and B: ship. You press <<B>>.
+X: handbrake, T: bat, and B: cage. You press <<B>>.
+X: mascara, T: footprint, and B: braid. You press <<T>>.
+X: roll, T: pineapple, and B: ratchet. You press <<B>>.
+X: deer, T: furnace, and B: scale. You press <<X>>.
+X: counter, T: pocket watch, and B: can. You press <<X>>.
+X: cake, T: scaffolding, and B: nut. You press <<T>>.
+X: swab, T: roll, and B: fountain pen. You press <<T>>.
+X: fuse, T: okra, and B: can. You press <<T>>.
+X: perfume, T: stake, and B: buckle. You press <<X>>.
+X: kangaroo, T: saucer, and B: rag. You press <<X>>.
+X: cleat, T: gallows, and B: pear. You press <<X>>.
+X: can, T: bulletin board, and B: turtle. You press <<B>>.
+X: doorstop, T: muff, and B: french horn. You press <<X>>.
+X: smoothie, T: letter opener, and B: torpedo. You press <<B>>.
+X: filing cabinet, T: diving board, and B: rollerskate. You press <<X>>.
+X: column, T: shirt, and B: pizza. You press <<B>>.
+X: hyena, T: casserole, and B: grenade. You press <<B>>.
+X: foam, T: cage, and B: baklava. You press <<T>>.
+X: scorpion, T: polygraph, and B: gingerbread man. You press <<X>>.
+X: dollhouse, T: holster, and B: hash. You press <<B>>.
+X: towel, T: quad, and B: scone. You press <<T>>.
+X: bowtie, T: pepper, and B: boot. You press <<T>>.
+X: clothespin, T: bulletin board, and B: fishbowl. You press <<B>>.
+X: cornucopia, T: flamingo, and B: toast. You press <<T>>.
+X: pear, T: air pump, and B: bikini. You press <<X>>.
+X: aloe, T: seal, and B: metronome. You press <<B>>.
+X: hole, T: shoehorn, and B: marijuana. You press <<T>>.
+X: trampoline, T: tulip, and B: milkshake. You press <<T>>.
+X: cap, T: basketball, and B: flatiron. You press <<B>>.
+X: switch, T: stained glass, and B: notebook. You press <<T>>.
+X: egg, T: avocado, and B: backdrop. You press <<B>>.
+X: apron, T: snake, and B: stopwatch. You press <<T>>.
+X: swan, T: limousine, and B: sifter. You press <<B>>.
+X: root, T: glasses, and B: hatbox. You press <<X>>.
+X: chopsticks, T: turkey, and B: phone booth. You press <<T>>.
+X: lamb, T: sheep, and B: belt. You press <<B>>.
+X: chainsaw, T: seismograph, and B: chip. You press <<X>>.
+X: towel rack, T: taillight, and B: dessert. You press <<T>>.
+X: forklift, T: oil, and B: tomato. You press <<X>>.
+X: detonator, T: shoulder, and B: puppy. You press <<B>>.
+X: viewfinder, T: plastic film, and B: motherboard. You press <<X>>.
+X: golf cart, T: water filter, and B: nail clippers. You press <<B>>.
+X: rake, T: spinach, and B: rocking chair. You press <<B>>.
+X: shoulder, T: globe, and B: marshmallow. You press <<B>>.
+X: bus, T: wrapping paper, and B: coal. You press <<T>>.
+X: pot, T: camper, and B: rearview mirror. You press <<X>>.
+X: chainsaw, T: modem, and B: chip. You press <<X>>.
+X: tennis ball, T: slingshot, and B: saucer. You press <<B>>.
+X: solar panel, T: stake, and B: bow. You press <<B>>.
+X: shower curtain, T: gramophone, and B: crouton. You press <<T>>.
+X: bark, T: belt, and B: hearing aid. You press <<X>>.
+X: rudder, T: altar, and B: hatchet. You press <<B>>.
+X: tongue, T: walker, and B: inhaler. You press <<B>>.
+X: scoreboard, T: brake, and B: flag. You press <<T>>.
+X: noodle, T: yo-yo, and B: teabag. You press <<B>>.

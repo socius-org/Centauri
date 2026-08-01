@@ -1,0 +1,52 @@
+% ============================================================================
+% Required packages and colour definitions for significance tables
+% ============================================================================
+% \usepackage{xcolor}
+% \usepackage{colortbl}
+% \usepackage{graphicx}
+% \usepackage{booktabs}
+
+% ---- Diverging colours for significance tables ----
+\definecolor{cpos}{HTML}{2ca02c}   % green = improvement
+\definecolor{cneg}{HTML}{d62728}   % red = degradation
+
+% ---- Cell formatter: \zc{colour!tint}{content} ----
+\newcommand{\zc}[2]{\cellcolor{#1}#2}
+\newcommand{\zno}{\cellcolor{white}{---}}
+
+
+\begin{table}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}l r r r r r   r r r@{}}
+\toprule
+& \multicolumn{5}{c}{\textbf{\texttt{Qwentaur}}} & \multicolumn{3}{c}{\textbf{\texttt{Llama-Centaur}}} \\
+\cmidrule(lr){2-6}\cmidrule(lr){7-9}
+\textbf{Benchmark} & \texttt{0.6B} & \texttt{1.7B} & \texttt{4B} & \texttt{8B} & \texttt{14B} & \texttt{1B} & \texttt{3B} & \texttt{8B} \\
+\midrule
+ARC & \zc{cneg!15}{-0.03} & \zc{cneg!15}{-0.01} & \zc{cneg!15}{-0.01} & \zc{cpos!15}{+0.01} & \zc{cneg!15}{-0.01} & \zc{cpos!15}{+0.01} & \zc{cneg!15}{-0.05} & \zc{cpos!15}{+0.01} \\
+GSM8K & \zc{cneg!50}{-0.25$^{***}$} & \zc{cneg!50}{-0.15$^{***}$} & \zc{cneg!15}{-0.05} & \zc{cneg!50}{-0.17$^{***}$} & \zc{cneg!50}{-0.12$^{***}$} & \zc{cneg!22}{-0.05$^{*}$} & \zc{cpos!15}{+0.00} & \zc{cneg!22}{-0.10$^{*}$} \\
+HellaSwag & \zc{cneg!15}{-0.02} & \zc{cneg!15}{-0.09} & \zc{cneg!15}{-0.02} & \zc{cneg!15}{-0.03} & \zc{cneg!15}{-0.03} & \zc{cneg!15}{-0.04} & \zc{cneg!15}{-0.03} & \zc{cneg!15}{-0.06} \\
+MMLU & \zc{cneg!15}{-0.09} & \zc{cneg!15}{-0.05} & \zc{cneg!15}{-0.06} & \zc{cpos!15}{+0.02} & \zc{cpos!15}{+0.02} & \zc{cneg!15}{-0.04} & \zc{cneg!15}{-0.05} & \zc{cpos!15}{+0.01} \\
+TruthfulQA & \zc{cneg!15}{-0.01} & \zc{cpos!15}{+0.03} & \zc{cneg!15}{-0.05} & \zc{cpos!15}{+0.05} & \zc{cpos!15}{+0.03} & \zc{cneg!15}{-0.01} & \zc{cpos!15}{+0.04} & \zc{cpos!15}{+0.05} \\
+Winogrande & \zc{cneg!15}{-0.02} & \zc{cneg!15}{-0.02} & \zc{cneg!15}{-0.02} & \zc{cpos!15}{+0.03} & \zc{cneg!15}{-0.02} & \zc{cneg!15}{-0.03} & \zc{cneg!15}{-0.04} & \zc{cneg!15}{-0.01} \\
+\textbf{Mean (6)} & \zc{cneg!50}{-0.07$^{***}$} & \zc{cneg!22}{-0.05$^{*}$} & \zc{cneg!15}{-0.03} & \zc{cneg!15}{-0.01} & \zc{cneg!15}{-0.02} & \zc{cneg!15}{-0.03} & \zc{cneg!15}{-0.02} & \zc{cneg!15}{-0.02} \\
+\midrule
+Ethics (5) & \zc{cpos!50}{+0.13$^{***}$} & \zc{cpos!15}{+0.00} & \zc{cpos!50}{+0.02$^{***}$} & \zc{cpos!50}{+0.05$^{***}$} & \zc{cneg!15}{-0.01} & \zc{cneg!15}{-0.01} & \zc{cpos!50}{+0.04$^{***}$} & \zc{cneg!50}{-0.02$^{***}$} \\
+Cog. \& Lang. (6) & \zc{cneg!15}{-0.02} & \zc{cneg!15}{-0.01} & \zc{cpos!15}{+0.01} & \zc{cpos!15}{+0.00} & \zc{cpos!15}{+0.00} & \zc{cneg!15}{-0.01} & \zc{cpos!15}{+0.00} & \zc{cpos!15}{+0.00} \\
+EQ-Bench & \zc{cneg!50}{-44.7$^{***}$} & \zc{cpos!15}{+5.1} & \zc{cpos!15}{+5.9} & \zc{cneg!50}{-21.3$^{***}$} & \zc{cneg!15}{-0.3} & \zc{cpos!50}{+16.0$^{***}$} & \zc{cpos!50}{+22.9$^{***}$} & \zc{cpos!15}{+7.4} \\
+\textbf{Mean (11)} & \zc{cpos!50}{+0.05$^{***}$} & \zc{cpos!15}{+0.00} & \zc{cpos!50}{+0.01$^{***}$} & \zc{cpos!50}{+0.02$^{***}$} & \zc{cpos!15}{+0.00} & \zc{cneg!15}{-0.01} & \zc{cpos!50}{+0.02$^{***}$} & \zc{cneg!35}{-0.01$^{**}$} \\
+\midrule
+ACP -- Bool (7) & \zc{cneg!15}{-0.04} & \zc{cneg!50}{-0.13$^{***}$} & \zc{cneg!35}{-0.06$^{**}$} & \zc{cneg!50}{-0.08$^{***}$} & \zc{cneg!15}{-0.02} & \zc{cneg!50}{-0.25$^{***}$} & \zc{cneg!15}{-0.03} & \zc{cneg!15}{-0.04} \\
+ACP -- MCQ (7) & \zc{cneg!22}{-0.05$^{*}$} & \zc{cneg!15}{-0.02} & \zc{cneg!22}{-0.04$^{*}$} & \zc{cneg!15}{-0.04} & \zc{cneg!50}{-0.08$^{***}$} & \zc{cneg!35}{-0.05$^{**}$} & \zc{cneg!15}{-0.02} & \zc{cneg!15}{-0.02} \\
+\textbf{Mean (14)} & \zc{cneg!35}{-0.04$^{**}$} & \zc{cneg!50}{-0.07$^{***}$} & \zc{cneg!50}{-0.05$^{***}$} & \zc{cneg!50}{-0.06$^{***}$} & \zc{cneg!35}{-0.05$^{**}$} & \zc{cneg!50}{-0.15$^{***}$} & \zc{cneg!15}{-0.02} & \zc{cneg!15}{-0.03} \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{2pt}
+{\tiny\centering
+degrad. \colorbox{cneg!50}{\strut\,} \colorbox{cneg!20}{\strut\,} \colorbox{white}{\strut\,} \colorbox{cpos!20}{\strut\,} \colorbox{cpos!50}{\strut\,} improv. \quad $^{*}p{<}.05$ ~ $^{**}p{<}.01$ ~ $^{***}p{<}.001$\par}
+\caption{Impact of cognitive fine-tuning on standard, cognitive, and planning benchmarks. Each cell shows $\Delta$ = fine-tuned $-$ base. Significance is assessed with a two-sided $z$-test using the standard errors reported by \texttt{lm-eval}; group means use Stouffer's method to combine per-task $z$-scores. EQ-Bench is on a separate scale and excluded from means.}
+\label{tab:combined_summary}
+\end{table}

@@ -1,0 +1,3 @@
+- dataset:
+    id: tinyBenchmarks/tinyHellaswag
+  value: 81.17

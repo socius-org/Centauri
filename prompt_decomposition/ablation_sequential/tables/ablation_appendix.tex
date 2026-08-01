@@ -1,0 +1,140 @@
+% ============================================================================
+% Required packages and colour definitions for heatmap tables
+% ============================================================================
+% \usepackage{xcolor}
+% \usepackage{colortbl}
+% \usepackage{graphicx}
+% \usepackage{booktabs}
+% \usepackage{rotating}
+
+% ---- Heatmap colour bins (green=good to red=bad) ----
+\definecolor{c1}{HTML}{1a9850}
+\definecolor{c2}{HTML}{66bd63}
+\definecolor{c3}{HTML}{a6d96a}
+\definecolor{c4}{HTML}{d9ef8b}
+\definecolor{c5}{HTML}{fee08b}
+\definecolor{c6}{HTML}{fdae61}
+\definecolor{c7}{HTML}{f46d43}
+\definecolor{c8}{HTML}{d73027}
+\definecolor{c9}{HTML}{a50026}
+
+% ---- Normal cell ----
+\newcommand{\hc}[1]{%
+  \ifdim #1 pt < 0.20pt \cellcolor{c1!45}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c2!40}%
+  \else\ifdim #1 pt < 0.60pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.80pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 1.00pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 1.20pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 1.50pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 2.00pt \cellcolor{c8!40}%
+  \else \cellcolor{c9!35}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  #1%
+}
+
+% ---- Underline = 2nd best ----
+\newcommand{\hcu}[1]{%
+  \ifdim #1 pt < 0.20pt \cellcolor{c1!45}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c2!40}%
+  \else\ifdim #1 pt < 0.60pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.80pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 1.00pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 1.20pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 1.50pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 2.00pt \cellcolor{c8!40}%
+  \else \cellcolor{c9!35}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  \underline{#1}%
+}
+
+% ---- Bold + underline = best ----
+\newcommand{\hcbu}[1]{%
+  \ifdim #1 pt < 0.20pt \cellcolor{c1!45}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c2!40}%
+  \else\ifdim #1 pt < 0.60pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.80pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 1.00pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 1.20pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 1.50pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 2.00pt \cellcolor{c8!40}%
+  \else \cellcolor{c9!35}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  \underline{\textbf{#1}}%
+}
+
+% ---- No baseline ----
+\newcommand{\hcn}{\cellcolor{white}{---}}
+
+
+\begin{sidewaystable}[p]
+\centering
+{\tiny
+\setlength{\tabcolsep}{2pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l l  r r r r  r r r r  r r r r  r r r r  r r r r  r r r r  r r r r  r r r r  r@{}}
+\toprule
+& & \multicolumn{20}{c}{\texttt{\textbf{Qwentaur}}} & \multicolumn{12}{c}{\texttt{\textbf{Llama-Centaur}}} & \textbf{Chance} \\
+\cmidrule(lr){3-22}\cmidrule(lr){23-34}
+& & \multicolumn{4}{c}{\texttt{0.6B}} & \multicolumn{4}{c}{\texttt{1.7B}} & \multicolumn{4}{c}{\texttt{4B}} & \multicolumn{4}{c}{\texttt{8B}} & \multicolumn{4}{c}{\texttt{14B}} & \multicolumn{4}{c}{\texttt{1B}} & \multicolumn{4}{c}{\texttt{3B}} & \multicolumn{4}{c}{\texttt{8B}} & \\
+\cmidrule(lr){3-6} \cmidrule(lr){7-10} \cmidrule(lr){11-14} \cmidrule(lr){15-18} \cmidrule(lr){19-22} \cmidrule(lr){23-26} \cmidrule(lr){27-30} \cmidrule(lr){31-34}
+\textbf{Experiment} & \textbf{Type} & {\fontsize{4}{5}\selectfont orig} & {\fontsize{4}{5}\selectfont inst} & {\fontsize{4}{5}\selectfont cont} & {\fontsize{4}{5}\selectfont hist} & {\fontsize{4}{5}\selectfont orig} & {\fontsize{4}{5}\selectfont inst} & {\fontsize{4}{5}\selectfont cont} & {\fontsize{4}{5}\selectfont hist} & {\fontsize{4}{5}\selectfont orig} & {\fontsize{4}{5}\selectfont inst} & {\fontsize{4}{5}\selectfont cont} & {\fontsize{4}{5}\selectfont hist} & {\fontsize{4}{5}\selectfont orig} & {\fontsize{4}{5}\selectfont inst} & {\fontsize{4}{5}\selectfont cont} & {\fontsize{4}{5}\selectfont hist} & {\fontsize{4}{5}\selectfont orig} & {\fontsize{4}{5}\selectfont inst} & {\fontsize{4}{5}\selectfont cont} & {\fontsize{4}{5}\selectfont hist} & {\fontsize{4}{5}\selectfont orig} & {\fontsize{4}{5}\selectfont inst} & {\fontsize{4}{5}\selectfont cont} & {\fontsize{4}{5}\selectfont hist} & {\fontsize{4}{5}\selectfont orig} & {\fontsize{4}{5}\selectfont inst} & {\fontsize{4}{5}\selectfont cont} & {\fontsize{4}{5}\selectfont hist} & {\fontsize{4}{5}\selectfont orig} & {\fontsize{4}{5}\selectfont inst} & {\fontsize{4}{5}\selectfont cont} & {\fontsize{4}{5}\selectfont hist} & $\ln(k)$ \\
+\midrule
+Gardening task {\fontsize{4}{5}\selectfont\citep{flesch2018comparing}} & Decision & \hc{0.39} & \hc{0.41} & \hc{0.68} & \hc{0.68} & \hc{0.38} & \hc{0.41} & \hc{0.68} & \hc{0.68} & \hc{0.38} & \hc{0.41} & \hc{0.68} & \hc{0.68} & \hc{0.38} & \hc{0.40} & \hc{0.68} & \hc{0.68} & \hcu{0.38} & \hc{0.40} & \hc{0.68} & \hc{0.69} & \hc{0.40} & \hc{0.42} & \hc{0.70} & \hc{0.70} & \hc{0.39} & \hc{0.41} & \hc{0.70} & \hc{0.69} & \hcbu{0.38} & \hc{0.40} & \hc{0.69} & \hc{0.69} & \hc{0.69} \\
+Columbia card task {\fontsize{4}{5}\selectfont\citep{frey2017risk}} & Decision & \hc{0.20} & \hc{0.24} & \hc{0.28} & \hc{0.30} & \hc{0.20} & \hc{0.24} & \hc{0.28} & \hc{0.30} & \hc{0.20} & \hc{0.24} & \hc{0.29} & \hc{0.30} & \hc{0.20} & \hc{0.24} & \hc{0.28} & \hc{0.29} & \hcu{0.20} & \hc{0.24} & \hc{0.29} & \hc{0.29} & \hc{0.21} & \hc{0.24} & \hc{0.28} & \hc{0.30} & \hc{0.20} & \hc{0.24} & \hc{0.28} & \hc{0.29} & \hcbu{0.20} & \hc{0.23} & \hc{0.28} & \hc{0.29} & \hc{0.69} \\
+Experiential-symbolic task {\fontsize{4}{5}\selectfont\citep{garcia2023experiential}} & Decision & \hc{0.48} & \hc{0.48} & \hc{0.91} & \hc{1.54} & \hc{0.47} & \hc{0.48} & \hc{0.89} & \hc{1.51} & \hc{0.46} & \hc{0.47} & \hc{0.86} & \hc{1.49} & \hc{0.46} & \hc{0.47} & \hc{0.86} & \hc{1.47} & \hcbu{0.46} & \hc{0.47} & \hc{0.84} & \hc{1.47} & \hc{0.47} & \hc{0.47} & \hc{0.89} & \hc{1.56} & \hc{0.47} & \hc{0.47} & \hc{0.87} & \hc{1.50} & \hcu{0.46} & \hc{0.47} & \hc{0.85} & \hc{1.47} & \hcn \\
+Multi-attribute DM {\fontsize{4}{5}\selectfont\citep{hilbig2014generalized}} & Decision & \hc{0.09} & \hc{0.12} & \hc{0.72} & \hc{0.72} & \hc{0.08} & \hc{0.19} & \hc{0.73} & \hc{0.73} & \hc{0.09} & \hc{0.14} & \hc{0.72} & \hc{0.72} & \hc{0.08} & \hc{0.13} & \hc{0.72} & \hc{0.72} & \hcu{0.08} & \hc{0.13} & \hc{0.72} & \hc{0.73} & \hcbu{0.08} & \hc{0.10} & \hc{0.74} & \hc{0.74} & \hc{0.08} & \hc{0.09} & \hc{0.74} & \hc{0.73} & \hc{0.08} & \hc{0.13} & \hc{0.74} & \hc{0.72} & \hc{0.69} \\
+Risky choice {\fontsize{4}{5}\selectfont\citep{krueger2024identifying}} & Decision & \hc{0.48} & \hc{0.70} & \hc{0.91} & \hc{1.03} & \hc{0.47} & \hc{0.69} & \hc{0.87} & \hc{0.99} & \hc{0.44} & \hc{0.65} & \hc{0.83} & \hc{0.96} & \hc{0.43} & \hc{0.66} & \hc{0.84} & \hc{0.93} & \hcbu{0.42} & \hc{0.65} & \hc{0.81} & \hc{0.92} & \hc{0.49} & \hc{0.70} & \hc{0.89} & \hc{1.06} & \hc{0.46} & \hc{0.65} & \hc{0.84} & \hc{0.98} & \hcu{0.43} & \hc{0.64} & \hc{0.82} & \hc{0.93} & \hcn \\
+choices13k {\fontsize{4}{5}\selectfont\citep{peterson2021using}} & Decision & \hc{0.44} & \hc{0.48} & \hc{0.51} & \hc{0.55} & \hc{0.44} & \hc{0.46} & \hc{0.51} & \hc{0.57} & \hc{0.43} & \hc{0.44} & \hc{0.51} & \hc{0.57} & \hc{0.43} & \hc{0.44} & \hc{0.51} & \hc{0.56} & \hcbu{0.43} & \hc{0.44} & \hc{0.51} & \hc{0.56} & \hc{0.44} & \hc{0.45} & \hc{0.51} & \hc{0.56} & \hc{0.44} & \hc{0.44} & \hc{0.51} & \hc{0.56} & \hcu{0.43} & \hc{0.44} & \hc{0.51} & \hc{0.56} & \hc{0.69} \\
+CPC18 {\fontsize{4}{5}\selectfont\citep{plonsky2018when}} & Decision & \hc{0.35} & \hc{0.35} & \hc{0.38} & \hc{0.42} & \hc{0.34} & \hc{0.35} & \hc{0.38} & \hc{0.41} & \hc{0.34} & \hc{0.34} & \hc{0.38} & \hc{0.41} & \hc{0.34} & \hc{0.34} & \hc{0.38} & \hc{0.41} & \hcbu{0.33} & \hcu{0.34} & \hc{0.38} & \hc{0.41} & \hc{0.36} & \hc{0.36} & \hc{0.38} & \hc{0.41} & \hc{0.35} & \hc{0.35} & \hc{0.38} & \hc{0.41} & \hc{0.34} & \hc{0.34} & \hc{0.38} & \hc{0.41} & \hc{0.69} \\
+Decisions from description {\fontsize{4}{5}\selectfont\citep{wulff2018sampling}} & Decision & \hc{0.62} & \hc{0.85} & \hc{0.67} & \hc{0.66} & \hc{0.63} & \hc{0.78} & \hc{0.69} & \hc{0.77} & \hc{0.62} & \hc{0.65} & \hc{0.69} & \hc{0.74} & \hc{0.61} & \hc{0.71} & \hc{0.67} & \hc{0.67} & \hcu{0.60} & \hc{0.63} & \hc{0.66} & \hc{0.66} & \hc{0.62} & \hc{0.81} & \hc{0.66} & \hc{0.67} & \hc{0.63} & \hc{0.67} & \hc{0.68} & \hc{0.67} & \hcbu{0.60} & \hc{0.69} & \hc{0.71} & \hc{0.68} & \hc{0.69} \\
+\midrule
+Two-step task {\fontsize{4}{5}\selectfont\citep{kool2016when}} & MDP & \hc{0.51} & \hc{0.53} & \hc{1.20} & \hc{1.32} & \hc{0.50} & \hc{0.52} & \hc{1.19} & \hc{1.30} & \hc{0.49} & \hc{0.52} & \hc{1.17} & \hc{1.28} & \hc{0.49} & \hc{0.52} & \hc{1.16} & \hc{1.29} & \hcbu{0.48} & \hc{0.52} & \hc{1.16} & \hc{1.23} & \hc{0.52} & \hc{0.52} & \hc{1.21} & \hc{1.34} & \hc{0.50} & \hc{0.51} & \hc{1.17} & \hc{1.36} & \hcu{0.49} & \hc{0.51} & \hc{1.18} & \hc{1.30} & \hc{0.69} \\
+Two-step task {\fontsize{4}{5}\selectfont\citep{kool2017cost}} & MDP & \hc{0.54} & \hc{0.55} & \hc{1.16} & \hc{1.27} & \hc{0.53} & \hc{0.55} & \hc{1.15} & \hc{1.24} & \hcbu{0.53} & \hc{0.54} & \hc{1.13} & \hc{1.20} & \hc{0.53} & \hc{0.54} & \hc{1.12} & \hc{1.21} & \hc{0.53} & \hc{0.53} & \hc{1.11} & \hc{1.15} & \hc{0.55} & \hc{0.55} & \hc{1.15} & \hc{1.29} & \hc{0.53} & \hc{0.54} & \hc{1.13} & \hc{1.32} & \hcu{0.53} & \hc{0.53} & \hc{1.14} & \hc{1.25} & \hc{0.69} \\
+Virtual subway network {\fontsize{4}{5}\selectfont\citep{tomov2020discovery}} & MDP & \hc{1.16} & \hc{1.42} & \hc{1.47} & \hc{1.37} & \hc{1.15} & \hc{1.49} & \hc{1.44} & \hc{1.35} & \hc{1.14} & \hc{1.43} & \hc{1.44} & \hc{1.33} & \hcu{1.13} & \hc{1.46} & \hc{1.43} & \hc{1.33} & \hcbu{1.12} & \hc{1.41} & \hc{1.43} & \hc{1.30} & \hc{1.19} & \hc{1.44} & \hc{1.45} & \hc{1.38} & \hc{1.16} & \hc{1.45} & \hc{1.47} & \hc{1.39} & \hc{1.13} & \hc{1.43} & \hc{1.42} & \hc{1.36} & \hc{1.61} \\
+Multi-task RL {\fontsize{4}{5}\selectfont\citep{tomov2021multitask}} & MDP & \hc{0.60} & \hc{0.69} & \hc{0.81} & \hc{0.87} & \hc{0.59} & \hc{0.67} & \hc{0.80} & \hc{0.84} & \hc{0.58} & \hc{0.65} & \hc{0.78} & \hc{0.83} & \hc{0.58} & \hc{0.65} & \hc{0.77} & \hc{0.83} & \hcbu{0.57} & \hc{0.64} & \hc{0.76} & \hc{0.81} & \hc{0.60} & \hc{0.69} & \hc{0.82} & \hc{0.85} & \hc{0.59} & \hc{0.68} & \hc{0.78} & \hc{0.87} & \hcu{0.57} & \hc{0.67} & \hc{0.79} & \hc{0.84} & \hc{1.10} \\
+Two-step task {\fontsize{4}{5}\selectfont\citep{zorowitz2023data}} & MDP & \hc{0.52} & \hc{0.52} & \hc{1.00} & \hc{1.23} & \hc{0.51} & \hc{0.52} & \hc{0.98} & \hc{1.16} & \hc{0.51} & \hc{0.53} & \hc{0.96} & \hc{1.10} & \hcbu{0.51} & \hc{0.52} & \hc{0.95} & \hc{1.13} & \hc{0.51} & \hc{0.52} & \hc{0.94} & \hc{1.02} & \hc{0.52} & \hc{0.53} & \hc{1.00} & \hc{1.24} & \hcu{0.51} & \hc{0.52} & \hc{0.97} & \hc{1.28} & \hc{0.51} & \hc{0.51} & \hc{0.97} & \hc{1.16} & \hc{0.69} \\
+\midrule
+Drifting four-armed bandit {\fontsize{4}{5}\selectfont\citep{bahrami2020four}} & Bandit & \hc{0.73} & \hc{0.88} & \hc{0.88} & \hc{0.88} & \hc{0.72} & \hc{0.85} & \hc{0.86} & \hc{0.88} & \hc{0.71} & \hc{0.83} & \hc{0.85} & \hc{0.86} & \hc{0.71} & \hc{0.84} & \hc{0.85} & \hc{0.87} & \hcbu{0.71} & \hc{0.87} & \hc{0.84} & \hc{0.87} & \hc{0.73} & \hc{0.88} & \hc{0.88} & \hc{0.88} & \hc{0.72} & \hc{0.84} & \hc{0.85} & \hc{0.87} & \hcu{0.71} & \hc{0.84} & \hc{0.84} & \hc{0.86} & \hc{1.39} \\
+Horizon task {\fontsize{4}{5}\selectfont\citep{feng2021dynamics}} & Bandit & \hc{0.23} & \hc{0.25} & \hc{0.45} & \hc{0.55} & \hc{0.23} & \hc{0.25} & \hc{0.44} & \hc{0.55} & \hc{0.22} & \hc{0.24} & \hc{0.44} & \hc{0.55} & \hc{0.22} & \hc{0.24} & \hc{0.44} & \hc{0.55} & \hcu{0.22} & \hc{0.24} & \hc{0.44} & \hc{0.55} & \hc{0.26} & \hc{0.27} & \hc{0.45} & \hc{0.55} & \hc{0.24} & \hc{0.26} & \hc{0.45} & \hc{0.55} & \hcbu{0.22} & \hc{0.24} & \hc{0.44} & \hc{0.54} & \hc{0.69} \\
+Two-armed bandit {\fontsize{4}{5}\selectfont\citep{gershman2018deconstructing}} & Bandit & \hc{0.30} & \hc{0.36} & \hc{0.39} & \hc{0.46} & \hc{0.30} & \hc{0.36} & \hc{0.39} & \hc{0.47} & \hc{0.29} & \hc{0.36} & \hc{0.39} & \hc{0.45} & \hcu{0.29} & \hc{0.36} & \hc{0.39} & \hc{0.45} & \hcbu{0.29} & \hc{0.35} & \hc{0.38} & \hc{0.45} & \hc{0.30} & \hc{0.34} & \hc{0.39} & \hc{0.46} & \hc{0.29} & \hc{0.34} & \hc{0.39} & \hc{0.46} & \hc{0.29} & \hc{0.35} & \hc{0.39} & \hc{0.46} & \hc{0.69} \\
+Prob.\ instrumental learning {\fontsize{4}{5}\selectfont\citep{lefebvre2017behavioural}} & Bandit & \hc{0.50} & \hc{0.49} & \hc{2.12} & \hc{2.10} & \hc{0.50} & \hc{0.50} & \hc{2.09} & \hc{2.06} & \hcbu{0.49} & \hc{0.49} & \hc{2.06} & \hc{2.02} & \hcu{0.49} & \hc{0.49} & \hc{2.06} & \hc{2.04} & \hc{0.49} & \hc{0.49} & \hc{2.03} & \hc{2.03} & \hc{0.51} & \hc{0.51} & \hc{2.17} & \hc{2.15} & \hc{0.50} & \hc{0.49} & \hc{2.09} & \hc{2.06} & \hc{0.49} & \hc{0.49} & \hc{2.04} & \hc{2.05} & \hc{0.69} \\
+Horizon task {\fontsize{4}{5}\selectfont\citep{sadeghiyeh2020temporal}} & Bandit & \hc{0.59} & \hc{0.59} & \hc{0.63} & \hc{0.68} & \hc{0.58} & \hc{0.59} & \hc{0.63} & \hc{0.68} & \hc{0.58} & \hc{0.59} & \hc{0.63} & \hc{0.67} & \hcu{0.58} & \hc{0.58} & \hc{0.63} & \hc{0.67} & \hcbu{0.58} & \hc{0.58} & \hc{0.63} & \hc{0.68} & \hc{0.59} & \hc{0.59} & \hc{0.63} & \hc{0.68} & \hc{0.58} & \hc{0.59} & \hc{0.63} & \hc{0.68} & \hc{0.58} & \hc{0.58} & \hc{0.63} & \hc{0.68} & \hc{0.69} \\
+Structured bandit {\fontsize{4}{5}\selectfont\citep{schulz2020finding}} & Bandit & \hc{0.67} & \hc{0.71} & \hc{0.88} & \hc{1.04} & \hc{0.66} & \hc{0.70} & \hc{0.88} & \hc{1.04} & \hc{0.65} & \hc{0.69} & \hc{0.86} & \hc{1.01} & \hc{0.65} & \hc{0.68} & \hc{0.85} & \hc{0.99} & \hcbu{0.64} & \hc{0.68} & \hc{0.87} & \hc{1.00} & \hc{0.67} & \hc{0.70} & \hc{0.87} & \hc{1.05} & \hc{0.66} & \hc{0.69} & \hc{0.86} & \hc{1.03} & \hcu{0.65} & \hc{0.68} & \hc{0.85} & \hc{1.00} & \hc{2.08} \\
+Horizon task {\fontsize{4}{5}\selectfont\citep{somerville2017charting}} & Bandit & \hc{0.34} & \hc{0.36} & \hc{0.53} & \hc{0.61} & \hc{0.34} & \hc{0.35} & \hc{0.53} & \hc{0.60} & \hc{0.34} & \hc{0.35} & \hc{0.52} & \hc{0.60} & \hcu{0.34} & \hc{0.34} & \hc{0.52} & \hc{0.60} & \hcbu{0.33} & \hc{0.35} & \hc{0.52} & \hc{0.60} & \hc{0.35} & \hc{0.36} & \hc{0.52} & \hc{0.60} & \hc{0.34} & \hc{0.35} & \hc{0.52} & \hc{0.60} & \hc{0.34} & \hc{0.34} & \hc{0.52} & \hc{0.60} & \hc{0.69} \\
+Iowa gambling task {\fontsize{4}{5}\selectfont\citep{steingroever2015data}} & Bandit & \hc{0.93} & \hc{1.12} & \hc{1.00} & \hc{1.01} & \hc{0.93} & \hc{1.09} & \hc{0.99} & \hc{1.00} & \hc{0.91} & \hc{1.07} & \hc{0.97} & \hc{0.98} & \hc{0.91} & \hc{1.08} & \hc{0.97} & \hc{0.98} & \hcu{0.91} & \hc{1.08} & \hc{0.97} & \hc{0.98} & \hc{0.93} & \hc{1.11} & \hc{1.00} & \hc{1.01} & \hc{0.92} & \hc{1.09} & \hc{0.98} & \hc{0.99} & \hcbu{0.91} & \hc{1.08} & \hc{0.97} & \hc{0.98} & \hc{1.39} \\
+Horizon task {\fontsize{4}{5}\selectfont\citep{waltz2020differential}} & Bandit & \hc{0.15} & \hc{0.16} & \hc{0.33} & \hc{0.44} & \hc{0.15} & \hc{0.16} & \hc{0.33} & \hc{0.44} & \hc{0.15} & \hc{0.17} & \hc{0.33} & \hc{0.44} & \hc{0.15} & \hc{0.16} & \hc{0.33} & \hc{0.44} & \hcu{0.15} & \hc{0.16} & \hc{0.32} & \hc{0.44} & \hc{0.16} & \hc{0.17} & \hc{0.33} & \hc{0.44} & \hc{0.16} & \hc{0.16} & \hc{0.33} & \hc{0.44} & \hcbu{0.14} & \hc{0.15} & \hc{0.33} & \hc{0.44} & \hc{0.69} \\
+Horizon task {\fontsize{4}{5}\selectfont\citep{wilson2014humans}} & Bandit & \hc{0.46} & \hc{0.47} & \hc{0.56} & \hc{0.62} & \hc{0.46} & \hc{0.47} & \hc{0.55} & \hc{0.62} & \hc{0.45} & \hc{0.46} & \hc{0.55} & \hc{0.62} & \hc{0.45} & \hc{0.46} & \hc{0.54} & \hc{0.62} & \hcbu{0.45} & \hc{0.46} & \hc{0.54} & \hc{0.62} & \hc{0.47} & \hc{0.48} & \hc{0.56} & \hc{0.62} & \hc{0.46} & \hc{0.47} & \hc{0.55} & \hc{0.62} & \hcu{0.45} & \hc{0.46} & \hc{0.55} & \hc{0.62} & \hc{0.69} \\
+Spatially correlated MAB {\fontsize{4}{5}\selectfont\citep{wu2018generalization}} & Bandit & \hc{2.01} & \hc{2.06} & \hc{2.41} & \hc{2.56} & \hc{1.96} & \hc{2.05} & \hc{2.36} & \hc{2.53} & \hc{1.93} & \hc{2.02} & \hc{2.37} & \hc{2.49} & \hcu{1.87} & \hc{1.99} & \hc{2.33} & \hc{2.49} & \hcbu{1.86} & \hc{1.97} & \hc{2.38} & \hc{2.50} & \hc{2.16} & \hc{2.20} & \hc{2.54} & \hc{2.73} & \hc{2.00} & \hc{2.04} & \hc{2.52} & \hc{2.68} & \hc{1.93} & \hc{2.03} & \hc{2.46} & \hc{2.61} & \hc{3.40} \\
+Decisions from experience {\fontsize{4}{5}\selectfont\citep{wulff2018sampling}} & Bandit & \hc{0.49} & \hc{0.95} & \hc{0.56} & \hc{0.58} & \hc{0.49} & \hc{0.94} & \hc{0.54} & \hc{0.59} & \hc{0.49} & \hc{0.93} & \hc{0.57} & \hc{0.59} & \hc{0.49} & \hc{0.93} & \hc{0.54} & \hc{0.57} & \hcu{0.48} & \hc{0.95} & \hc{0.53} & \hc{0.56} & \hc{0.50} & \hc{0.99} & \hc{0.54} & \hc{0.60} & \hc{0.49} & \hc{0.90} & \hc{0.56} & \hc{0.59} & \hcbu{0.48} & \hc{0.97} & \hc{0.55} & \hc{0.58} & \hcn \\
+Changing bandit {\fontsize{4}{5}\selectfont\citep{xiong2023neural}} & Bandit & \hc{0.30} & \hc{0.31} & \hc{0.48} & \hc{0.44} & \hc{0.30} & \hc{0.30} & \hc{0.49} & \hc{0.43} & \hcu{0.29} & \hc{0.30} & \hc{0.48} & \hc{0.42} & \hc{0.29} & \hc{0.30} & \hc{0.48} & \hc{0.44} & \hcbu{0.29} & \hc{0.29} & \hc{0.47} & \hc{0.43} & \hc{0.32} & \hc{0.33} & \hc{0.49} & \hc{0.53} & \hc{0.31} & \hc{0.32} & \hc{0.49} & \hc{0.44} & \hc{0.29} & \hc{0.30} & \hc{0.47} & \hc{0.42} & \hc{0.69} \\
+\midrule
+Cond.\ assoc.\ learning {\fontsize{4}{5}\selectfont\citep{collins2014working}} & Memory & \hc{0.54} & \hc{0.57} & \hc{1.03} & \hc{1.07} & \hc{0.53} & \hc{0.56} & \hc{1.03} & \hc{1.07} & \hc{0.52} & \hc{0.55} & \hc{1.02} & \hc{1.07} & \hcu{0.52} & \hc{0.56} & \hc{1.02} & \hc{1.06} & \hcbu{0.51} & \hc{0.55} & \hc{1.01} & \hc{1.06} & \hc{0.55} & \hc{0.58} & \hc{1.05} & \hc{1.08} & \hc{0.53} & \hc{0.56} & \hc{1.03} & \hc{1.07} & \hc{0.52} & \hc{0.55} & \hc{1.02} & \hc{1.06} & \hc{1.10} \\
+\midrule
+Shepard categorization {\fontsize{4}{5}\selectfont\citep{badham2017deficits}} & Sup.\ learn. & \hc{0.55} & \hc{0.57} & \hc{0.71} & \hc{0.70} & \hc{0.55} & \hc{0.58} & \hc{0.70} & \hc{0.70} & \hc{0.54} & \hc{0.56} & \hc{0.69} & \hc{0.69} & \hc{0.53} & \hc{0.57} & \hc{0.69} & \hc{0.69} & \hcbu{0.53} & \hc{0.56} & \hc{0.69} & \hc{0.70} & \hc{0.56} & \hc{0.58} & \hc{0.72} & \hc{0.71} & \hc{0.54} & \hc{0.56} & \hc{0.70} & \hc{0.70} & \hcu{0.53} & \hc{0.57} & \hc{0.69} & \hc{0.70} & \hc{0.69} \\
+Multiple-cue judgment {\fontsize{4}{5}\selectfont\citep{collsioo2023numerical}} & Sup.\ learn. & \hc{1.17} & \hc{1.23} & \hc{1.99} & \hc{1.99} & \hc{1.16} & \hc{1.23} & \hc{1.97} & \hc{1.97} & \hc{1.14} & \hc{1.20} & \hc{1.95} & \hc{1.96} & \hc{1.14} & \hc{1.19} & \hc{1.96} & \hc{1.97} & \hcu{1.13} & \hc{1.19} & \hc{1.95} & \hc{1.96} & \hc{1.17} & \hc{1.23} & \hc{1.96} & \hc{1.97} & \hc{1.15} & \hc{1.20} & \hc{1.98} & \hc{1.98} & \hcbu{1.12} & \hc{1.19} & \hc{1.96} & \hc{1.97} & \hc{2.20} \\
+Medin categorization {\fontsize{4}{5}\selectfont\citep{levering2020revisiting}} & Sup.\ learn. & \hc{0.51} & \hc{0.61} & \hc{0.79} & \hc{0.94} & \hc{0.51} & \hc{0.61} & \hc{0.79} & \hc{0.89} & \hc{0.50} & \hc{0.61} & \hc{0.78} & \hc{0.91} & \hc{0.50} & \hc{0.60} & \hc{0.78} & \hc{0.88} & \hcbu{0.50} & \hc{0.59} & \hc{0.77} & \hc{0.87} & \hc{0.52} & \hc{0.62} & \hc{0.79} & \hc{0.95} & \hc{0.50} & \hc{0.59} & \hc{0.79} & \hc{0.92} & \hcu{0.50} & \hc{0.58} & \hc{0.78} & \hc{0.91} & \hcn \\
+Weather prediction task {\fontsize{4}{5}\selectfont\citep{speekenbrink2008learning}} & Sup.\ learn. & \hc{0.55} & \hc{0.61} & \hc{0.71} & \hc{0.70} & \hc{0.56} & \hc{0.65} & \hc{0.70} & \hc{0.70} & \hcu{0.54} & \hc{0.61} & \hc{0.70} & \hc{0.70} & \hc{0.55} & \hc{0.61} & \hc{0.70} & \hc{0.69} & \hc{0.55} & \hc{0.60} & \hc{0.70} & \hc{0.71} & \hc{0.55} & \hc{0.62} & \hc{0.72} & \hc{0.71} & \hcbu{0.54} & \hc{0.61} & \hc{0.71} & \hc{0.71} & \hc{0.56} & \hc{0.61} & \hc{0.71} & \hc{0.70} & \hc{0.69} \\
+Aversive learning {\fontsize{4}{5}\selectfont\citep{wise2019computational}} & Sup.\ learn. & \hc{4.71} & \hc{4.72} & \hc{4.86} & \hc{4.88} & \hc{4.55} & \hc{4.60} & \hc{4.72} & \hc{4.75} & \hc{4.27} & \hc{4.30} & \hc{4.46} & \hc{4.53} & \hc{4.24} & \hc{4.25} & \hc{4.42} & \hc{4.49} & \hc{3.81} & \hc{3.86} & \hc{4.05} & \hc{4.15} & \hc{4.58} & \hc{4.59} & \hc{4.77} & \hc{4.73} & \hc{4.80} & \hc{4.80} & \hc{4.97} & \hc{4.96} & \hcbu{3.66} & \hcu{3.69} & \hc{3.88} & \hc{3.91} & \hcn \\
+\midrule
+\textbf{Mean (32)} & & \hc{0.69} & \hc{0.76} & \hc{1.00} & \hc{1.07} & \hc{0.68} & \hc{0.76} & \hc{0.99} & \hc{1.06} & \hc{0.66} & \hc{0.73} & \hc{0.97} & \hc{1.04} & \hc{0.66} & \hc{0.73} & \hc{0.97} & \hc{1.03} & \hcu{0.64} & \hc{0.71} & \hc{0.95} & \hc{1.01} & \hc{0.70} & \hc{0.76} & \hc{1.00} & \hc{1.08} & \hc{0.69} & \hc{0.75} & \hc{1.00} & \hc{1.08} & \hcbu{0.64} & \hc{0.71} & \hc{0.95} & \hc{1.02} & \hc{1.02} \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{4pt}
+\begin{center}\footnotesize
+\colorbox{c1!45}{\strut\hspace{5pt}} \scriptsize$<$0.20 \quad
+\colorbox{c2!40}{\strut\hspace{5pt}} \scriptsize 0.20--0.40 \quad
+\colorbox{c3!40}{\strut\hspace{5pt}} \scriptsize 0.40--0.60 \quad
+\colorbox{c4!45}{\strut\hspace{5pt}} \scriptsize 0.60--0.80 \quad
+\colorbox{c5!55}{\strut\hspace{5pt}} \scriptsize 0.80--1.00 \quad
+\colorbox{c6!50}{\strut\hspace{5pt}} \scriptsize 1.00--1.20 \quad
+\colorbox{c7!45}{\strut\hspace{5pt}} \scriptsize 1.20--1.50 \quad
+\colorbox{c8!40}{\strut\hspace{5pt}} \scriptsize 1.50--2.00 \quad
+\colorbox{c9!35}{\strut\hspace{5pt}} \scriptsize$>$2.00
+\end{center}
+\vspace{-2pt}
+{\tiny \underline{\textbf{Bold+underline}}\,=\,best; \underline{underline}\,=\,second-best. Lower is better. Condition labels: \textbf{orig}\,=\,original prompt, \textbf{inst}\,=\,instruction ablated, \textbf{cont}\,=\,content masked, \textbf{hist}\,=\,history only.}
+\caption{Per-experiment NLL under sequential ablation conditions on Psych-101 (in-distribution). Each model size shows four columns corresponding to progressive prompt degradation: \emph{orig} retains the full prompt; \emph{inst} removes task instructions; \emph{cont} additionally masks stimulus values and feedback; \emph{hist} further removes trial structure, leaving only the response history. The $\ln(k)$ column shows the random-guessing baseline where $k$ is the number of per-trial response options. Experiments with mixed or continuous response formats have no well-defined $k$ and are shown as {---}.}
+\label{tab:ablation_appendix}
+\end{sidewaystable}

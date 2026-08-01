@@ -1,0 +1,79 @@
+% ============================================================================
+% Required packages and colour definitions for significance tables
+% ============================================================================
+% \usepackage{xcolor}
+% \usepackage{colortbl}
+% \usepackage{graphicx}
+% \usepackage{booktabs}
+
+% ---- Diverging colours for significance tables ----
+\definecolor{cpos}{HTML}{2ca02c}   % green = improvement
+\definecolor{cneg}{HTML}{d62728}   % red = degradation
+
+% ---- Cell formatter: \zc{colour!tint}{content} ----
+\newcommand{\zc}[2]{\cellcolor{#1}#2}
+\newcommand{\zno}{\cellcolor{white}{---}}
+
+
+\begin{table}[t]
+\centering
+\resizebox{\columnwidth}{!}{%
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{@{}l r r r r r   r r r@{}}
+\toprule
+& \multicolumn{5}{c}{\textbf{\texttt{Qwentaur}}} & \multicolumn{3}{c}{\textbf{\texttt{Llama-Centaur}}} \\
+\cmidrule(lr){2-6}\cmidrule(lr){7-9}
+\textbf{Benchmark} & \texttt{0.6B} & \texttt{1.7B} & \texttt{4B} & \texttt{8B} & \texttt{14B} & \texttt{1B} & \texttt{3B} & \texttt{8B} \\
+\midrule
+\multicolumn{9}{l}{\textit{MetaBench}} \\
+ARC & \zc{cneg!8}{-0.03} & \zc{cneg!8}{-0.01} & \zc{cneg!8}{-0.01} & \zc{cpos!8}{+0.01} & \zc{cneg!8}{-0.01} & \zc{cpos!8}{+0.01} & \zc{cneg!8}{-0.05} & \zc{cpos!8}{+0.01} \\
+GSM8K & \zc{cneg!50}{-0.25$^{***}$} & \zc{cneg!50}{-0.15$^{***}$} & \zc{cneg!8}{-0.05} & \zc{cneg!50}{-0.17$^{***}$} & \zc{cneg!50}{-0.12$^{***}$} & \zc{cneg!22}{-0.05$^{*}$} & \zc{cpos!8}{+0.00} & \zc{cneg!22}{-0.10$^{*}$} \\
+HellaSwag & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.09} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.03} & \zc{cneg!8}{-0.03} & \zc{cneg!8}{-0.04} & \zc{cneg!8}{-0.03} & \zc{cneg!8}{-0.06} \\
+MMLU & \zc{cneg!8}{-0.09} & \zc{cneg!8}{-0.05} & \zc{cneg!8}{-0.06} & \zc{cpos!8}{+0.02} & \zc{cpos!8}{+0.02} & \zc{cneg!8}{-0.04} & \zc{cneg!8}{-0.05} & \zc{cpos!8}{+0.01} \\
+TruthfulQA & \zc{cneg!8}{-0.01} & \zc{cpos!8}{+0.03} & \zc{cneg!8}{-0.05} & \zc{cpos!8}{+0.05} & \zc{cpos!8}{+0.03} & \zc{cneg!8}{-0.01} & \zc{cpos!8}{+0.04} & \zc{cpos!8}{+0.05} \\
+Winogrande & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.02} & \zc{cpos!8}{+0.03} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.03} & \zc{cneg!8}{-0.04} & \zc{cneg!8}{-0.01} \\
+\textbf{Mean (6)} & \zc{cneg!50}{-0.07$^{***}$} & \zc{cneg!22}{-0.05$^{*}$} & \zc{cneg!8}{-0.03} & \zc{cneg!8}{-0.01} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.03} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.02} \\
+\midrule
+\multicolumn{9}{l}{\textit{Ethics}} \\
+CM & \zc{cpos!8}{+0.01} & \zc{cpos!8}{+0.00} & \zc{cpos!50}{+0.07$^{***}$} & \zc{cpos!8}{+0.01} & \zc{cpos!50}{+0.04$^{***}$} & \zc{cneg!22}{-0.02$^{*}$} & \zc{cneg!35}{-0.03$^{**}$} & \zc{cpos!8}{+0.00} \\
+Deontology & \zc{cpos!22}{+0.02$^{*}$} & \zc{cneg!22}{-0.03$^{*}$} & \zc{cneg!8}{-0.02} & \zc{cpos!22}{+0.03$^{*}$} & \zc{cneg!50}{-0.04$^{***}$} & \zc{cpos!8}{+0.00} & \zc{cpos!50}{+0.05$^{***}$} & \zc{cpos!22}{+0.02$^{*}$} \\
+Justice & \zc{cpos!50}{+0.06$^{***}$} & \zc{cpos!8}{+0.00} & \zc{cneg!8}{-0.01} & \zc{cpos!50}{+0.17$^{***}$} & \zc{cneg!50}{-0.08$^{***}$} & \zc{cpos!8}{+0.00} & \zc{cpos!50}{+0.05$^{***}$} & \zc{cpos!22}{+0.03$^{*}$} \\
+Utilitarian & \zc{cpos!8}{+0.00} & \zc{cpos!22}{+0.02$^{*}$} & \zc{cpos!50}{+0.09$^{***}$} & \zc{cpos!50}{+0.03$^{***}$} & \zc{cpos!50}{+0.09$^{***}$} & \zc{cpos!8}{+0.00} & \zc{cneg!50}{-0.04$^{***}$} & \zc{cneg!8}{-0.01} \\
+Virtue & \zc{cpos!50}{+0.56$^{***}$} & \zc{cpos!22}{+0.02$^{*}$} & \zc{cneg!8}{-0.01} & \zc{cpos!50}{+0.03$^{***}$} & \zc{cneg!50}{-0.05$^{***}$} & \zc{cneg!8}{-0.01} & \zc{cpos!50}{+0.20$^{***}$} & \zc{cneg!50}{-0.16$^{***}$} \\
+\textbf{Mean (5)} & \zc{cpos!50}{+0.13$^{***}$} & \zc{cpos!8}{+0.00} & \zc{cpos!50}{+0.02$^{***}$} & \zc{cpos!50}{+0.05$^{***}$} & \zc{cneg!8}{-0.01} & \zc{cneg!8}{-0.01} & \zc{cpos!50}{+0.04$^{***}$} & \zc{cneg!50}{-0.02$^{***}$} \\
+\midrule
+\multicolumn{9}{l}{\textit{Cog. \& Lang.}} \\
+LogiQA & \zc{cpos!8}{+0.00} & \zc{cneg!8}{-0.01} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.05} & \zc{cpos!8}{+0.00} & \zc{cneg!8}{-0.02} & \zc{cpos!8}{+0.00} \\
+PIQA & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.01} & \zc{cpos!8}{+0.01} & \zc{cpos!8}{+0.02} & \zc{cpos!8}{+0.01} & \zc{cneg!8}{-0.01} & \zc{cpos!8}{+0.00} & \zc{cpos!8}{+0.00} \\
+Social IQA & \zc{cpos!8}{+0.00} & \zc{cpos!8}{+0.01} & \zc{cpos!22}{+0.03$^{*}$} & \zc{cpos!8}{+0.00} & \zc{cpos!8}{+0.01} & \zc{cpos!8}{+0.01} & \zc{cpos!8}{+0.01} & \zc{cpos!8}{+0.01} \\
+CoQA (F1) & \zc{cneg!50}{-0.11$^{***}$} & \zc{cneg!8}{-0.03} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.01} & \zc{cpos!8}{+0.00} & \zc{cneg!35}{-0.07$^{**}$} & \zc{cneg!22}{-0.05$^{*}$} & \zc{cneg!8}{-0.03} \\
+LAMBADA (OAI) & \zc{cpos!8}{+0.00} & \zc{cneg!8}{-0.01} & \zc{cpos!8}{+0.00} & \zc{cpos!8}{+0.00} & \zc{cpos!8}{+0.01} & \zc{cpos!8}{+0.01} & \zc{cpos!22}{+0.02$^{*}$} & \zc{cpos!8}{+0.01} \\
+LAMBADA (Std) & \zc{cpos!8}{+0.02} & \zc{cpos!8}{+0.01} & \zc{cpos!35}{+0.03$^{**}$} & \zc{cpos!22}{+0.02$^{*}$} & \zc{cpos!8}{+0.02} & \zc{cpos!22}{+0.02$^{*}$} & \zc{cpos!50}{+0.03$^{***}$} & \zc{cpos!22}{+0.02$^{*}$} \\
+EQ-Bench & \zc{cneg!50}{-44.7$^{***}$} & \zc{cpos!8}{+5.1} & \zc{cpos!8}{+5.9} & \zc{cneg!50}{-21.3$^{***}$} & \zc{cneg!8}{-0.3} & \zc{cpos!50}{+16.0$^{***}$} & \zc{cpos!50}{+22.9$^{***}$} & \zc{cpos!8}{+7.4} \\
+\textbf{Mean (6)} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.01} & \zc{cpos!8}{+0.01} & \zc{cpos!8}{+0.00} & \zc{cpos!8}{+0.00} & \zc{cneg!8}{-0.01} & \zc{cpos!8}{+0.00} & \zc{cpos!8}{+0.00} \\
+\midrule
+\multicolumn{9}{l}{\textit{ACP (Planning)}} \\
+App (B) & \zc{cneg!8}{-0.10} & \zc{cneg!8}{-0.10} & \zc{cneg!8}{-0.09} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.05} & \zc{cneg!50}{-0.29$^{***}$} & \zc{cpos!8}{+0.08} & \zc{cpos!8}{+0.05} \\
+Areach (B) & \zc{cneg!8}{-0.04} & \zc{cneg!50}{-0.22$^{***}$} & \zc{cneg!50}{-0.24$^{***}$} & \zc{cneg!50}{-0.24$^{***}$} & \zc{cpos!8}{+0.01} & \zc{cneg!50}{-0.37$^{***}$} & \zc{cpos!22}{+0.14$^{*}$} & \zc{cpos!8}{+0.02} \\
+Just (B) & \zc{cpos!8}{+0.05} & \zc{cneg!8}{-0.06} & \zc{cneg!8}{-0.06} & \zc{cneg!22}{-0.12$^{*}$} & \zc{cneg!8}{-0.01} & \zc{cneg!50}{-0.34$^{***}$} & \zc{cneg!22}{-0.13$^{*}$} & \zc{cneg!8}{-0.06} \\
+Land (B) & \zc{cneg!35}{-0.12$^{**}$} & \zc{cneg!50}{-0.44$^{***}$} & \zc{cneg!35}{-0.15$^{**}$} & \zc{cneg!50}{-0.21$^{***}$} & \zc{cpos!8}{+0.10} & \zc{cneg!35}{-0.11$^{**}$} & \zc{cneg!35}{-0.13$^{**}$} & \zc{cneg!8}{-0.04} \\
+Prog (B) & \zc{cneg!8}{-0.03} & \zc{cneg!22}{-0.13$^{*}$} & \zc{cpos!8}{+0.08} & \zc{cpos!8}{+0.02} & \zc{cneg!8}{-0.01} & \zc{cneg!50}{-0.47$^{***}$} & \zc{cneg!22}{-0.14$^{*}$} & \zc{cneg!8}{-0.09} \\
+Reach (B) & \zc{cneg!8}{-0.01} & \zc{cneg!8}{-0.02} & \zc{cpos!8}{+0.00} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.04} & \zc{cneg!8}{-0.10} & \zc{cpos!8}{+0.00} & \zc{cpos!8}{+0.00} \\
+Val (B) & \zc{cpos!8}{+0.00} & \zc{cpos!8}{+0.04} & \zc{cpos!8}{+0.03} & \zc{cpos!8}{+0.03} & \zc{cneg!22}{-0.15$^{*}$} & \zc{cneg!8}{-0.11} & \zc{cneg!8}{-0.01} & \zc{cneg!22}{-0.15$^{*}$} \\
+App (M) & \zc{cneg!22}{-0.13$^{*}$} & \zc{cneg!8}{-0.05} & \zc{cpos!22}{+0.15$^{*}$} & \zc{cpos!8}{+0.01} & \zc{cneg!8}{-0.07} & \zc{cneg!8}{-0.05} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.03} \\
+Areach (M) & \zc{cneg!8}{-0.08} & \zc{cpos!8}{+0.02} & \zc{cneg!8}{-0.04} & \zc{cneg!22}{-0.12$^{*}$} & \zc{cneg!50}{-0.22$^{***}$} & \zc{cneg!8}{-0.09} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.07} \\
+Just (M) & \zc{cpos!35}{+0.14$^{**}$} & \zc{cneg!8}{-0.02} & \zc{cpos!8}{+0.00} & \zc{cpos!8}{+0.00} & \zc{cpos!8}{+0.02} & \zc{cpos!8}{+0.01} & \zc{cneg!8}{-0.06} & \zc{cneg!8}{-0.04} \\
+Land (M) & \zc{cpos!8}{+0.09} & \zc{cpos!8}{+0.02} & \zc{cneg!8}{-0.05} & \zc{cneg!8}{-0.05} & \zc{cneg!8}{-0.01} & \zc{cneg!8}{-0.08} & \zc{cpos!8}{+0.05} & \zc{cpos!8}{+0.05} \\
+Prog (M) & \zc{cneg!50}{-0.22$^{***}$} & \zc{cneg!22}{-0.15$^{*}$} & \zc{cneg!50}{-0.35$^{***}$} & \zc{cneg!22}{-0.15$^{*}$} & \zc{cneg!8}{-0.01} & \zc{cneg!35}{-0.12$^{**}$} & \zc{cneg!8}{-0.07} & \zc{cneg!8}{-0.01} \\
+Reach (M) & \zc{cneg!22}{-0.11$^{*}$} & \zc{cneg!8}{-0.06} & \zc{cneg!8}{-0.08} & \zc{cneg!22}{-0.11$^{*}$} & \zc{cneg!50}{-0.26$^{***}$} & \zc{cneg!8}{-0.04} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.02} \\
+Val (M) & \zc{cneg!8}{-0.03} & \zc{cpos!8}{+0.12} & \zc{cpos!8}{+0.05} & \zc{cpos!35}{+0.15$^{**}$} & \zc{cneg!8}{-0.02} & \zc{cpos!8}{+0.04} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.02} \\
+\textbf{Mean (14)} & \zc{cneg!35}{-0.04$^{**}$} & \zc{cneg!50}{-0.07$^{***}$} & \zc{cneg!50}{-0.05$^{***}$} & \zc{cneg!50}{-0.06$^{***}$} & \zc{cneg!35}{-0.05$^{**}$} & \zc{cneg!50}{-0.15$^{***}$} & \zc{cneg!8}{-0.02} & \zc{cneg!8}{-0.03} \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{2pt}
+{\tiny\centering
+degrad. \colorbox{cneg!50}{\strut\,} \colorbox{cneg!20}{\strut\,} \colorbox{white}{\strut\,} \colorbox{cpos!20}{\strut\,} \colorbox{cpos!50}{\strut\,} improv. \quad $^{*}p{<}.05$ ~ $^{**}p{<}.01$ ~ $^{***}p{<}.001$\par}
+\caption{Impact of cognitive fine-tuning across all benchmarks. Each cell shows $\Delta$ = fine-tuned $-$ base. Significance is assessed with a two-sided $z$-test using the standard errors reported by \texttt{lm-eval}; group means use Stouffer's method to combine per-task $z$-scores. EQ-Bench is on a separate scale and excluded from means.}
+\label{tab:significance_full}
+\end{table}

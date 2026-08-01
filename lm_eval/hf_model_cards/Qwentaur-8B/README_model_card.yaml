@@ -1,0 +1,320 @@
+---
+model-index:
+- 
+  name: Qwentaur-8B
+  results:
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Acp Bench
+      type: ibm-research/acp_bench
+    metrics:
+    - 
+      name: Exact Match (acp_app_bool)
+      type: exact_match
+      value: 80.77
+    - 
+      name: Exact Match (acp_app_mcq)
+      type: exact_match
+      value: 38.46
+    - 
+      name: Exact Match (acp_areach_bool)
+      type: exact_match
+      value: 32.5
+    - 
+      name: Exact Match (acp_areach_mcq)
+      type: exact_match
+      value: 20.0
+    - 
+      name: Exact Match (acp_just_bool)
+      type: exact_match
+      value: 58.46
+    - 
+      name: Exact Match (acp_just_mcq)
+      type: exact_match
+      value: 51.54
+    - 
+      name: Exact Match (acp_land_bool)
+      type: exact_match
+      value: 20.77
+    - 
+      name: Exact Match (acp_land_mcq)
+      type: exact_match
+      value: 46.92
+    - 
+      name: Exact Match (acp_prog_bool)
+      type: exact_match
+      value: 75.38
+    - 
+      name: Exact Match (acp_prog_mcq)
+      type: exact_match
+      value: 53.85
+    - 
+      name: Exact Match (acp_reach_bool)
+      type: exact_match
+      value: 53.08
+    - 
+      name: Exact Match (acp_reach_mcq)
+      type: exact_match
+      value: 16.92
+    - 
+      name: Exact Match (acp_val_bool)
+      type: exact_match
+      value: 56.15
+    - 
+      name: Exact Match (acp_val_mcq)
+      type: exact_match
+      value: 37.69
+  - 
+    task:
+      type: question-answering
+    dataset:
+      name: Coqa
+      type: stanfordnlp/coqa
+    metrics:
+    - 
+      name: Exact Match
+      type: em
+      value: 70.82
+    - 
+      name: F1 Score
+      type: f1
+      value: 83.05
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Eq-Bench
+      type: pbevan11/EQ-Bench
+    metrics:
+    - 
+      name: EQ-Bench Score
+      type: eqbench
+      value: 45.69
+    - 
+      name: Percent Parseable
+      type: percent_parseable
+      value: 100.0
+  - 
+    task:
+      type: text-classification
+    dataset:
+      name: Ethics
+      type: hendrycks/ethics
+    metrics:
+    - 
+      name: Accuracy (ethics_cm)
+      type: acc
+      value: 66.36
+    - 
+      name: Accuracy (ethics_deontology)
+      type: acc
+      value: 61.62
+    - 
+      name: Accuracy (ethics_justice)
+      type: acc
+      value: 75.15
+    - 
+      name: Accuracy (ethics_utilitarianism)
+      type: acc
+      value: 71.03
+    - 
+      name: Accuracy (ethics_virtue)
+      type: acc
+      value: 90.13
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Lambada Openai
+      type: EleutherAI/lambada_openai
+    metrics:
+    - 
+      name: Perplexity
+      type: perplexity
+      value: 3.5
+    - 
+      name: Accuracy
+      type: acc
+      value: 71.3
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Lambada
+      type: cimec/lambada
+    metrics:
+    - 
+      name: Perplexity
+      type: perplexity
+      value: 3.85
+    - 
+      name: Accuracy
+      type: acc
+      value: 68.14
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Logiqa
+      type: EleutherAI/logiqa
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 32.57
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 32.72
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Piqa
+      type: ybisk/piqa
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 79.27
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 80.79
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Social I Qa
+      type: allenai/social_i_qa
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 54.91
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Metabench
+      type: HCAI/metabench
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 59.44
+    - 
+      name: Accuracy
+      type: acc
+      value: 66.9
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 73.1
+    - 
+      name: Exact Match
+      type: exact_match
+      value: 70.46
+    - 
+      name: Exact Match
+      type: exact_match
+      value: 70.89
+    - 
+      name: Accuracy
+      type: acc
+      value: 34.41
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 52.69
+    - 
+      name: Accuracy
+      type: acc
+      value: 84.38
+    - 
+      name: Accuracy
+      type: acc
+      value: 31.82
+    - 
+      name: Accuracy
+      type: acc
+      value: 79.7
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinyai2 Arc
+      type: tinyBenchmarks/tinyAI2_arc
+    metrics:
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 67.81
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Tinygsm8K
+      type: tinyBenchmarks/tinyGSM8k
+    metrics:
+    - 
+      name: Exact Match
+      type: exact_match
+      value: 71.93
+    - 
+      name: Exact Match
+      type: exact_match
+      value: 71.93
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinyhellaswag
+      type: tinyBenchmarks/tinyHellaswag
+    metrics:
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 78.6
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinymmlu
+      type: tinyBenchmarks/tinyMMLU
+    metrics:
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 71.14
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinytruthfulqa
+      type: tinyBenchmarks/tinyTruthfulQA
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 50.67
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinywinogrande
+      type: tinyBenchmarks/tinyWinogrande
+    metrics:
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 69.99
+---
+
+# Qwentaur-8B
+
+Model-index format for socius/Qwentaur-8B
+
+Copy the YAML section above (between the `---` markers) to the top of your model card README.md

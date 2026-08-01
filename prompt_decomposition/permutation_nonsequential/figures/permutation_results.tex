@@ -1,0 +1,183 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\usepackage{natbib}
+
+\title{Order Permutation Test Results}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Overview}
+
+We evaluate whether cognitive foundation models produce predictions that are invariant to the ordering of exchangeable context trials from Psych-101.
+Under exchangeability, shuffling the order of context trials should not change the predictive distribution for a held-out target trial.
+We test 16 models---8 finetuned (3 Llama-Centaur, 5 Qwentaur) and 8 base (3 Llama, 5 Qwen3)---on two experiments chosen to represent contrasting exchangeability regimes: one with independently sampled trials (primary test) and one with an adaptive sequential design (negative control).
+
+\subsection{Experiments}
+
+\paragraph{THINGS odd-one-out \citep{hebart2023things} --- primary test.}
+Participants view a triplet of everyday objects drawn from 1{,}854 concepts and select the one that is least similar to the other two (\emph{odd-one-out}).
+Triplets are sampled randomly from a combinatorial space of approximately one billion possibilities; each similarity judgment is independent of which triplets appeared earlier.
+Because there is no adaptive procedure, no feedback, and no sequential dependency between trials, context trials are \textbf{exchangeable by design}: seeing ``bassinet vs.\ raspberry vs.\ detonator'' before ``dollhouse vs.\ bathtub vs.\ handcuff'' should produce the same predictions as the reverse order.
+A model that has learned this task structure should be invariant to context ordering.
+This experiment serves as the primary test of order invariance.
+
+\paragraph{Intertemporal choice \citep{ruggeri2022globalizability} --- negative control.}
+Participants make binary choices between an immediate monetary reward and a larger delayed reward through an \textbf{adaptive staircase procedure}.
+The task begins with a choice such as ``\$500 now vs.\ \$550 in 12 months''; if the participant chooses the immediate option, the delayed reward escalates (e.g., to \$600, then \$750); when the participant switches preference, the procedure advances to the next scenario (gains to losses, magnitude changes, different time frames).
+This branching titration design means each subsequent trial is determined by the previous response---trials are \textbf{not exchangeable}.
+Placing a late-stage trial (e.g., ``\$5{,}000 vs.\ \$5{,}500'') before the opening ``\$500 vs.\ \$550'' trial breaks the staircase logic entirely.
+A model finetuned on such data should learn to exploit trial ordering as a signal for the participant's temporal discount rate.
+This experiment therefore serves as a \textbf{negative control}: we \emph{expect} context-order sensitivity, and detecting it validates that the permutation test has power to identify genuine order effects.
+
+\subsection{Procedure}
+
+For each (participant, target trial) pair, 50 random permutations of the context order are drawn.
+The variance of each response-token probability $p_i$ across permutations is computed, averaged across tokens, then across targets per participant (768 participants for THINGS; 1{,}295 for Intertemporal choice).
+Lower variance indicates stronger order invariance.
+
+\section{Results}
+
+\subsection{THINGS odd-one-out (primary test)}
+
+On the primary test, finetuned models exhibit substantially lower order variance than their base counterparts (Table~\ref{tab:hebart}).
+The mean variance across finetuned models is $5.25 \times 10^{-4}$, compared to $4.41 \times 10^{-3}$ for base models---an \textbf{8.4$\boldsymbol{\times}$ reduction}.
+Qwentaur-0.6B achieves the lowest variance ($3.63 \times 10^{-4}$), while Qwen3-0.6B shows the highest ($7.99 \times 10^{-3}$).
+
+All models show statistically significant non-zero variance ($p < 10^{-50}$ in every case), so no model achieves perfect order invariance.
+However, the finetuned models approach near-zero variance, with all eight falling below $7 \times 10^{-4}$.
+This indicates that finetuning on Psych-101 teaches the model to treat context trials as approximately exchangeable when the underlying task is genuinely unordered.
+
+\begin{table}[ht]
+\centering
+\caption{Order variance on THINGS odd-one-out ($n = 768$ participants per model).}
+\label{tab:hebart}
+\small
+\begin{tabular}{llrrr}
+\toprule
+Model & Type & Mean Var. & Median Var. & SE \\
+\midrule
+Llama-Centaur-1B  & Finetuned & .000534 & .000506 & .000016 \\
+Llama-Centaur-3B  & Finetuned & .000417 & .000406 & .000005 \\
+Llama-Centaur-8B  & Finetuned & .000491 & .000429 & .000028 \\
+Qwentaur-0.6B     & Finetuned & .000363 & .000359 & .000004 \\
+Qwentaur-1.7B     & Finetuned & .000489 & .000495 & .000005 \\
+Qwentaur-4B       & Finetuned & .000682 & .000580 & .000024 \\
+Qwentaur-8B       & Finetuned & .000633 & .000559 & .000015 \\
+Qwentaur-14B      & Finetuned & .000593 & .000526 & .000016 \\
+\midrule
+Llama-3.2-1B      & Base      & .007606 & .007139 & .000092 \\
+Llama-3.2-3B      & Base      & .002474 & .002256 & .000037 \\
+Llama-3.1-8B      & Base      & .003003 & .002779 & .000046 \\
+Qwen3-0.6B        & Base      & .007994 & .006499 & .000167 \\
+Qwen3-1.7B        & Base      & .004813 & .004663 & .000052 \\
+Qwen3-4B          & Base      & .002989 & .002823 & .000038 \\
+Qwen3-8B          & Base      & .001826 & .001678 & .000030 \\
+Qwen3-14B         & Base      & .004553 & .004176 & .000068 \\
+\midrule
+\multicolumn{2}{l}{\textit{Finetuned avg}} & .000525 & --- & --- \\
+\multicolumn{2}{l}{\textit{Base avg}}      & .004407 & --- & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Intertemporal choice (negative control)}
+
+On the negative control, the pattern reverses as expected (Table~\ref{tab:ruggeri}).
+Finetuned models show \emph{higher} mean order variance ($1.76 \times 10^{-2}$) than base models ($8.69 \times 10^{-3}$)---a $2.0\times$ increase.
+The most order-sensitive model is Qwentaur-8B ($3.49 \times 10^{-2}$), while Qwen3-1.7B achieves the lowest variance ($3.12 \times 10^{-3}$).
+
+This reversal is the expected outcome for the negative control.
+Finetuned models, having been trained on Psych-101, learn the sequential structure of the adaptive staircase: earlier choices in the titration reveal the participant's discount rate and constrain what later trials look like.
+Shuffling this natural progression---e.g., placing an escalated high-reward trial before the initial baseline choice---disrupts the learned structure and produces larger prediction changes.
+In contrast, base models lack this task-specific adaptation and produce flatter, less context-sensitive predictions that are more uniform across orderings---reflecting underfitting rather than true exchangeability.
+Crucially, the fact that the permutation test detects strong order effects on this task \textbf{validates the sensitivity of the test methodology}: it confirms that genuine sequential dependencies are captured, lending credibility to the near-invariance observed for THINGS.
+
+\begin{table}[ht]
+\centering
+\caption{Order variance on Intertemporal choice ($n = 1{,}295$ participants per model).}
+\label{tab:ruggeri}
+\small
+\begin{tabular}{llrrr}
+\toprule
+Model & Type & Mean Var. & Median Var. & SE \\
+\midrule
+Llama-Centaur-1B  & Finetuned & .007585 & .003376 & .000261 \\
+Llama-Centaur-3B  & Finetuned & .009052 & .003915 & .000299 \\
+Llama-Centaur-8B  & Finetuned & .015548 & .009300 & .000435 \\
+Qwentaur-0.6B     & Finetuned & .018901 & .013400 & .000393 \\
+Qwentaur-1.7B     & Finetuned & .012772 & .006111 & .000364 \\
+Qwentaur-4B       & Finetuned & .017104 & .008024 & .000527 \\
+Qwentaur-8B       & Finetuned & .034860 & .034143 & .000574 \\
+Qwentaur-14B      & Finetuned & .025238 & .019702 & .000557 \\
+\midrule
+Llama-3.2-1B      & Base      & .012424 & .012860 & .000176 \\
+Llama-3.2-3B      & Base      & .005604 & .005421 & .000057 \\
+Llama-3.1-8B      & Base      & .009487 & .009435 & .000101 \\
+Qwen3-0.6B        & Base      & .007281 & .007175 & .000089 \\
+Qwen3-1.7B        & Base      & .003123 & .003053 & .000032 \\
+Qwen3-4B          & Base      & .012373 & .012018 & .000151 \\
+Qwen3-8B          & Base      & .010550 & .010333 & .000137 \\
+Qwen3-14B         & Base      & .008693 & .008116 & .000129 \\
+\midrule
+\multicolumn{2}{l}{\textit{Finetuned avg}} & .017633 & --- & --- \\
+\multicolumn{2}{l}{\textit{Base avg}}      & .008692 & --- & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Cross-task comparison}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{permutation_grid.pdf}
+    \caption{Distribution of per-participant order variance across models and experiments.
+    Each row shows one experiment: THINGS odd-one-out (top, primary test) and Intertemporal choice (bottom, negative control).
+    Left panels: violin and box plots with jittered individual participants; finetuned models (left group, solid) vs.\ base models (right group, hatched).
+    Right panels: empirical cumulative distribution functions; solid lines denote finetuned models, dashed lines denote base models; steeper curves closer to zero indicate greater order invariance.}
+    \label{fig:grid}
+\end{figure}
+
+Figure~\ref{fig:grid} highlights the contrasting patterns across experiments.
+For THINGS (top row), where triplets are sampled independently, all finetuned models cluster near zero while base models show an order of magnitude more variance---consistent with finetuning having learned that independent similarity judgments are exchangeable.
+The ECDF curves confirm this: finetuned models rise sharply near zero, while base model curves spread across a wider range.
+
+For intertemporal choice (bottom row), where the adaptive staircase creates genuine sequential dependencies, finetuned models---especially larger Qwentaur variants---display the highest variance, with Qwentaur-8B exceeding $3.4 \times 10^{-2}$.
+This is the expected outcome: finetuned models have learned that the progression of choices within the titration procedure carries information about the participant's discount rate, so disrupting that progression changes predictions.
+Notably, finetuned models show highly skewed distributions with prominent upper outliers, while their medians are closer to those of base models---the high mean variance is partly driven by a subset of participants whose staircase sequences are especially informative about temporal discount rate (e.g., participants who triggered multiple escalation steps before switching).
+
+\section{Summary}
+
+\begin{enumerate}
+    \item \textbf{No model achieves perfect exchangeability.} All 16 models on both tasks yield $p \approx 0$ in one-sample $t$-tests against zero variance, confirming that context order affects predictions to some degree.
+
+    \item \textbf{Finetuning dramatically reduces order sensitivity for THINGS (primary test).} Finetuned models show $8.4\times$ lower mean order variance than base models, indicating that training on Psych-101 teaches the model to treat independently sampled similarity judgments as approximately exchangeable.
+
+    \item \textbf{Finetuning increases order sensitivity for Intertemporal choice (negative control).} The reversal ($2.0\times$ higher variance for finetuned models) is the expected outcome: the adaptive staircase creates genuine sequential dependencies, and finetuned models have learned to exploit trial progression as a signal for the participant's discount rate.
+
+    \item \textbf{The permutation test is validated by the negative control.} The strong order effects detected on the adaptive staircase task confirm the test's power to identify genuine sequential dependencies, lending credibility to the near-invariance observed on the independently-structured THINGS task.
+
+    \item \textbf{Finetuned models correctly distinguish exchangeable from non-exchangeable task structures.} Exchangeability is approximated for tasks with independently sampled trials (THINGS odd-one-out) but not for tasks where a branching titration design makes trial ordering inherently informative (intertemporal choice). Both outcomes reflect correct task-specific learning.
+\end{enumerate}
+
+\bibliographystyle{plainnat}
+\begin{thebibliography}{2}
+\bibitem[Hebart et~al.(2023)]{hebart2023things}
+Hebart, M.~N., Contier, O., Teichmann, L., et~al. (2023).
+\newblock THINGS-data, a multimodal collection of large-scale datasets for investigating object representations in human brain and behavior.
+\newblock \textit{eLife}, 12, e82580.
+
+\bibitem[Ruggeri et~al.(2022)]{ruggeri2022globalizability}
+Ruggeri, K., Aky\"{u}z, S., Arami\'{c}, M., et~al. (2022).
+\newblock The globalizability of temporal discounting.
+\newblock \textit{Nature Human Behaviour}, 6, 1386--1397.
+\end{thebibliography}
+
+\end{document}

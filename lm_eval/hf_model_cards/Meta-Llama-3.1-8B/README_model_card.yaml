@@ -1,0 +1,320 @@
+---
+model-index:
+- 
+  name: Meta-Llama-3.1-8B
+  results:
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Acp Bench
+      type: ibm-research/acp_bench
+    metrics:
+    - 
+      name: Exact Match (acp_app_bool)
+      type: exact_match
+      value: 62.31
+    - 
+      name: Exact Match (acp_app_mcq)
+      type: exact_match
+      value: 28.46
+    - 
+      name: Exact Match (acp_areach_bool)
+      type: exact_match
+      value: 52.5
+    - 
+      name: Exact Match (acp_areach_mcq)
+      type: exact_match
+      value: 26.67
+    - 
+      name: Exact Match (acp_just_bool)
+      type: exact_match
+      value: 53.08
+    - 
+      name: Exact Match (acp_just_mcq)
+      type: exact_match
+      value: 39.23
+    - 
+      name: Exact Match (acp_land_bool)
+      type: exact_match
+      value: 13.08
+    - 
+      name: Exact Match (acp_land_mcq)
+      type: exact_match
+      value: 33.08
+    - 
+      name: Exact Match (acp_prog_bool)
+      type: exact_match
+      value: 70.0
+    - 
+      name: Exact Match (acp_prog_mcq)
+      type: exact_match
+      value: 40.0
+    - 
+      name: Exact Match (acp_reach_bool)
+      type: exact_match
+      value: 53.08
+    - 
+      name: Exact Match (acp_reach_mcq)
+      type: exact_match
+      value: 23.08
+    - 
+      name: Exact Match (acp_val_bool)
+      type: exact_match
+      value: 59.23
+    - 
+      name: Exact Match (acp_val_mcq)
+      type: exact_match
+      value: 49.23
+  - 
+    task:
+      type: question-answering
+    dataset:
+      name: Coqa
+      type: stanfordnlp/coqa
+    metrics:
+    - 
+      name: Exact Match
+      type: em
+      value: 68.72
+    - 
+      name: F1 Score
+      type: f1
+      value: 81.15
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Eq-Bench
+      type: pbevan11/EQ-Bench
+    metrics:
+    - 
+      name: EQ-Bench Score
+      type: eqbench
+      value: 13.49
+    - 
+      name: Percent Parseable
+      type: percent_parseable
+      value: 99.41520467836257
+  - 
+    task:
+      type: text-classification
+    dataset:
+      name: Ethics
+      type: hendrycks/ethics
+    metrics:
+    - 
+      name: Accuracy (ethics_cm)
+      type: acc
+      value: 52.15
+    - 
+      name: Accuracy (ethics_deontology)
+      type: acc
+      value: 51.42
+    - 
+      name: Accuracy (ethics_justice)
+      type: acc
+      value: 52.92
+    - 
+      name: Accuracy (ethics_utilitarianism)
+      type: acc
+      value: 53.31
+    - 
+      name: Accuracy (ethics_virtue)
+      type: acc
+      value: 69.05
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Lambada Openai
+      type: EleutherAI/lambada_openai
+    metrics:
+    - 
+      name: Perplexity
+      type: perplexity
+      value: 3.14
+    - 
+      name: Accuracy
+      type: acc
+      value: 74.77
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Lambada
+      type: cimec/lambada
+    metrics:
+    - 
+      name: Perplexity
+      type: perplexity
+      value: 3.77
+    - 
+      name: Accuracy
+      type: acc
+      value: 67.55
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Logiqa
+      type: EleutherAI/logiqa
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 26.27
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 30.88
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Piqa
+      type: ybisk/piqa
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 79.33
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 80.85
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Social I Qa
+      type: allenai/social_i_qa
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 48.11
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Metabench
+      type: HCAI/metabench
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 51.51
+    - 
+      name: Accuracy
+      type: acc
+      value: 53.1
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 57.24
+    - 
+      name: Exact Match
+      type: exact_match
+      value: 47.68
+    - 
+      name: Exact Match
+      type: exact_match
+      value: 47.68
+    - 
+      name: Accuracy
+      type: acc
+      value: 39.78
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 68.82
+    - 
+      name: Accuracy
+      type: acc
+      value: 72.92
+    - 
+      name: Accuracy
+      type: acc
+      value: 14.29
+    - 
+      name: Accuracy
+      type: acc
+      value: 77.44
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinyai2 Arc
+      type: tinyBenchmarks/tinyAI2_arc
+    metrics:
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 58.5
+  - 
+    task:
+      type: text-generation
+    dataset:
+      name: Tinygsm8K
+      type: tinyBenchmarks/tinyGSM8k
+    metrics:
+    - 
+      name: Exact Match
+      type: exact_match
+      value: 51.4
+    - 
+      name: Exact Match
+      type: exact_match
+      value: 51.4
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinyhellaswag
+      type: tinyBenchmarks/tinyHellaswag
+    metrics:
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 83.89
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinymmlu
+      type: tinyBenchmarks/tinyMMLU
+    metrics:
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 66.11
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinytruthfulqa
+      type: tinyBenchmarks/tinyTruthfulQA
+    metrics:
+    - 
+      name: Accuracy
+      type: acc
+      value: 46.45
+  - 
+    task:
+      type: multiple-choice
+    dataset:
+      name: Tinywinogrande
+      type: tinyBenchmarks/tinyWinogrande
+    metrics:
+    - 
+      name: Normalized Accuracy
+      type: acc_norm
+      value: 72.55
+---
+
+# Meta-Llama-3.1-8B
+
+Model-index format for unsloth/Meta-Llama-3.1-8B
+
+Copy the YAML section above (between the `---` markers) to the top of your model card README.md

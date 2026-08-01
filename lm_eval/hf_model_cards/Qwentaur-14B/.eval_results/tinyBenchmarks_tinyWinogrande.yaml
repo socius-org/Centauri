@@ -1,0 +1,3 @@
+- dataset:
+    id: tinyBenchmarks/tinyWinogrande
+  value: 76.34

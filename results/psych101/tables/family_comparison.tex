@@ -1,0 +1,200 @@
+% ============================================================================
+% Required packages and colour definitions for heatmap tables
+% ============================================================================
+% \usepackage{xcolor}
+% \usepackage{colortbl}
+% \usepackage{graphicx}
+% \usepackage{booktabs}
+% \usepackage{rotating}
+
+% ---- Heatmap colour bins (green=good to red=bad) ----
+\definecolor{c1}{HTML}{1a9850}
+\definecolor{c2}{HTML}{66bd63}
+\definecolor{c3}{HTML}{a6d96a}
+\definecolor{c4}{HTML}{d9ef8b}
+\definecolor{c5}{HTML}{fee08b}
+\definecolor{c6}{HTML}{fdae61}
+\definecolor{c7}{HTML}{f46d43}
+\definecolor{c8}{HTML}{d73027}
+\definecolor{c9}{HTML}{a50026}
+
+% ---- Normal cell ----
+\newcommand{\hc}[1]{%
+  \ifdim #1 pt < 0.20pt \cellcolor{c1!45}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c2!40}%
+  \else\ifdim #1 pt < 0.60pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.80pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 1.00pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 1.20pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 1.50pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 2.00pt \cellcolor{c8!40}%
+  \else \cellcolor{c9!35}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  #1%
+}
+
+% ---- Underline = 2nd best ----
+\newcommand{\hcu}[1]{%
+  \ifdim #1 pt < 0.20pt \cellcolor{c1!45}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c2!40}%
+  \else\ifdim #1 pt < 0.60pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.80pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 1.00pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 1.20pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 1.50pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 2.00pt \cellcolor{c8!40}%
+  \else \cellcolor{c9!35}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  \underline{#1}%
+}
+
+% ---- Bold + underline = best ----
+\newcommand{\hcbu}[1]{%
+  \ifdim #1 pt < 0.20pt \cellcolor{c1!45}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c2!40}%
+  \else\ifdim #1 pt < 0.60pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.80pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 1.00pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 1.20pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 1.50pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 2.00pt \cellcolor{c8!40}%
+  \else \cellcolor{c9!35}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  \underline{\textbf{#1}}%
+}
+
+% ---- Dagger variants ----
+\newcommand{\hcd}[1]{\hc{#1}$^{\dagger}$}
+\newcommand{\hcud}[1]{\hcu{#1}$^{\dagger}$}
+\newcommand{\hcbud}[1]{\hcbu{#1}$^{\dagger}$}
+
+% ---- No baseline ----
+\newcommand{\hcn}{\cellcolor{white}{---}}
+
+% ---- Reversed heatmap (higher = better = green) for normalised metric ----
+\newcommand{\hcR}[1]{%
+  \ifdim #1 pt < 0.05pt \cellcolor{c9!35}%
+  \else\ifdim #1 pt < 0.12pt \cellcolor{c8!40}%
+  \else\ifdim #1 pt < 0.18pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 0.25pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 0.32pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 0.48pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.55pt \cellcolor{c2!40}%
+  \else \cellcolor{c1!45}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  #1%
+}
+\newcommand{\hcRu}[1]{%
+  \ifdim #1 pt < 0.05pt \cellcolor{c9!35}%
+  \else\ifdim #1 pt < 0.12pt \cellcolor{c8!40}%
+  \else\ifdim #1 pt < 0.18pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 0.25pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 0.32pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 0.48pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.55pt \cellcolor{c2!40}%
+  \else \cellcolor{c1!45}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  \underline{#1}%
+}
+\newcommand{\hcRbu}[1]{%
+  \ifdim #1 pt < 0.05pt \cellcolor{c9!35}%
+  \else\ifdim #1 pt < 0.12pt \cellcolor{c8!40}%
+  \else\ifdim #1 pt < 0.18pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 0.25pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 0.32pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 0.48pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.55pt \cellcolor{c2!40}%
+  \else \cellcolor{c1!45}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  \underline{\textbf{#1}}%
+}
+
+\begin{sidewaystable}
+\centering
+{\tiny
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l l  r r r r r r   r r r r r r r r r r   r r  r@{}}
+\toprule
+& & \multicolumn{6}{c}{\textbf{Qwen 2.5/3 family}} & \multicolumn{10}{c}{\textbf{Llama 3/3.1/3.2 family}} & \multicolumn{2}{c}{\citet{binz2025foundation}} & \textbf{Chance} \\
+\cmidrule(lr){3-8}\cmidrule(lr){9-18}
+& & \multicolumn{2}{c}{Base} & \multicolumn{2}{c}{\texttt{Qwentaur}} & \multicolumn{1}{c}{Other cog.} & \multicolumn{1}{c}{Non-cog.} & \multicolumn{2}{c}{Base} & \multicolumn{2}{c}{\texttt{Llama-Centaur}} & \multicolumn{2}{c}{Other cog.} & \multicolumn{4}{c}{Non-cog.} & & \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-7}\cmidrule(lr){8-8}\cmidrule(lr){9-10}\cmidrule(lr){11-12}\cmidrule(lr){13-14}\cmidrule(lr){15-18}
+\textbf{Experiment} & \textbf{Type} & 8B & 14B & 8B & 14B & \texttt{Socr.-14B} & \texttt{Herm.-14B} & 3B & 8B & 3B & 8B & \texttt{Be.FM-8B} & \texttt{Socr.-8B} & \texttt{Herm.-3B} & \texttt{Nemo.-4B} & \texttt{Herm.-8B} & \texttt{Nemo.-8B} & \texttt{C-70B}$_r$ & Cog.$_p$ & $\ln(k)$ \\
+\midrule
+Balloon analog risk task {\fontsize{4}{5}\selectfont\citep{frey2017risk}} & Decision & \hc{0.08} & \hc{0.08} & \hc{0.06} & \hcu{0.06} & \hc{5.87} & \hc{0.08} & \hc{0.08} & \hc{0.08} & \hc{0.07} & \hcbu{0.06} & \hcn & \hc{13.52} & \hc{0.09} & \hc{0.17} & \hc{0.09} & \hc{0.18} & \hc{0.07} & \hc{0.09} & \hc{0.69} \\
+CPC18 {\fontsize{4}{5}\selectfont\citep{plonsky2018when}} & Decision & \hc{0.40} & \hc{0.40} & \hc{0.34} & \hcbu{0.33} & \hc{8.54} & \hc{0.40} & \hc{0.41} & \hc{0.39} & \hc{0.35} & \hcu{0.34} & \hcn & \hc{14.34} & \hc{0.44} & \hc{0.95} & \hc{0.42} & \hc{0.64} & \hc{0.35} & \hc{0.66} & \hc{0.69} \\
+Columbia card task {\fontsize{4}{5}\selectfont\citep{frey2017risk}} & Decision & \hc{0.25} & \hc{0.25} & \hc{0.20} & \hcu{0.20} & \hc{6.72} & \hc{0.26} & \hc{0.27} & \hc{0.25} & \hc{0.20} & \hcbu{0.20} & \hcn & \hc{14.07} & \hc{0.27} & \hc{0.48} & \hc{0.26} & \hc{0.49} & \hc{0.21} & \hc{0.26} & \hc{0.69} \\
+Decisions from description {\fontsize{4}{5}\selectfont\citep{wulff2018sampling}} & Decision & \hc{0.99} & \hc{1.01} & \hc{0.61} & \hc{0.60} & \hc{10.13} & \hc{1.02} & \hc{1.20} & \hc{0.96} & \hc{0.63} & \hcu{0.60} & \hcn & \hc{13.59} & \hc{1.34} & \hc{2.99} & \hc{1.17} & \hc{4.44} & \hcbu{0.59} & \hc{0.61} & \hc{0.69} \\
+Experiential-symbolic task {\fontsize{4}{5}\selectfont\citep{garcia2023experiential}} & Decision & \hc{0.64} & \hc{0.57} & \hc{0.46} & \hcu{0.46} & \hc{7.86} & \hc{0.58} & \hc{0.69} & \hc{0.64} & \hc{0.47} & \hc{0.46} & \hcn & \hc{12.95} & \hc{0.79} & \hc{1.37} & \hc{0.67} & \hc{0.95} & \hcbu{0.46} & \hcn & \hcn \\
+Gardening task {\fontsize{4}{5}\selectfont\citep{flesch2018comparing}} & Decision & \hc{0.47} & \hc{0.45} & \hc{0.38} & \hcu{0.38} & \hc{10.28} & \hc{0.45} & \hc{0.64} & \hc{0.48} & \hc{0.39} & \hcbu{0.38} & \hcn & \hc{16.26} & \hc{0.53} & \hc{0.61} & \hc{0.46} & \hc{0.64} & \hc{0.49} & \hc{0.91} & \hc{0.69} \\
+Go/no-go {\fontsize{4}{5}\selectfont\citep{enkavi2019large}} & Decision & \hc{0.01} & \hc{0.00} & \hcbu{0.00} & \hcbu{0.00} & \hc{4.24} & \hc{0.00} & \hc{0.01} & \hc{0.00} & \hcbu{0.00} & \hcbu{0.00} & \hcn & \hc{12.55} & \hc{0.01} & \hc{0.04} & \hcu{0.00} & \hc{0.01} & \hcbu{0.00} & \hc{0.08} & \hc{0.00} \\
+Intertemporal choice {\fontsize{4}{5}\selectfont\citep{ruggeri2022globalizability}} & Decision & \hc{0.69} & \hc{0.70} & \hc{0.44} & \hc{0.44} & \hc{12.23} & \hc{0.74} & \hc{0.75} & \hc{0.76} & \hcu{0.44} & \hc{0.44} & \hcn & \hc{13.82} & \hc{0.72} & \hc{2.75} & \hc{1.04} & \hc{2.72} & \hcbu{0.44} & \hc{0.66} & \hc{0.69} \\
+Multi-attribute DM {\fontsize{4}{5}\selectfont\citep{hilbig2014generalized}} & Decision & \hc{0.19} & \hc{0.19} & \hc{0.08} & \hcu{0.08} & \hc{10.45} & \hc{0.20} & \hc{0.45} & \hc{0.23} & \hc{0.08} & \hc{0.08} & \hcn & \hc{13.86} & \hc{0.45} & \hc{0.61} & \hc{0.23} & \hc{0.54} & \hcbu{0.06} & \hc{0.19} & \hc{0.69} \\
+Risky choice {\fontsize{4}{5}\selectfont\citep{krueger2024identifying}} & Decision & \hc{0.74} & \hc{0.67} & \hc{0.43} & \hcbu{0.42} & \hc{7.17} & \hc{0.67} & \hc{0.85} & \hc{0.76} & \hc{0.46} & \hcu{0.43} & \hcn & \hc{16.10} & \hc{0.94} & \hc{1.79} & \hc{0.82} & \hc{1.35} & \hc{0.43} & \hcn & \hcn \\
+choices13k {\fontsize{4}{5}\selectfont\citep{peterson2021using}} & Decision & \hc{0.59} & \hc{0.55} & \hc{0.43} & \hcbu{0.43} & \hc{9.40} & \hc{0.53} & \hc{0.59} & \hc{0.55} & \hc{0.44} & \hcu{0.43} & \hcn & \hc{13.44} & \hc{0.65} & \hc{1.65} & \hc{0.60} & \hc{1.13} & \hc{0.43} & \hc{0.66} & \hc{0.69} \\
+\midrule
+Multi-task RL {\fontsize{4}{5}\selectfont\citep{tomov2021multitask}} & MDP & \hc{0.70} & \hc{0.68} & \hc{0.58} & \hcbu{0.57} & \hc{7.95} & \hc{0.66} & \hc{0.70} & \hc{0.66} & \hc{0.59} & \hc{0.57} & \hcn & \hc{14.70} & \hc{0.81} & \hc{1.20} & \hc{0.70} & \hc{1.06} & \hcu{0.57} & \hc{1.04} & \hc{1.10} \\
+Tile-revealing task {\fontsize{4}{5}\selectfont\citep{kumar2023disentangling}} & MDP & \hc{2.73} & \hc{2.60} & \hc{0.07} & \hcu{0.00} & \hc{35.15} & \hc{2.62} & \hc{3.98} & \hc{2.92} & \hc{0.00} & \hcbu{0.00} & \hcn & \hc{65.75} & \hc{2.93} & \hc{3.48} & \hc{2.85} & \hc{3.37} & \hc{2.29} & \hcn & \hcn \\
+Two-step task {\fontsize{4}{5}\selectfont\citep{kool2017cost}} & MDP & \hc{0.65} & \hc{0.63} & \hcu{0.53} & \hcbu{0.53} & \hc{7.90} & \hc{0.63} & \hc{0.62} & \hc{0.61} & \hc{0.53} & \hcbu{0.53} & \hcn & \hc{14.06} & \hc{0.67} & \hc{1.17} & \hc{0.67} & \hc{0.81} & \hc{0.53} & \hc{0.60} & \hc{0.69} \\
+Two-step task {\fontsize{4}{5}\selectfont\citep{kool2016when}} & MDP & \hc{0.65} & \hc{0.63} & \hc{0.49} & \hcu{0.48} & \hc{8.82} & \hc{0.63} & \hc{0.62} & \hc{0.61} & \hc{0.50} & \hc{0.49} & \hcn & \hc{14.63} & \hc{0.68} & \hc{1.15} & \hc{0.67} & \hc{0.82} & \hcbu{0.48} & \hc{0.60} & \hc{0.69} \\
+Two-step task {\fontsize{4}{5}\selectfont\citep{zorowitz2023data}} & MDP & \hc{0.61} & \hc{0.59} & \hcbu{0.51} & \hc{0.51} & \hc{7.68} & \hc{0.58} & \hc{0.60} & \hc{0.58} & \hcu{0.51} & \hc{0.51} & \hcn & \hc{13.18} & \hc{0.63} & \hc{1.03} & \hc{0.62} & \hc{0.82} & \hc{0.51} & \hc{0.60} & \hc{0.69} \\
+Virtual subway network {\fontsize{4}{5}\selectfont\citep{tomov2020discovery}} & MDP & \hc{1.55} & \hc{1.57} & \hcu{1.13} & \hcbu{1.12} & \hc{11.39} & \hc{1.60} & \hc{1.60} & \hc{1.53} & \hc{1.16} & \hc{1.13} & \hcn & \hc{18.21} & \hc{1.69} & \hc{2.41} & \hc{1.64} & \hc{2.10} & \hc{1.16} & \hcn & \hc{1.61} \\
+Zoopermarket {\fontsize{4}{5}\selectfont\citep{ludwig2023human}} & MDP & \hc{0.60} & \hc{0.59} & \hc{0.50} & \hcbu{0.48} & \hc{6.62} & \hc{0.59} & \hc{0.62} & \hc{0.60} & \hc{0.52} & \hc{0.50} & \hcn & \hc{13.75} & \hc{0.65} & \hc{1.49} & \hc{0.63} & \hc{1.09} & \hcu{0.50} & \hc{0.60} & \hc{0.69} \\
+\midrule
+Cond.\ assoc.\ learning {\fontsize{4}{5}\selectfont\citep{collins2014working}} & Memory & \hc{0.69} & \hc{0.61} & \hc{0.52} & \hcbu{0.51} & \hc{10.04} & \hc{0.59} & \hc{0.73} & \hc{0.70} & \hc{0.53} & \hc{0.52} & \hcn & \hc{16.16} & \hc{0.80} & \hc{0.92} & \hc{0.68} & \hc{0.95} & \hcu{0.52} & \hc{0.86} & \hc{1.10} \\
+Digit span {\fontsize{4}{5}\selectfont\citep{enkavi2019large}} & Memory & \hc{0.70} & \hc{0.69} & \hc{0.57} & \hcbu{0.57} & \hc{2.96} & \hc{0.70} & \hc{0.84} & \hc{0.75} & \hc{0.59} & \hc{0.58} & \hcn & \hc{4.65} & \hc{0.87} & \hc{2.16} & \hc{0.83} & \hc{1.02} & \hcu{0.57} & \hc{0.94} & \hc{2.30} \\
+Episodic long-term memory {\fontsize{4}{5}\selectfont\citep{popov2023intent}} & Memory & \hc{1.30} & \hc{1.18} & \hc{0.94} & \hcu{0.90} & \hc{9.08} & \hc{1.21} & \hc{1.65} & \hc{1.43} & \hc{1.02} & \hc{0.92} & \hcn & \hc{17.12} & \hc{1.82} & \hc{3.07} & \hc{1.72} & \hc{2.22} & \hcbu{0.89} & \hcn & \hc{0.69} \\
+N-back {\fontsize{4}{5}\selectfont\citep{enkavi2019large}} & Memory & \hc{0.55} & \hc{0.53} & \hc{0.41} & \hcu{0.40} & \hc{9.24} & \hc{0.53} & \hc{0.57} & \hc{0.57} & \hc{0.42} & \hc{0.41} & \hcn & \hc{14.42} & \hc{0.59} & \hc{0.79} & \hc{0.57} & \hc{0.75} & \hcbu{0.40} & \hc{0.58} & \hc{0.69} \\
+Recall and recognition {\fontsize{4}{5}\selectfont\citep{cox2018information}} & Memory & \hc{1.41} & \hc{1.36} & \hc{1.12} & \hcu{1.09} & \hc{9.33} & \hc{1.38} & \hc{1.56} & \hc{1.37} & \hc{1.14} & \hc{1.10} & \hcn & \hc{24.31} & \hc{1.65} & \hc{4.16} & \hc{1.61} & \hc{2.60} & \hcbu{1.07} & \hcn & \hcn \\
+Recent probes {\fontsize{4}{5}\selectfont\citep{enkavi2019large}} & Memory & \hc{0.41} & \hc{0.35} & \hc{0.26} & \hcu{0.26} & \hc{9.92} & \hc{0.34} & \hc{0.56} & \hc{0.34} & \hc{0.26} & \hcbu{0.26} & \hcn & \hc{14.16} & \hc{0.61} & \hc{1.00} & \hc{0.39} & \hc{1.06} & \hc{0.26} & \hc{0.39} & \hc{0.69} \\
+\midrule
+Grammar judgement {\fontsize{4}{5}\selectfont\citep{jansen2021rational}} & Misc. & \hc{1.89} & \hc{1.91} & \hc{1.44} & \hcu{1.43} & \hc{10.37} & \hc{1.94} & \hc{2.16} & \hc{2.12} & \hc{1.45} & \hc{1.44} & \hcn & \hc{12.88} & \hc{2.27} & \hc{3.90} & \hc{2.53} & \hc{3.12} & \hc{1.44} & \hcbu{1.41} & \hcn \\
+Probabilistic reasoning {\fontsize{4}{5}\selectfont\citep{zhu2020bayesian}} & Misc. & \hc{2.57} & \hc{2.58} & \hcu{2.35} & \hcbu{2.34} & \hc{2.92} & \hc{2.59} & \hc{2.80} & \hc{2.71} & \hc{2.47} & \hc{2.43} & \hcn & \hc{3.40} & \hc{2.98} & \hc{4.05} & \hc{2.97} & \hc{3.23} & \hc{2.40} & \hcn & \hcn \\
+Serial reaction time task {\fontsize{4}{5}\selectfont\citep{wu2023chunking}} & Misc. & \hc{0.19} & \hc{0.19} & \hcu{0.17} & \hcbu{0.17} & \hc{5.09} & \hc{0.19} & \hc{0.23} & \hc{0.20} & \hc{0.17} & \hc{0.17} & \hcn & \hc{14.43} & \hc{0.21} & \hc{0.25} & \hc{0.20} & \hc{0.26} & \hc{0.18} & \hc{0.20} & \hc{1.39} \\
+THINGS odd-one-out {\fontsize{4}{5}\selectfont\citep{hebart2023things}} & Misc. & \hc{1.15} & \hc{1.13} & \hc{0.79} & \hcbu{0.79} & \hc{12.15} & \hc{1.15} & \hc{1.18} & \hc{1.16} & \hc{0.82} & \hcu{0.79} & \hcn & \hc{14.31} & \hc{1.24} & \hc{2.13} & \hc{1.28} & \hc{1.75} & \hc{0.80} & \hc{0.83} & \hc{1.10} \\
+\midrule
+Changing bandit {\fontsize{4}{5}\selectfont\citep{xiong2023neural}} & Bandit & \hc{0.35} & \hc{0.34} & \hcu{0.29} & \hcbu{0.29} & \hc{7.52} & \hc{0.34} & \hc{0.90} & \hc{0.39} & \hc{0.31} & \hc{0.29} & \hcn & \hc{14.76} & \hc{0.39} & \hc{0.78} & \hc{0.36} & \hc{0.53} & \hc{0.45} & \hc{0.44} & \hc{0.69} \\
+Decisions from experience {\fontsize{4}{5}\selectfont\citep{wulff2018sampling}} & Bandit & \hc{0.78} & \hc{0.61} & \hc{0.49} & \hc{0.48} & \hc{7.18} & \hc{0.64} & \hc{0.71} & \hc{0.65} & \hc{0.49} & \hcu{0.48} & \hcn & \hc{13.74} & \hc{0.69} & \hc{2.29} & \hc{0.88} & \hc{1.78} & \hcbu{0.47} & \hc{0.54} & \hcn \\
+Drifting four-armed bandit {\fontsize{4}{5}\selectfont\citep{bahrami2020four}} & Bandit & \hc{0.91} & \hc{0.91} & \hc{0.71} & \hcbu{0.71} & \hc{8.43} & \hc{0.90} & \hc{0.94} & \hc{0.90} & \hc{0.72} & \hc{0.71} & \hcn & \hc{13.91} & \hc{0.99} & \hc{2.10} & \hc{0.96} & \hc{1.78} & \hcu{0.71} & \hc{0.90} & \hc{1.39} \\
+Horizon task {\fontsize{4}{5}\selectfont\citep{feng2021dynamics}} & Bandit & \hc{0.36} & \hc{0.34} & \hc{0.22} & \hcu{0.22} & \hc{7.55} & \hc{0.35} & \hc{0.67} & \hc{0.44} & \hc{0.24} & \hcbu{0.22} & \hcn & \hc{15.10} & \hc{0.43} & \hc{0.65} & \hc{0.36} & \hc{0.62} & \hc{0.40} & \hc{0.36} & \hc{0.69} \\
+Horizon task {\fontsize{4}{5}\selectfont\citep{sadeghiyeh2020temporal}} & Bandit & \hc{0.65} & \hc{0.65} & \hc{0.58} & \hcu{0.58} & \hc{8.62} & \hc{0.66} & \hc{0.68} & \hc{0.66} & \hc{0.58} & \hc{0.58} & \hcn & \hc{14.94} & \hc{0.73} & \hc{1.10} & \hc{0.69} & \hc{0.93} & \hc{0.58} & \hcbu{0.36} & \hc{0.69} \\
+Horizon task {\fontsize{4}{5}\selectfont\citep{somerville2017charting}} & Bandit & \hc{0.47} & \hc{0.49} & \hcu{0.34} & \hcbu{0.33} & \hc{8.49} & \hc{0.49} & \hc{0.57} & \hc{0.51} & \hc{0.34} & \hc{0.34} & \hcn & \hc{15.18} & \hc{0.57} & \hc{0.86} & \hc{0.47} & \hc{0.74} & \hc{0.35} & \hc{0.36} & \hc{0.69} \\
+Horizon task {\fontsize{4}{5}\selectfont\citep{waltz2020differential}} & Bandit & \hc{0.27} & \hc{0.24} & \hc{0.15} & \hc{0.15} & \hc{7.82} & \hc{0.26} & \hc{0.37} & \hc{0.30} & \hc{0.16} & \hcbu{0.14} & \hcn & \hc{15.42} & \hc{0.35} & \hc{0.54} & \hc{0.26} & \hc{0.54} & \hcu{0.15} & \hc{0.36} & \hc{0.69} \\
+Horizon task {\fontsize{4}{5}\selectfont\citep{wilson2014humans}} & Bandit & \hc{0.53} & \hc{0.54} & \hc{0.45} & \hcu{0.45} & \hc{8.06} & \hc{0.54} & \hc{0.62} & \hc{0.55} & \hc{0.46} & \hc{0.45} & \hcn & \hc{15.39} & \hc{0.62} & \hc{0.89} & \hc{0.56} & \hc{0.79} & \hc{0.48} & \hcbu{0.36} & \hc{0.69} \\
+Iowa gambling task {\fontsize{4}{5}\selectfont\citep{steingroever2015data}} & Bandit & \hc{1.07} & \hc{1.07} & \hc{0.91} & \hc{0.91} & \hc{8.45} & \hc{1.06} & \hc{1.06} & \hc{1.04} & \hc{0.92} & \hcu{0.91} & \hcn & \hc{13.23} & \hc{1.13} & \hc{2.27} & \hc{1.09} & \hc{1.60} & \hcbu{0.91} & \hc{1.16} & \hc{1.39} \\
+Prob.\ instrumental learning {\fontsize{4}{5}\selectfont\citep{lefebvre2017behavioural}} & Bandit & \hc{0.59} & \hc{0.56} & \hcbu{0.49} & \hc{0.49} & \hc{8.30} & \hc{0.53} & \hc{0.58} & \hc{0.56} & \hc{0.50} & \hcu{0.49} & \hcn & \hc{15.92} & \hc{0.68} & \hc{1.16} & \hc{0.54} & \hc{0.86} & \hc{0.50} & \hc{0.50} & \hc{0.69} \\
+Spatially correlated MAB {\fontsize{4}{5}\selectfont\citep{wu2018generalization}} & Bandit & \hc{2.44} & \hc{2.46} & \hc{1.87} & \hcu{1.86} & \hc{3.14} & \hc{2.48} & \hc{2.64} & \hc{2.58} & \hc{2.00} & \hc{1.93} & \hcn & \hc{5.43} & \hc{2.64} & \hc{3.93} & \hc{2.78} & \hc{3.19} & \hcbu{1.82} & \hc{2.76} & \hc{3.40} \\
+Structured bandit {\fontsize{4}{5}\selectfont\citep{schulz2020finding}} & Bandit & \hc{0.87} & \hc{0.83} & \hc{0.65} & \hcbu{0.64} & \hc{1.57} & \hc{0.80} & \hc{0.89} & \hc{0.85} & \hc{0.66} & \hc{0.65} & \hcn & \hc{2.12} & \hc{0.91} & \hc{1.41} & \hc{0.90} & \hc{1.08} & \hcu{0.64} & \hc{1.05} & \hc{2.08} \\
+Two-armed bandit {\fontsize{4}{5}\selectfont\citep{gershman2018deconstructing}} & Bandit & \hc{0.39} & \hc{0.39} & \hcu{0.29} & \hcbu{0.29} & \hc{7.30} & \hc{0.41} & \hc{0.43} & \hc{0.40} & \hc{0.29} & \hc{0.29} & \hcn & \hc{13.99} & \hc{0.47} & \hc{0.98} & \hc{0.44} & \hc{0.73} & \hc{0.30} & \hc{0.42} & \hc{0.69} \\
+\midrule
+Aversive learning {\fontsize{4}{5}\selectfont\citep{wise2019computational}} & Sup.\ learn. & \hc{4.89} & \hc{4.75} & \hc{4.24} & \hcu{3.81} & \hc{7.19} & \hc{4.78} & \hc{5.52} & \hc{5.25} & \hc{4.80} & \hcbu{3.66} & \hcn & \hc{18.42} & \hc{5.52} & \hc{7.03} & \hc{5.33} & \hc{6.14} & \hc{4.13} & \hcn & \hcn \\
+Medin categorization {\fontsize{4}{5}\selectfont\citep{levering2020revisiting}} & Sup.\ learn. & \hc{0.59} & \hc{0.55} & \hc{0.50} & \hcbu{0.50} & \hc{11.00} & \hc{0.56} & \hc{0.60} & \hc{0.57} & \hc{0.50} & \hcu{0.50} & \hcn & \hc{13.53} & \hc{0.63} & \hc{1.15} & \hc{0.62} & \hc{0.90} & \hc{0.50} & \hc{0.53} & \hcn \\
+Multiple-cue judgment {\fontsize{4}{5}\selectfont\citep{collsioo2023numerical}} & Sup.\ learn. & \hc{1.30} & \hc{1.26} & \hc{1.14} & \hcu{1.13} & \hc{6.92} & \hc{1.27} & \hc{1.50} & \hc{1.32} & \hc{1.15} & \hcbu{1.12} & \hcn & \hc{18.06} & \hc{1.51} & \hc{2.56} & \hc{1.37} & \hc{1.85} & \hc{1.14} & \hc{1.92} & \hc{2.20} \\
+Shepard categorization {\fontsize{4}{5}\selectfont\citep{badham2017deficits}} & Sup.\ learn. & \hc{0.58} & \hc{0.59} & \hc{0.53} & \hcbu{0.53} & \hc{10.13} & \hc{0.59} & \hc{0.62} & \hc{0.60} & \hc{0.54} & \hcu{0.53} & \hcn & \hc{12.66} & \hc{0.64} & \hc{0.92} & \hc{0.63} & \hc{0.76} & \hc{0.54} & \hc{0.61} & \hc{0.69} \\
+Weather prediction task {\fontsize{4}{5}\selectfont\citep{speekenbrink2008learning}} & Sup.\ learn. & \hc{0.58} & \hc{0.58} & \hcu{0.55} & \hc{0.55} & \hc{10.65} & \hc{0.56} & \hc{0.59} & \hc{0.58} & \hcbu{0.54} & \hc{0.56} & \hcn & \hc{17.01} & \hc{0.63} & \hc{0.89} & \hc{0.61} & \hc{0.77} & \hc{0.56} & \hc{0.63} & \hc{0.69} \\
+\midrule
+\textbf{Mean (all 46)} & & \hc{0.89} & \hc{0.87} & \hc{0.66} & \hcbu{0.64} & \hc{8.65} & \hc{0.87} & \hc{1.02} & \hc{0.92} & \hc{0.68} & \hcu{0.64} & \hcn & \hc{15.07} & \hc{1.02} & \hc{1.72} & \hc{0.98} & \hc{1.43} & \hc{0.71} & \hc{0.69} & \hc{0.98} \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{4pt}
+\begin{center}\footnotesize
+\colorbox{c1!45}{\strut\hspace{5pt}} \scriptsize$<$0.20 \quad
+\colorbox{c2!40}{\strut\hspace{5pt}} \scriptsize 0.20--0.40 \quad
+\colorbox{c3!40}{\strut\hspace{5pt}} \scriptsize 0.40--0.60 \quad
+\colorbox{c4!45}{\strut\hspace{5pt}} \scriptsize 0.60--0.80 \quad
+\colorbox{c5!55}{\strut\hspace{5pt}} \scriptsize 0.80--1.00 \quad
+\colorbox{c6!50}{\strut\hspace{5pt}} \scriptsize 1.00--1.20 \quad
+\colorbox{c7!45}{\strut\hspace{5pt}} \scriptsize 1.20--1.50 \quad
+\colorbox{c8!40}{\strut\hspace{5pt}} \scriptsize 1.50--2.00 \quad
+\colorbox{c9!35}{\strut\hspace{5pt}} \scriptsize$>$2.00
+\end{center}
+\vspace{-2pt}
+{\tiny \underline{\textbf{Bold+underline}}\,=\,best; \underline{underline}\,=\,second-best. Lower is better. ``---''\,=\,not available. Models are grouped by base-model family. ``Base'' = pretrained model without finetuning (bf16); ``Other cog.'' = other cognitive/behavioural foundation models finetuned on non-Psych-101 behavioural data; ``Non-cog.'' = models finetuned for general instruction-following or reasoning. \texttt{Herm.} = Hermes \citep{teknium2024hermes}; \texttt{Nemo.} = Nemotron \citep{nvidia2025nemotron}; \texttt{Socr.} = Socrates \citep{kolluri2025finetuning}; \texttt{Be.FM} = \citet{xie2025fm}. Base model versions differ within families: \texttt{Qwentaur} uses Qwen3; \texttt{Socr.-14B} uses Qwen2.5; \texttt{Herm.-14B} uses Qwen2.5. \texttt{Llama-Centaur} uses Llama-3.1/3.2; \texttt{Socr.-8B} uses Llama-3; \texttt{Be.FM} uses Llama-3.1.}
+\caption{Comparison of cognitively finetuned models with other behavioural foundation models and non-cognitive controls on Psych-101, grouped by base-model family. Within each family, \texttt{Qwentaur}/\texttt{Llama-Centaur} (cognitive SFT on Psych-101) consistently outperform both other behavioural FMs and non-cognitive controls, demonstrating that alignment with human behavioural patterns requires cognitive finetuning on structured experimental data, not merely finetuning per se.}
+\label{tab:family_comparison}
+\end{sidewaystable}

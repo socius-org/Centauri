@@ -1,0 +1,49 @@
+benchmark,family,size,params_billions,model_type,mean_nll
+Psych-101,Llama-Centaur,1B,1.0,finetuned_r16,0.536534
+Psych-101,Llama-Centaur,3B,3.0,finetuned_r16,0.523224
+Psych-101,Llama-Centaur,8B,8.0,finetuned_r16,0.512847
+Psych-101,Qwentaur,0.6B,0.6,finetuned_r16,0.527863
+Psych-101,Qwentaur,1.7B,1.7,finetuned_r16,0.523761
+Psych-101,Qwentaur,4B,4.0,finetuned_r16,0.516179
+Psych-101,Qwentaur,8B,8.0,finetuned_r16,0.512661
+Psych-101,Qwentaur,14B,14.0,finetuned_r16,0.508829
+Psych-101,Smoltaur,0.1B,0.1,finetuned_r16,0.635085
+Psych-101,Smoltaur,0.4B,0.4,finetuned_r16,0.590997
+Psych-101,Smoltaur,1.7B,1.7,finetuned_r16,0.560732
+Psych-101,Smoltaur,3B,3.0,finetuned_r16,0.518572
+Psych-101,Olmotaur,1B,1.0,finetuned_r16,0.586555
+Psych-101,Olmotaur,7B,7.0,finetuned_r16,0.523394
+Psych-101,Llama-3.1/3.2 (base),1B,1,base,0.831311
+Psych-101,Llama-3.1/3.2 (base),3B,3,base,0.743537
+Psych-101,Llama-3.1/3.2 (base),8B,8,base,0.671205
+Psych-101,Qwen3 (base),0.6B,0.6,base,0.730853
+Psych-101,Qwen3 (base),1.7B,1.7,base,0.704892
+Psych-101,Qwen3 (base),4B,4,base,0.672618
+Psych-101,Qwen3 (base),8B,8,base,0.662642
+Psych-101,Qwen3 (base),14B,14,base,0.646613
+Psych-101,Centaur-70B,70B,70,centaur70b_reproduced,0.523605
+Psych-101,Centaur-70B,70B,70,centaur70b_reported,0.510039
+Psych-101,Cognitive baseline,,,cognitive_baseline,0.6851
+Psych-201,Llama-Centaur,1B,1.0,finetuned_r16,1.0328
+Psych-201,Llama-Centaur,3B,3.0,finetuned_r16,0.9435
+Psych-201,Llama-Centaur,8B,8.0,finetuned_r16,0.8774
+Psych-201,Qwentaur,0.6B,0.6,finetuned_r16,0.9189
+Psych-201,Qwentaur,1.7B,1.7,finetuned_r16,0.8947
+Psych-201,Qwentaur,4B,4.0,finetuned_r16,0.812
+Psych-201,Qwentaur,8B,8.0,finetuned_r16,0.8036
+Psych-201,Qwentaur,14B,14.0,finetuned_r16,0.7884
+Psych-201,Smoltaur,0.1B,0.1,finetuned_r16,1.1031
+Psych-201,Smoltaur,0.4B,0.4,finetuned_r16,1.0434
+Psych-201,Smoltaur,1.7B,1.7,finetuned_r16,0.9853
+Psych-201,Smoltaur,3B,3.0,finetuned_r16,0.9053
+Psych-201,Olmotaur,1B,1.0,finetuned_r16,1.1145
+Psych-201,Olmotaur,7B,7.0,finetuned_r16,0.9199
+Psych-201,Llama-3.1/3.2 (base),1B,1.0,base,1.1527
+Psych-201,Llama-3.1/3.2 (base),3B,3.0,base,1.0569
+Psych-201,Llama-3.1/3.2 (base),8B,8.0,base,0.9683
+Psych-201,Qwen3 (base),0.6B,0.6,base,1.0268
+Psych-201,Qwen3 (base),1.7B,1.7,base,0.9791
+Psych-201,Qwen3 (base),4B,4.0,base,0.9091
+Psych-201,Qwen3 (base),8B,8.0,base,0.8982
+Psych-201,Qwen3 (base),14B,14.0,base,0.8686
+Psych-201,Centaur-70B,70B,70,centaur70b_reproduced,0.8186

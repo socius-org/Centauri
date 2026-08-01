@@ -1,0 +1,3 @@
+- dataset:
+    id: EleutherAI/lambada_openai
+  value: 53.58

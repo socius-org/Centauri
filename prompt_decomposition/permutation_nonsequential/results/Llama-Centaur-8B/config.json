@@ -1,0 +1,33 @@
+{
+  "model": "socius/Llama-Centaur-8B-LoRA",
+  "experiments": [
+    "hebart2023things",
+    "ruggeri2022globalizability"
+  ],
+  "test": "order",
+  "n_permutations": 50,
+  "n_mc_runs": 50,
+  "imputation_depths": [
+    1,
+    2,
+    5,
+    10
+  ],
+  "context_positions": [
+    5,
+    10
+  ],
+  "max_participants": null,
+  "max_trials_override": null,
+  "default_max_trials": {
+    "hebart2023things": 60,
+    "ruggeri2022globalizability": null
+  },
+  "min_context": 5,
+  "n_target_trials": 3,
+  "seed": 3407,
+  "dtype": "bfloat16",
+  "load_in_4bit": false,
+  "max_seq_length": 32768,
+  "timestamp": "2026-03-09 20:31:02"
+}

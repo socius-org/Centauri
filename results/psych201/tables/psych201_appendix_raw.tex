@@ -1,0 +1,166 @@
+% ============================================================================
+% Required packages and colour definitions for heatmap tables
+% ============================================================================
+% \usepackage{xcolor}
+% \usepackage{colortbl}
+% \usepackage{graphicx}
+% \usepackage{booktabs}
+% \usepackage{rotating}
+
+% ---- Heatmap colour bins (green=good to red=bad) ----
+\definecolor{c1}{HTML}{1a9850}
+\definecolor{c2}{HTML}{66bd63}
+\definecolor{c3}{HTML}{a6d96a}
+\definecolor{c4}{HTML}{d9ef8b}
+\definecolor{c5}{HTML}{fee08b}
+\definecolor{c6}{HTML}{fdae61}
+\definecolor{c7}{HTML}{f46d43}
+\definecolor{c8}{HTML}{d73027}
+\definecolor{c9}{HTML}{a50026}
+
+% ---- Normal cell ----
+\newcommand{\hc}[1]{%
+  \ifdim #1 pt < 0.20pt \cellcolor{c1!45}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c2!40}%
+  \else\ifdim #1 pt < 0.60pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.80pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 1.00pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 1.20pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 1.50pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 2.00pt \cellcolor{c8!40}%
+  \else \cellcolor{c9!35}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  #1%
+}
+
+% ---- Underline = 2nd best ----
+\newcommand{\hcu}[1]{%
+  \ifdim #1 pt < 0.20pt \cellcolor{c1!45}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c2!40}%
+  \else\ifdim #1 pt < 0.60pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.80pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 1.00pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 1.20pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 1.50pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 2.00pt \cellcolor{c8!40}%
+  \else \cellcolor{c9!35}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  \underline{#1}%
+}
+
+% ---- Bold + underline = best ----
+\newcommand{\hcbu}[1]{%
+  \ifdim #1 pt < 0.20pt \cellcolor{c1!45}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c2!40}%
+  \else\ifdim #1 pt < 0.60pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.80pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 1.00pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 1.20pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 1.50pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 2.00pt \cellcolor{c8!40}%
+  \else \cellcolor{c9!35}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  \underline{\textbf{#1}}%
+}
+
+% ---- No baseline ----
+\newcommand{\hcn}{\cellcolor{white}{---}}
+
+% ---- Reversed heatmap (higher = better = green) for normalised metric ----
+\newcommand{\hcR}[1]{%
+  \ifdim #1 pt < 0.05pt \cellcolor{c9!35}%
+  \else\ifdim #1 pt < 0.12pt \cellcolor{c8!40}%
+  \else\ifdim #1 pt < 0.18pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 0.25pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 0.32pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 0.48pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.55pt \cellcolor{c2!40}%
+  \else \cellcolor{c1!45}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  #1%
+}
+\newcommand{\hcRu}[1]{%
+  \ifdim #1 pt < 0.05pt \cellcolor{c9!35}%
+  \else\ifdim #1 pt < 0.12pt \cellcolor{c8!40}%
+  \else\ifdim #1 pt < 0.18pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 0.25pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 0.32pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 0.48pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.55pt \cellcolor{c2!40}%
+  \else \cellcolor{c1!45}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  \underline{#1}%
+}
+\newcommand{\hcRbu}[1]{%
+  \ifdim #1 pt < 0.05pt \cellcolor{c9!35}%
+  \else\ifdim #1 pt < 0.12pt \cellcolor{c8!40}%
+  \else\ifdim #1 pt < 0.18pt \cellcolor{c7!45}%
+  \else\ifdim #1 pt < 0.25pt \cellcolor{c6!50}%
+  \else\ifdim #1 pt < 0.32pt \cellcolor{c5!55}%
+  \else\ifdim #1 pt < 0.40pt \cellcolor{c4!45}%
+  \else\ifdim #1 pt < 0.48pt \cellcolor{c3!40}%
+  \else\ifdim #1 pt < 0.55pt \cellcolor{c2!40}%
+  \else \cellcolor{c1!45}%
+  \fi\fi\fi\fi\fi\fi\fi\fi
+  \underline{\textbf{#1}}%
+}
+
+
+\begin{sidewaystable}[p]
+\centering
+{\tiny
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l l  r@{\;\;}r  r@{\;\;}r  r@{\;\;}r  r@{\;\;}r  r@{\;\;}r  r@{\;\;}r  r@{\;\;}r  r@{\;\;}r  r  r@{}}
+\toprule
+& & \multicolumn{10}{c}{\texttt{\textbf{Qwen3}} family} & \multicolumn{6}{c}{\texttt{\textbf{Llama-3.1/3.2}} family} & \multicolumn{1}{c}{\citet{binz2025foundation}} & \textbf{Chance} \\
+\cmidrule(lr){3-12}\cmidrule(lr){13-18}
+& & \multicolumn{2}{c}{0.6B} & \multicolumn{2}{c}{1.7B} & \multicolumn{2}{c}{4B} & \multicolumn{2}{c}{8B} & \multicolumn{2}{c}{14B} & \multicolumn{2}{c}{1B} & \multicolumn{2}{c}{3B} & \multicolumn{2}{c}{8B} & & \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8} \cmidrule(lr){9-10} \cmidrule(lr){11-12} \cmidrule(lr){13-14} \cmidrule(lr){15-16} \cmidrule(lr){17-18}
+\textbf{Experiment} & \textbf{Type} & {\fontsize{4}{5}\selectfont base} & {\fontsize{4}{5}\selectfont ft} & {\fontsize{4}{5}\selectfont base} & {\fontsize{4}{5}\selectfont ft} & {\fontsize{4}{5}\selectfont base} & {\fontsize{4}{5}\selectfont ft} & {\fontsize{4}{5}\selectfont base} & {\fontsize{4}{5}\selectfont ft} & {\fontsize{4}{5}\selectfont base} & {\fontsize{4}{5}\selectfont ft} & {\fontsize{4}{5}\selectfont base} & {\fontsize{4}{5}\selectfont ft} & {\fontsize{4}{5}\selectfont base} & {\fontsize{4}{5}\selectfont ft} & {\fontsize{4}{5}\selectfont base} & {\fontsize{4}{5}\selectfont ft} & 70B & $\ln(k)$ \\
+\midrule
+Experience-description choice {\fontsize{4}{5}\selectfont\citep{anllo2024weird}} & Decision & \hc{0.50} & \hc{0.42} & \hc{0.49} & \hc{0.40} & \hc{0.46} & \hc{0.39} & \hc{0.46} & \hcu{0.38} & \hc{0.45} & \hcbu{0.38} & \hc{0.49} & \hc{0.44} & \hc{0.46} & \hc{0.41} & \hc{0.46} & \hc{0.41} & \hc{0.42} & \hc{0.69} \\
+Risky decision and happiness {\fontsize{4}{5}\selectfont\citep{rutledge2023happiness}} & Decision & \hc{1.46} & \hc{1.38} & \hc{1.45} & \hc{1.40} & \hc{1.43} & \hc{1.34} & \hc{1.39} & \hcbu{1.31} & \hc{1.39} & \hc{1.33} & \hc{1.57} & \hc{1.40} & \hc{1.53} & \hc{1.37} & \hc{1.43} & \hc{1.34} & \hcu{1.32} & \hcn \\
+Loss aversion task {\fontsize{4}{5}\selectfont\citep{spektor2024lossaversion}} & Decision & \hc{0.57} & \hc{0.54} & \hc{0.56} & \hc{0.54} & \hc{0.54} & \hc{0.52} & \hc{0.53} & \hc{0.54} & \hc{0.53} & \hcbu{0.50} & \hc{0.66} & \hc{0.57} & \hc{0.61} & \hc{0.55} & \hc{0.54} & \hc{0.52} & \hcu{0.51} & \hc{0.69} \\
+\midrule
+Two-step task {\fontsize{4}{5}\selectfont\citep{castrorodrigues2022twostep}} & MDP & \hc{0.26} & \hc{0.26} & \hc{0.27} & \hc{0.28} & \hc{0.26} & \hcu{0.24} & \hc{0.26} & \hcbu{0.24} & \hc{0.25} & \hc{0.25} & \hc{1.29} & \hc{0.45} & \hc{0.95} & \hc{0.35} & \hc{0.26} & \hc{0.25} & \hc{0.46} & \hc{1.39} \\
+Two-step task {\fontsize{4}{5}\selectfont\citep{shahar2019twosteptask}} & MDP & \hc{0.55} & \hc{0.48} & \hc{0.53} & \hc{0.47} & \hc{0.54} & \hc{0.47} & \hc{0.55} & \hc{0.47} & \hc{0.53} & \hcbu{0.46} & \hc{0.54} & \hc{0.49} & \hc{0.53} & \hc{0.47} & \hc{0.53} & \hc{0.47} & \hcu{0.46} & \hc{0.69} \\
+\midrule
+Range adaptation RL {\fontsize{4}{5}\selectfont\citep{bavard2021range}} & Bandit & \hc{0.56} & \hc{0.48} & \hc{0.54} & \hc{0.48} & \hc{0.53} & \hc{0.47} & \hc{0.52} & \hc{0.47} & \hc{0.52} & \hc{0.47} & \hc{0.57} & \hc{0.48} & \hc{0.52} & \hc{0.48} & \hc{0.52} & \hcu{0.46} & \hcbu{0.45} & \hc{0.69} \\
+Explore-exploit task {\fontsize{4}{5}\selectfont\citep{fan2022trait}} & Bandit & \hc{0.42} & \hc{0.28} & \hc{0.40} & \hc{0.27} & \hc{0.40} & \hc{0.26} & \hc{0.39} & \hc{0.27} & \hc{0.40} & \hcu{0.26} & \hc{0.42} & \hc{0.28} & \hc{0.43} & \hc{0.27} & \hc{0.39} & \hc{0.26} & \hcbu{0.26} & \hc{0.69} \\
+Counterfactual learning {\fontsize{4}{5}\selectfont\citep{palminteri2017confirmation}} & Bandit & \hc{0.64} & \hc{0.50} & \hc{0.62} & \hc{0.49} & \hc{0.60} & \hc{0.48} & \hc{0.61} & \hc{0.49} & \hc{0.58} & \hcu{0.47} & \hc{0.62} & \hc{0.53} & \hc{0.58} & \hc{0.49} & \hc{0.58} & \hc{0.48} & \hcbu{0.46} & \hc{0.69} \\
+Contextual reinforcement learning {\fontsize{4}{5}\selectfont\citep{vandendriessche2022depression}} & Bandit & \hc{0.69} & \hc{0.61} & \hc{0.69} & \hc{0.57} & \hc{0.61} & \hc{0.54} & \hc{0.63} & \hc{0.55} & \hc{0.57} & \hcu{0.53} & \hc{0.69} & \hc{0.58} & \hc{0.59} & \hc{0.61} & \hc{0.59} & \hc{0.56} & \hcbu{0.51} & \hc{0.69} \\
+Aversive reversal learning {\fontsize{4}{5}\selectfont\citep{zika2023traitanxiety}} & Bandit & \hc{3.66} & \hc{3.36} & \hc{3.70} & \hc{3.36} & \hc{3.57} & \hc{3.29} & \hc{3.51} & \hcbu{3.27} & \hc{3.47} & \hcu{3.27} & \hc{4.00} & \hc{3.99} & \hc{3.90} & \hc{3.85} & \hc{3.87} & \hc{3.82} & \hc{3.80} & \hcn \\
+\midrule
+Navon task {\fontsize{4}{5}\selectfont\citep{busch2024navon}} & Misc. & \hc{0.43} & \hc{0.40} & \hc{0.40} & \hc{0.35} & \hc{0.43} & \hcu{0.32} & \hc{0.41} & \hc{0.32} & \hc{0.37} & \hc{0.32} & \hc{0.47} & \hc{0.59} & \hc{0.44} & \hc{0.45} & \hc{0.39} & \hc{0.34} & \hcbu{0.31} & \hc{0.69} \\
+Stroop task {\fontsize{4}{5}\selectfont\citep{busch2024stroop}} & Misc. & \hc{0.53} & \hc{0.38} & \hc{0.28} & \hc{0.63} & \hc{0.21} & \hc{0.18} & \hc{0.20} & \hc{0.17} & \hc{0.21} & \hcu{0.15} & \hc{0.97} & \hc{0.85} & \hc{0.29} & \hc{0.45} & \hc{0.20} & \hc{0.18} & \hcbu{0.15} & \hc{1.10} \\
+Pragmatic language task {\fontsize{4}{5}\selectfont\citep{franke2024bayesian}} & Misc. & \hc{1.55} & \hc{1.25} & \hc{1.47} & \hc{1.03} & \hc{1.17} & \hc{0.81} & \hc{1.08} & \hcu{0.76} & \hc{1.07} & \hc{0.77} & \hc{1.64} & \hc{1.49} & \hc{1.75} & \hc{1.25} & \hc{1.85} & \hc{1.07} & \hcbu{0.75} & \hc{1.39} \\
+Reference game {\fontsize{4}{5}\selectfont\citep{frankedegen2016reasoning}} & Misc. & \hc{1.50} & \hc{1.21} & \hc{1.33} & \hc{1.12} & \hc{1.04} & \hc{0.83} & \hc{1.14} & \hc{0.85} & \hc{0.97} & \hcu{0.80} & \hc{1.47} & \hc{1.34} & \hc{1.41} & \hc{1.12} & \hc{1.19} & \hc{1.04} & \hcbu{0.80} & \hc{1.39} \\
+Compound word processing {\fontsize{4}{5}\selectfont\citep{guenther2020ts}} & Misc. & \hc{0.62} & \hc{0.49} & \hc{0.52} & \hc{0.41} & \hc{0.37} & \hc{0.37} & \hc{0.36} & \hc{0.37} & \hc{0.34} & \hcu{0.33} & \hc{0.49} & \hc{0.47} & \hc{0.42} & \hc{0.38} & \hc{0.37} & \hc{0.34} & \hcbu{0.32} & \hc{0.69} \\
+Grammaticality judgement {\fontsize{4}{5}\selectfont\citep{guenther2023grammaticality}} & Misc. & \hc{0.47} & \hc{0.43} & \hc{0.37} & \hc{0.41} & \hc{0.35} & \hc{0.36} & \hc{0.35} & \hc{0.31} & \hc{0.32} & \hcu{0.30} & \hc{0.50} & \hc{0.42} & \hc{0.40} & \hc{0.39} & \hc{0.34} & \hc{0.33} & \hcbu{0.29} & \hc{0.69} \\
+Scalar inference {\fontsize{4}{5}\selectfont\citep{tsvilodub2023xorsome}} & Misc. & \hc{3.37} & \hc{3.33} & \hc{3.29} & \hc{3.19} & \hc{3.13} & \hc{3.04} & \hc{3.06} & \hc{3.00} & \hc{2.97} & \hcu{2.95} & \hc{3.62} & \hc{3.50} & \hc{3.48} & \hc{3.38} & \hc{3.23} & \hc{3.20} & \hcbu{2.91} & \hcn \\
+Math arithmetic task {\fontsize{4}{5}\selectfont\citep{xu2023augmenting}} & Misc. & \hc{0.72} & \hc{0.72} & \hc{0.71} & \hc{0.71} & \hc{0.71} & \hc{0.70} & \hc{0.69} & \hc{0.70} & \hc{0.68} & \hcu{0.66} & \hc{0.73} & \hc{0.72} & \hc{0.73} & \hc{0.72} & \hc{0.71} & \hc{0.72} & \hcbu{0.55} & \hc{0.69} \\
+\midrule
+\textbf{Mean (18)} & & \hc{1.03} & \hc{0.92} & \hc{0.98} & \hc{0.89} & \hc{0.91} & \hc{0.81} & \hc{0.90} & \hcu{0.80} & \hc{0.87} & \hcbu{0.79} & \hc{1.15} & \hc{1.03} & \hc{1.06} & \hc{0.94} & \hc{0.97} & \hc{0.88} & \hc{0.82} & \hc{0.86} \\
+\bottomrule
+\end{tabular}%
+}
+\vspace{4pt}
+\begin{center}\footnotesize
+\colorbox{c1!45}{\strut\hspace{5pt}} \scriptsize$<$0.20 \quad
+\colorbox{c2!40}{\strut\hspace{5pt}} \scriptsize 0.20--0.40 \quad
+\colorbox{c3!40}{\strut\hspace{5pt}} \scriptsize 0.40--0.60 \quad
+\colorbox{c4!45}{\strut\hspace{5pt}} \scriptsize 0.60--0.80 \quad
+\colorbox{c5!55}{\strut\hspace{5pt}} \scriptsize 0.80--1.00 \quad
+\colorbox{c6!50}{\strut\hspace{5pt}} \scriptsize 1.00--1.20 \quad
+\colorbox{c7!45}{\strut\hspace{5pt}} \scriptsize 1.20--1.50 \quad
+\colorbox{c8!40}{\strut\hspace{5pt}} \scriptsize 1.50--2.00 \quad
+\colorbox{c9!35}{\strut\hspace{5pt}} \scriptsize$>$2.00
+\end{center}
+\vspace{-2pt}
+{\tiny \underline{\textbf{Bold+underline}}\,=\,best; \underline{underline}\,=\,second-best. Lower is better. ``---''\,=\,continuous or mixed response space. Size labels in billions of parameters.}
+\caption{Per-experiment NLL on Psych-201 (out-of-distribution). Psych-201 was not used during supervised fine-tuning; lower NLL indicates better generalisation. Within each model size, the left column (base) shows the pretrained model and the right column (ft) shows the cognitively finetuned variant. The $\ln(k)$ column shows the random-guessing baseline where $k$ is the number of per-trial response options.}
+\label{tab:psych201_appendix_raw}
+\end{sidewaystable}
