@@ -657,9 +657,9 @@ TASKTYPE_FT_GROUPS = [
 def generate_ft_bf16_all_families(rows, data_dir):
     """Per-experiment NLL heatmap for all four finetuned families at bf16,
     LoRA r=16 (one column per model). Qwentaur/Llama-Centaur come from
-    psych101_aggr.csv; Smoltaur/Olmotaur from their flat r=16 eval CSVs. The
-    cognitive baseline and ln(k) chance level are shown as references (not
-    eligible for best/second marking)."""
+    psych101_aggr.csv; Smoltaur/Olmotaur from their flat r=16 eval CSVs.
+    Reference columns participate in best/second-best marking except C_p
+    (different software conditions); ln(k) chance level is display-only."""
 
     ext = {}
     for key, fname in FAMILY_R16_CSVS.items():
@@ -694,12 +694,13 @@ def generate_ft_bf16_all_families(rows, data_dir):
             ("7B", "ext", "olmotaur_7b"),
         ]),
     ]
-    # (label, source, key, can_dagger) -- references, excluded from marking.
+    # (label, source, key, can_dagger, exclude_from_marking) -- references.
+    # C$_p$ is shown for reference only (different software conditions).
     ref_cols = [
-        ("L-70B$_p$", "aggr", "llama_70b_reported", False),
-        ("C$_r$",     "aggr", "centaur_70b_repr",   False),
-        ("C$_p$",     "aggr", "centaur_70b_rep",    True),
-        ("Cog.$_p$",  "aggr", "cog_model",          True),
+        ("L-70B$_p$", "aggr", "llama_70b_reported", False, False),
+        ("C$_r$",     "aggr", "centaur_70b_repr",   False, False),
+        ("C$_p$",     "aggr", "centaur_70b_rep",    True,  True),
+        ("Cog.$_p$",  "aggr", "cog_model",          True,  False),
     ]
     model_cols = [c for _, cols in families for c in cols]
 
@@ -778,8 +779,11 @@ def generate_ft_bf16_all_families(rows, data_dir):
         if row[2]:
             prev_task = row[2]
 
-        # best/second among the four families only (refs excluded)
-        best, second = find_best_and_second([v for v in model_vals if v is not None])
+        # best/second among all columns except C$_p$
+        eligible = [v for v in model_vals if v is not None]
+        eligible += [v for j, v in enumerate(ref_vals)
+                     if v is not None and not ref_cols[j][4]]
+        best, second = find_best_and_second(eligible)
         cells = []
         for v in model_vals:
             if v is None:
@@ -792,8 +796,17 @@ def generate_ft_bf16_all_families(rows, data_dir):
                 rank = None
             cells.append(fmt_hc(v, rank=rank))
         for j, v in enumerate(ref_vals):
-            can_d = ref_cols[j][3]
-            cells.append(fmt_hc(v, dagger=(can_d and is_merged and exp_code != "Mean")))
+            _, _, _, can_d, excl = ref_cols[j]
+            if excl or v is None:
+                rank = None
+            elif best is not None and abs(v - best) < 1e-6:
+                rank = 1
+            elif second is not None and abs(v - second) < 1e-6:
+                rank = 2
+            else:
+                rank = None
+            cells.append(fmt_hc(v, dagger=(can_d and is_merged and exp_code != "Mean"),
+                                rank=rank))
         lnk_cell = f"\\hc{{{lnk_val:.2f}}}" if lnk_val is not None else "\\hcn"
 
         lines.append(f"{cell_exp} & {cell_task} & " + " & ".join(cells)
@@ -806,12 +819,15 @@ def generate_ft_bf16_all_families(rows, data_dir):
     lines.append("\\vspace{-2pt}")
     lines.append(
         "{\\tiny \\underline{\\textbf{Bold+underline}}\\,=\\,best; "
-        "\\underline{underline}\\,=\\,second-best (across the four families; "
-        "reference columns excluded). Lower is better. ``---''\\,=\\,not available. "
+        "\\underline{underline}\\,=\\,second-best "
+        "(C$_p$ excluded; see below). Lower is better. ``---''\\,=\\,not available. "
         "All models finetuned at LoRA rank 16, bf16 inference. Reference columns "
         "(\\citet{binz2025foundation}): L-70B$_p$\\,=\\,Llama-3.1-70B base, "
         "C$_r$\\,=\\,our reproduced Centaur-70B, C$_p$\\,=\\,published Centaur-70B, "
-        "Cog.$_p$\\,=\\,domain-specific cognitive baseline. $^\\dagger$Horizon and "
+        "Cog.$_p$\\,=\\,domain-specific cognitive baseline. "
+        "C$_p$ is included for reference but excluded from best/second-best "
+        "marking, as it was evaluated under different software conditions. "
+        "$^\\dagger$Horizon and "
         "Two-step tasks are reported as single merged values by "
         "\\citet{binz2025foundation}. Rounded to 2\\,d.p.}"
     )
@@ -848,7 +864,7 @@ def generate_main_tasktype(data_rows, task_groups, ext, filter_by=None):
         ("\\texttt{L-8B}",  "aggr", "llama_8b_base_bf16", False),
     ]
     ref_model_cols = [
-        ("\\texttt{70B}$_p$", "aggr", "centaur_70b_rep",  False),
+        ("\\texttt{70B}$_p$", "aggr", "centaur_70b_rep",  True),   # ref only
         ("\\texttt{70B}$_r$", "aggr", "centaur_70b_repr", False),
         ("Cog.$_p$",          "aggr", "cog_model",        False),
     ]
@@ -1023,6 +1039,9 @@ def generate_main_tasktype(data_rows, task_groups, ext, filter_by=None):
             "evaluated under identical python library and CUDA versions as our small "
             "foundation models for fair comparison. "
             "Subscript $_p$ denotes values published by \\citet{binz2025foundation}. "
+            "\\texttt{70B}$_p$ is shown for reference but excluded from "
+            "best/second-best marking, as it was evaluated under different "
+            "software conditions. "
             "Cell colour encodes performance; "
             "\\underline{\\textbf{bold+underline}} marks the best model, "
             "\\underline{underline} the second-best. "
@@ -1048,6 +1067,9 @@ def generate_main_tasktype(data_rows, task_groups, ext, filter_by=None):
             "evaluated under identical python library and CUDA versions as our small "
             "foundation models for fair comparison. "
             "Subscript $_p$ denotes values published by \\citet{binz2025foundation}. "
+            "\\texttt{70B}$_p$ is shown for reference but excluded from "
+            "best/second-best marking, as it was evaluated under different "
+            "software conditions. "
             "Cell colour encodes performance; "
             "\\underline{\\textbf{bold+underline}} marks the best model, "
             "\\underline{underline} the second-best. "
@@ -1066,6 +1088,9 @@ def generate_main_tasktype(data_rows, task_groups, ext, filter_by=None):
             "evaluated under identical python library and CUDA versions as our small "
             "foundation models for fair comparison. "
             "Subscript $_p$ denotes values published by \\citet{binz2025foundation}. "
+            "\\texttt{70B}$_p$ is shown for reference but excluded from "
+            "best/second-best marking, as it was evaluated under different "
+            "software conditions. "
             "Cell colour encodes performance; "
             "\\underline{\\textbf{bold+underline}} marks the best model, "
             "\\underline{underline} the second-best. "
@@ -1090,18 +1115,18 @@ def generate_main_tasktype_normalised(data_rows, task_groups, ext):
     Filters to experiments with both a cognitive baseline and ln(k) > 0.
     Values range from 0 (chance) to 1 (perfect); higher is better.
     """
-    # Flat columns: (label, source, key)
-    model_cols = [(lbl, src, key)
+    # Flat columns: (label, source, key, exclude_from_marking)
+    model_cols = [(lbl, src, key, False)
                   for _, cols in TASKTYPE_FT_GROUPS for lbl, src, key in cols]
     base_cols = [
-        ("\\texttt{Q-8B}",  "aggr", "qwen_8b_base_bf16"),
-        ("\\texttt{Q-14B}", "aggr", "qwen_14b_base_bf16"),
-        ("\\texttt{L-8B}",  "aggr", "llama_8b_base_bf16"),
+        ("\\texttt{Q-8B}",  "aggr", "qwen_8b_base_bf16",  False),
+        ("\\texttt{Q-14B}", "aggr", "qwen_14b_base_bf16", False),
+        ("\\texttt{L-8B}",  "aggr", "llama_8b_base_bf16", False),
     ]
     ref_model_cols = [
-        ("\\texttt{70B}$_p$", "aggr", "centaur_70b_rep"),
-        ("\\texttt{70B}$_r$", "aggr", "centaur_70b_repr"),
-        ("Cog.$_p$",          "aggr", "cog_model"),
+        ("\\texttt{70B}$_p$", "aggr", "centaur_70b_rep",  True),   # ref only
+        ("\\texttt{70B}$_r$", "aggr", "centaur_70b_repr", False),
+        ("Cog.$_p$",          "aggr", "cog_model",        False),
     ]
     all_cols = model_cols + base_cols + ref_model_cols
     n_base = len(base_cols)
@@ -1135,7 +1160,7 @@ def generate_main_tasktype_normalised(data_rows, task_groups, ext):
     for task_type in TASK_ORDER:
         group = filt_task_groups.get(task_type, [])
         means = {}
-        for label, source, key in all_cols:
+        for label, source, key, _ in all_cols:
             vals = []
             for r in group:
                 nll = gv(source, key, r)
@@ -1148,7 +1173,7 @@ def generate_main_tasktype_normalised(data_rows, task_groups, ext):
 
     # Overall mean
     overall = {}
-    for label, source, key in all_cols:
+    for label, source, key, _ in all_cols:
         vals = []
         for r in filt_data_rows:
             nll = gv(source, key, r)
@@ -1207,7 +1232,7 @@ def generate_main_tasktype_normalised(data_rows, task_groups, ext):
     lines.append("".join(cmids))
 
     h2 = "\\textbf{Task type}"
-    for label, _, _ in all_cols:
+    for label, _, _, _ in all_cols:
         h2 += f" & {label}"
     h2 += " \\\\"
     lines.append(h2)
@@ -1223,13 +1248,14 @@ def generate_main_tasktype_normalised(data_rows, task_groups, ext):
         label = TASK_ABBREV.get(task_type, task_type)
         label_with_n = f"{label} ({n_exps})"
 
-        all_vals = [means[key] for _, _, key in all_cols if means[key] is not None]
-        best, second = find_best_and_second_high(all_vals)
+        eligible_vals = [means[key] for _, _, key, excl in all_cols
+                         if not excl and means[key] is not None]
+        best, second = find_best_and_second_high(eligible_vals)
 
         cells = []
-        for _, _, key in all_cols:
+        for _, _, key, excl in all_cols:
             v = means[key]
-            if v is None:
+            if excl or v is None:
                 rank = None
             elif best is not None and abs(v - best) < 1e-4:
                 rank = 1
@@ -1243,12 +1269,13 @@ def generate_main_tasktype_normalised(data_rows, task_groups, ext):
 
     # Mean row
     lines.append("\\midrule")
-    all_vals = [overall[key] for _, _, key in all_cols if overall[key] is not None]
-    best, second = find_best_and_second_high(all_vals)
+    eligible_vals = [overall[key] for _, _, key, excl in all_cols
+                     if not excl and overall[key] is not None]
+    best, second = find_best_and_second_high(eligible_vals)
     cells = []
-    for _, _, key in all_cols:
+    for _, _, key, excl in all_cols:
         v = overall[key]
-        if v is None:
+        if excl or v is None:
             rank = None
         elif best is not None and abs(v - best) < 1e-4:
             rank = 1
@@ -1283,6 +1310,9 @@ def generate_main_tasktype_normalised(data_rows, task_groups, ext):
         "evaluated under identical python library and CUDA versions as our small "
         "foundation models for fair comparison. "
         "Subscript $_p$ denotes values published by \\citet{binz2025foundation}. "
+        "\\texttt{70B}$_p$ is shown for reference but excluded from "
+        "best/second-best marking, as it was evaluated under different "
+        "software conditions. "
         "\\underline{\\textbf{Bold+underline}} marks the best model, "
         "\\underline{underline} the second-best. "
         "Full per-experiment results in Appendix~"
@@ -1649,8 +1679,8 @@ def generate_family_comparison(rows, control_dir):
     b_end = b_start + n_binz - 1
 
     lines.append(
-        f"& & \\multicolumn{{{n_qwen}}}{{c}}{{\\textbf{{Qwen 2.5/3 family}}}} "
-        f"& \\multicolumn{{{n_llama}}}{{c}}{{\\textbf{{Llama 3/3.1/3.2 family}}}} "
+        f"& & \\multicolumn{{{n_qwen}}}{{c}}{{\\texttt{{\\textbf{{Qwen 2.5/3}}}} family}} "
+        f"& \\multicolumn{{{n_llama}}}{{c}}{{\\texttt{{\\textbf{{Llama 3/3.1/3.2}}}} family}} "
         f"& \\multicolumn{{{n_binz}}}{{c}}{{\\citet{{binz2025foundation}}}} "
         f"& \\textbf{{Chance}} \\\\"
     )
