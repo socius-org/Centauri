@@ -17,8 +17,8 @@ Supports both LoRA/QLoRA adapters (via Unsloth) and merged HuggingFace models
 
 Works with:
 - Local saved LoRA/QLoRA adapters (e.g., ./outputs/Llama-Centaur-1B-LoRA)
-- LoRA adapters from HuggingFace (e.g., socius/Llama-Centaur-8B-LoRA) - automatically loads relevant base models
-- Full merged models from HuggingFace (e.g., socius/Llama-Qwentaur-14B)
+- LoRA adapters from HuggingFace (e.g., socius/Llama-Centaur-8B-LoRA-r16) - automatically loads relevant base models
+- Full (non-adapter) models from HuggingFace (e.g., unsloth/Qwen3-14B-Base)
 - All four model families: Llama, Qwen3, SmolLM2/SmolLM3, OLMo
 
 Note on local models:
@@ -29,12 +29,14 @@ Note on local models:
 
 Usage:
     # Evaluate local adapter model (auto-load with unsloth's FastLanguageModel)
-    python eval_model.py --model ./outputs/Llama-Centaur-1B-LoRA
-    
-    # Evaluate merged HuggingFace model (auto-load with transformers' AutoModelForCausalLM)
-    python eval_model.py --model socius/Llama-Centaur-1B
+    python eval_model_ood.py --model ./outputs/Llama-Centaur-1B-LoRA
 
-    # Evaluate merged HuggingFace model (with unsloth FastLanguageModel backend) 
+    # Evaluate a Hub adapter repo (rank-suffixed names defeat auto-detection,
+    # so pass the backend explicitly)
+    python eval_model_ood.py --model socius/Qwentaur-8B-LoRA-r16 --backend unsloth
+
+    # Evaluate a Hub base model with transformers' AutoModelForCausalLM
+    python eval_model_ood.py --model unsloth/Qwen3-0.6B-Base --backend transformers
 """
 import argparse
 import os

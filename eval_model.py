@@ -18,11 +18,13 @@ Note on local models:
 Usage:
     # Evaluate local adapter model (auto-load with unsloth's FastLanguageModel)
     python eval_model.py --model ./outputs/Llama-Centaur-1B-LoRA
-    
-    # Evaluate merged HuggingFace model (auto-load with transformers' AutoModelForCausalLM)
-    python eval_model.py --model socius/Llama-Centaur-1B
 
-    # Evaluate merged HuggingFace model (with unsloth FastLanguageModel backend) 
+    # Evaluate a Hub adapter repo (rank-suffixed names defeat auto-detection,
+    # so pass the backend explicitly)
+    python eval_model.py --model socius/Qwentaur-8B-LoRA-r16 --backend unsloth
+
+    # Evaluate a Hub base model with transformers' AutoModelForCausalLM
+    python eval_model.py --model unsloth/Qwen3-0.6B-Base --backend transformers
 """
 import argparse
 import os
