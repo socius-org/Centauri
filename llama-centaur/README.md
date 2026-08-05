@@ -38,4 +38,4 @@ Trained LoRA adapters and per-size collections are published under the
 
 ## License
 
-Adapters are released for research use; base-model weights follow the Llama 3.x community license.
+Released under the MIT License. Fine-tuned model weights inherit the Llama 3.x community license of the base models.

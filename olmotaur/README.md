@@ -37,4 +37,4 @@ Trained LoRA adapters and per-size collections are published under the
 
 ## License
 
-Apache-2.0 (adapters and base models).
+Released under the MIT License. Fine-tuned model weights inherit the license of the OLMo base models.

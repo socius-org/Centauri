@@ -11,26 +11,34 @@
 
 **Centauri** is a research codebase for training and evaluating small foundation models of human
 cognition and behaviour. It fine-tunes small pretrained LLMs with LoRA to predict human choices on
-the [Psych-101](https://huggingface.co/datasets/marcelbinz/Psych-101) benchmark, extending the
-Centaur methodology (Binz et al.) down to sub-billion-parameter models and across four base-model
-families.
+the [Psych-101](https://huggingface.co/datasets/marcelbinz/Psych-101) benchmark, extending
+Centaur-style SFT ([Binz et al., 2025](https://www.nature.com/articles/s41586-025-09215-4)) down to
+sub-billion-parameter models.
 
-## What & why
+## TL;DR
 
-Centaur (Binz et al.) showed a fine-tuned 70B LLM can predict human behaviour across psychology
-experiments. **Centauri asks how small that model can be.** We fine-tune, with LoRA, four families
-of pretrained base models (Llama, Qwen, SmolLM and OLMo) — from **0.1B to 14B** parameters — on the
-Psych-101 corpus (transcribed human behaviour across 160 psychological experiments), then measure
-how well they predict held-out human choices, in- and out-of-distribution, against a domain-specific
-cognitive-model baseline.
+Centaur (Binz et al., 2025) showed a fine-tuned 70B LLM can predict human behaviour across
+psychology experiments. **Our study asks how small that model can be, and what it actually learns.**
+We LoRA-fine-tune four families of base models (Llama, Qwen, SmolLM, OLMo) — **135M to 14B**
+parameters — on Psych-101 (transcribed human behaviour across 160 psychological experiments),
+varying adapter rank (`r = 4, 8, 16, 32, 64`) and training-set size (`6.25, 12.5, 25, 50, 100%`)
+independently of scale.
 
-The benefit survives remarkably far down the scale ladder: it **plateaus by ~4B parameters**, and
-even a **0.1B model beats domain-specific cognitive models on most tasks**. This repo reproduces the
-scale curves, rank sweeps, data-size ablations, quantization comparisons, out-of-distribution
-evaluations, and reaction-time probing.
+**How small?** In-distribution, scale barely matters — all fourteen models sit in a narrow band, and
+**0.6B to 1B parameters suffice to match a reproduced Centaur-70B** on held-out participants. Out of
+distribution that band opens into a markedly steeper gradient, so scale is worth buying for transfer
+rather than for fit.
 
-All models are trained identically: LoRA with rsLoRA (`r = 4, 8, 16, 32, 64`), 1 epoch, seed `3407`,
-completion-only loss on the response tokens.
+<div align="center">
+  <img src="results/psych101/figures/scaling_rank_sweep_with_panels_cognitive_matched.png" width="820"
+       alt="Adapter rank against model size on Psych-101, all fourteen models">
+</div>
+
+**What do they learn?** Stripping the four prompt channels — instruction, stimuli, feedback and
+choice history — shows the predictions rest on what the participant saw and was told, not on
+choice-history shortcuts. Masking stimulus and feedback content destroys **75.7% of learned
+information** and drives models below chance, while permuting trial order changes predictions only
+where the task makes order informative.
 
 ## Model families
 
@@ -42,8 +50,6 @@ completion-only loss on the response tokens.
 | <img src="assets/families/smoltaur.png" width="360" alt="Smoltaur"> | SmolLM2 / 3 | 0.1B · 0.4B · 1.7B · 3B |
 
 Exact base checkpoints are pinned per size in each family’s `train_*.py`.
-
-Reference model: **Centaur-70B** (Llama-3.1-70B, LoRA `r=8`), reproduced.
 
 ## Quickstart
 
@@ -77,8 +83,8 @@ python eval_model.py --model socius/Qwentaur-8B-LoRA-r16 --backend unsloth \
 ```
 
 The experiment grid (which size/rank/fraction cells exist per family) lives in one place —
-[`utils.py`](utils.py) — and is shared by both schedulers, the uploader, and the figure scripts, so
-the design stays in sync by construction.
+[`utils.py`](utils.py) — shared by both schedulers, the uploader and the figure scripts, so the
+design stays in sync.
 
 ## Repository structure
 
@@ -98,14 +104,14 @@ results/
   psych101/   flat per-task eval CSVs + psych101_aggr.csv + figures/ + tables/
   psych201/   flat per-task OOD eval CSVs + figures/ + tables/
   4bit/       4-bit base + finetuned eval CSVs
-RT/           RT hidden-state probing (psych101/, psych201/, report/)
 lm_eval/      standard-benchmark results (cogsoc, metabench) + model-card generation
 prompt_decomposition/   prompt-ablation studies
 ```
 
 **Experiments:** (1) main scale curve at `r=16`; (2) LoRA-rank sweep `r ∈ {4, 8, 16, 32, 64}` at full
 data; (3) dataset-size ablation at fixed `r=16` over `{6.25, 12.5, 25, 50, 100}%`; (4) 4-bit QLoRA vs
-bf16; (5) out-of-distribution eval on 18 held-out Psych-201 experiments; (6) RT hidden-state probing.
+bf16; (5) out-of-distribution eval on 18 held-out Psych-201 experiments; (6) prompt-channel ablation
+and order permutation.
 
 ## Reproducing the results
 
@@ -119,19 +125,16 @@ python results/psych101/tables/generate_heatmap_tables.py          # LaTeX table
 python results/psych201/figures/generate_scaling_plots.py          # out-of-distribution
 ```
 
-Per-task evaluation CSVs live flat in `results/psych101` and `results/psych201`, named
-`socius-<Family>-<size>-LoRA-r<rank>[-f<fraction>].csv`; `psych101_aggr.csv` is the wide aggregate
-the figures read.
+Per-task CSVs live flat in `results/psych101` and `results/psych201`, named
+`socius-<Family>-<size>-LoRA-r<rank>[-f<fraction>].csv`; `psych101_aggr.csv` is the aggregate the
+figures read.
 
 ## Released artifacts
 
-Everything is hosted under the [**`socius`**](https://huggingface.co/socius) HuggingFace organization:
+Everything is hosted under the [**`socius`**](https://huggingface.co/socius) HuggingFace organisation:
 
-- **117 LoRA adapters** — `socius/<Family>-<size>-LoRA-r<rank>[-f<fraction>]`, spanning the full rank
+- **117 LoRA adapters** — `socius/<Family>-<size>-LoRA-r<rank>[-f<fraction>]`, spanning the rank
   sweep and dataset-size ablation, grouped into per-size collections.
-- **Merged base+LoRA models** for select sizes, e.g.
-  [`socius/Llama-Centaur-1B`](https://huggingface.co/socius/Llama-Centaur-1B),
-  [`socius/Qwentaur-1.7B`](https://huggingface.co/socius/Qwentaur-1.7B).
 - **Datasets** — [`marcelbinz/Psych-101`](https://huggingface.co/datasets/marcelbinz/Psych-101)
   (training), [`marcelbinz/Psych-101-test`](https://huggingface.co/datasets/marcelbinz/Psych-101-test)
   (46 held-out tasks), [`socius/Psych-201-RT`](https://huggingface.co/datasets/socius/Psych-201-RT).
@@ -139,7 +142,7 @@ Everything is hosted under the [**`socius`**](https://huggingface.co/socius) Hug
 ## Citation
 
 ```bibtex
-@article{centauri2026,
+@article{oh2026smallcogfm,
   title   = {Small Foundation Models of Human Cognition and Behaviour},
   author  = {Oh, Nick and Gobet, Fernand},
   journal = {arXiv preprint arXiv:XXXX.XXXXX},
