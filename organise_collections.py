@@ -82,7 +82,7 @@ def centauri_sort_key(title):
     ascending by size. Returns None for titles that belong to no family --
     those are unrelated to the project and excluded."""
     for idx, token in enumerate(FAMILY_ORDER):
-        if title in (token, f"{token}-LoRA"):
+        if title == f"{token}-LoRA":
             return (idx, 0, 0.0, title)
         m = re.match(rf"^{re.escape(token)}-([0-9.]+B)-LoRA$", title)
         if m:
