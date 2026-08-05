@@ -134,7 +134,8 @@ figures read.
 Everything is hosted under the [**`socius`**](https://huggingface.co/socius) HuggingFace organisation:
 
 - **117 LoRA adapters** — `socius/<Family>-<size>-LoRA-r<rank>[-f<fraction>]`, spanning the rank
-  sweep and dataset-size ablation, grouped into per-size collections.
+  sweep and dataset-size ablation, grouped into per-size collections under the top-level
+  [**Centauri** collection](https://huggingface.co/collections/socius/centauri-6a72e25a4669e413571fe4ac).
 - **Datasets** — [`marcelbinz/Psych-101`](https://huggingface.co/datasets/marcelbinz/Psych-101)
   (training), [`marcelbinz/Psych-101-test`](https://huggingface.co/datasets/marcelbinz/Psych-101-test)
   (46 held-out tasks), [`socius/Psych-201-RT`](https://huggingface.co/datasets/socius/Psych-201-RT).
