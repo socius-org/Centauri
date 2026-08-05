@@ -7,13 +7,18 @@ rank sweep -- repos named  <namespace>/<Family>-<size>-LoRA-r<rank>  with NO
 -f<fraction> suffix. The dataset-size ablation adapters (...-rN-f0.0625 etc.)
 are excluded.
 
-Two grouping modes:
+Three grouping modes:
 
   --by family            one collection per family (must already exist):
                              Qwentaur-LoRA, Llama-Centaur-LoRA,
                              Olmotaur-LoRA, Smoltaur-LoRA
   --by size  (default)   one collection per size, CREATED if missing:
                              Qwentaur-0.6B-LoRA ... Smoltaur-0.1B-LoRA
+  --by centauri          one top-level "Centauri" collection, CREATED if
+                         missing, containing every family/size collection
+                         under the namespace as a nested collection item
+                         (collections unrelated to the four families are
+                         skipped)
 
 It discovers what actually exists on the Hub (list_models) rather than trusting
 a hard-coded grid, and is idempotent: it only ever ADDS, skipping anything
@@ -26,6 +31,7 @@ Usage
     python organise_collections.py                 # dry run, by size
     python organise_collections.py --apply         # create per-size collections + add
     python organise_collections.py --by family --apply
+    python organise_collections.py --by centauri --apply
 """
 
 import argparse
@@ -58,6 +64,30 @@ FULLDATA_RE = re.compile(
 )
 
 SIZE_VAL = lambda s: float(s.rstrip("B"))   # "0.6B" -> 0.6
+
+# Display order of families inside the top-level Centauri collection
+# (matches the model-families table in the root README).
+FAMILY_ORDER = ["Llama-Centaur", "Qwentaur", "Olmotaur", "Smoltaur"]
+
+CENTAURI_TITLE = "Centauri"
+# NB: the Hub caps collection descriptions at <150 characters.
+CENTAURI_DESC = ("Small foundation models of human cognition and behaviour -- "
+                 "all Centauri LoRA adapter collections across four "
+                 "base-model families.")
+
+
+def centauri_sort_key(title):
+    """Sort key for collections nested under Centauri: family-level
+    collections first (README family order), then per-size collections
+    ascending by size. Returns None for titles that belong to no family --
+    those are unrelated to the project and excluded."""
+    for idx, token in enumerate(FAMILY_ORDER):
+        if title in (token, f"{token}-LoRA"):
+            return (idx, 0, 0.0, title)
+        m = re.match(rf"^{re.escape(token)}-([0-9.]+B)-LoRA$", title)
+        if m:
+            return (idx, 1, SIZE_VAL(m.group(1)), title)
+    return None
 
 
 def discover_fulldata_adapters(api, namespace):
@@ -139,8 +169,10 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--namespace", default="socius",
                     help="Owner of the adapter repos AND of created collections.")
-    ap.add_argument("--by", choices=["family", "size"], default="size",
-                    help="Group into per-family or per-size collections (default: size).")
+    ap.add_argument("--by", choices=["family", "size", "centauri"], default="size",
+                    help="Group into per-family or per-size collections "
+                         "(default: size), or nest every collection under a "
+                         "top-level \"Centauri\" collection.")
     ap.add_argument("--collection-owners", nargs="+", default=None,
                     help="Where to look for existing collections "
                          "(default: <namespace> then the logged-in user).")
@@ -162,12 +194,50 @@ def main():
     me = api.whoami()
     owners = args.collection_owners or [args.namespace, me["name"]]
     fams = [args.family] if args.family else list(FAMILIES)
-    buckets = discover_fulldata_adapters(api, args.namespace)
 
     print("=" * 74)
     print(f"  Organise collections by {args.by}  "
           f"(auth: {me['name']}, {'APPLY' if args.apply else 'DRY RUN'})")
     print("=" * 74)
+
+    # --------------------------------------------------------------- centauri
+    if args.by == "centauri":
+        parent_slug = find_collection_slug(CENTAURI_TITLE, owners)
+        if parent_slug is None:
+            print(f'\n["{CENTAURI_TITLE}"]  (will create, private={bool(args.private)})')
+            if args.apply:
+                col = create_collection(
+                    title=CENTAURI_TITLE, namespace=args.namespace,
+                    description=CENTAURI_DESC, private=bool(args.private),
+                    exists_ok=True)
+                parent_slug = col.slug
+                print(f"  created: {parent_slug}")
+        else:
+            print(f'\n["{CENTAURI_TITLE}"]  exists: {parent_slug}')
+
+        cols = [c for c in list_collections(owner=args.namespace)
+                if c.slug != parent_slug and c.title != CENTAURI_TITLE]
+        for c in (c for c in cols if centauri_sort_key(c.title) is None):
+            print(f"      - {c.title:<28} (no Centauri family match; skipped)")
+        children = sorted(
+            (c for c in cols if centauri_sort_key(c.title) is not None),
+            key=lambda c: centauri_sort_key(c.title))
+        existing = set()
+        if parent_slug is not None:
+            existing = {it.item_id for it in get_collection(parent_slug).items
+                        if it.item_type == "collection"}
+        to_add = [c for c in children if c.slug not in existing]
+        for c in to_add:
+            print(f"      + {c.title:<28} ({c.slug})")
+            if args.apply and parent_slug is not None:
+                add_collection_item(collection_slug=parent_slug, item_id=c.slug,
+                                    item_type="collection", exists_ok=True)
+        print(f"    -> add {len(to_add)}, "
+              f"skip {len(children) - len(to_add)} already present")
+        print("\n" + ("Applied." if args.apply else "Dry run -- re-run with --apply."))
+        return
+
+    buckets = discover_fulldata_adapters(api, args.namespace)
 
     # ----------------------------------------------------------------- family
     if args.by == "family":
