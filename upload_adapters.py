@@ -121,7 +121,7 @@ base_model_relation: adapter
 
 LoRA adapter from the additional experiments (rank sweep / dataset-size
 ablation / new model families) for
-*Small Foundation Models of Human Cognition and Behaviour*.
+[*Small Foundation Models of Human Cognition and Behaviour*](https://arxiv.org/abs/2608.05224).
 
 | field          | value |
 |----------------|-------|
