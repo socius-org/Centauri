@@ -144,11 +144,12 @@ Everything is hosted under the [**`socius`**](https://huggingface.co/socius) Hug
 ## Citation
 
 ```bibtex
-@article{oh2026smallcogfm,
-  title   = {Small Foundation Models of Human Cognition and Behaviour},
-  author  = {Oh, Nick and Gobet, Fernand},
-  journal = {arXiv preprint arXiv:2608.05224},
-  year    = {2026}
+@inproceedings{oh2026smallcogfm,
+  title     = {Small Foundation Models of Human Cognition and Behaviour},
+  author    = {Oh, Nick and Gobet, Fernand},
+  booktitle = {Third Conference on Language Modeling (COLM)},
+  year      = {2026},
+  note      = {arXiv:2608.05224}
 }
 ```
 
