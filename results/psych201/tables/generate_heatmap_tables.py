@@ -813,8 +813,9 @@ FAMILY_FT_COLS = [
 
 def generate_appendix_families(data):
     """Full sideways table: raw NLL on Psych-201, all 18 experiments, the four
-    finetuned families (one column per model; no base). Reference: reproduced
-    Centaur-70B and the ln(k) chance level (both excluded from marking)."""
+    finetuned families (one column per model; no base) plus the reproduced
+    Centaur-70B, all marked for best/second-best. The ln(k) chance column is
+    excluded from marking."""
     model_cols = [c for _, cols in FAMILY_FT_COLS for c in cols]
     n_model = len(model_cols)
 
@@ -850,9 +851,10 @@ def generate_appendix_families(data):
     lines.append("\\midrule")
 
     def render_row(label, cell_type, model_vals, ref_val, lnk_cell):
-        best, second = find_best_and_second([v for v in model_vals if v is not None])
+        marked = model_vals + [ref_val]
+        best, second = find_best_and_second([v for v in marked if v is not None])
         cells = []
-        for v in model_vals:
+        for v in marked:
             if v is None:
                 rank = None
             elif best is not None and abs(v - best) < 1e-6:
@@ -862,7 +864,6 @@ def generate_appendix_families(data):
             else:
                 rank = None
             cells.append(fmt_hc(v, rank=rank))
-        cells.append(fmt_hc(ref_val))
         lines.append(f"{label} & {cell_type} & " + " & ".join(cells)
                      + f" & {lnk_cell}" + " \\\\")
 
@@ -905,10 +906,11 @@ def generate_appendix_families(data):
     lines.append("\\vspace{-2pt}")
     lines.append(
         "{\\tiny \\underline{\\textbf{Bold+underline}}\\,=\\,best; "
-        "\\underline{underline}\\,=\\,second-best (across the four families). "
+        "\\underline{underline}\\,=\\,second-best (across the four families "
+        "and Centaur-70B). "
         "Lower is better. ``---''\\,=\\,continuous or mixed response space. "
         "Size labels in billions of parameters. 70B is the reproduced "
-        "Centaur-70B (reference only; excluded from marking).}"
+        "Centaur-70B.}"
     )
     lines.append(
         "\\caption{Per-experiment NLL on Psych-201 (out-of-distribution) for the "
