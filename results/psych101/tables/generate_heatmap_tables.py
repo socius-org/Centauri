@@ -288,6 +288,11 @@ PREAMBLE = r"""% ===============================================================
 % \usepackage{graphicx}
 % \usepackage{booktabs}
 % \usepackage{rotating}
+% \usepackage{caption}   % for \ContinuedFloat + \captionsetup in the sideways tables
+
+% ---- Scratch box/length used to align table notes to the table itself ----
+\newsavebox{\ctrtblbox}
+\newlength{\ctrtblwd}
 
 % ---- Heatmap colour bins (green=good to red=bad) ----
 \definecolor{c1}{HTML}{1a9850}
@@ -832,11 +837,11 @@ def generate_ft_bf16_all_families(rows, data_dir):
         "\\citet{binz2025foundation}. Rounded to 2\\,d.p.}"
     )
     lines.append(
-        "\\caption{Per-experiment NLL on Psych-101 for all four finetuned "
-        "families (bf16, LoRA rank 16). Cell colour encodes performance "
-        "(green\\,=\\,better).}"
+        "\\caption{\\textbf{Per-experiment NLL on Psych-101 for all four "
+        "finetuned families (bf16, LoRA rank 16).} Cell colour encodes "
+        "performance (green\\,=\\,better).}"
     )
-    lines.append("\\label{tab:heatmap_ft_bf16_all}")
+    lines.append("\\label{tab:psych101_pe_ft_all}")
     lines.append("\\end{sidewaystable}")
     return "\n".join(lines)
 
@@ -1337,7 +1342,7 @@ CONTROL_CSVS = {
     "nemotron_4b":     "controls/nvidia-Llama-3.1-Nemotron-Nano-4B-v1.1.csv",
     "nemotron_8b":     "controls/nvidia-Llama-3.1-Nemotron-Nano-8B-v1.csv",
     # Other cognitive/behavioural FMs
-    "befm_8b":         "controls/befm-Be_FM-8B.csv",
+    "befm_8b":         "controls/befm-Be.FM-8B.csv",
     "socrates_l_8b":   "controls/socratesft-socrates-llama3-8b-sft.csv",
     "socrates_q_14b":  "controls/socratesft-socrates-qwen2.5-14b-sft.csv",
 }
@@ -1535,8 +1540,8 @@ def generate_control_comparison(rows, control_dir):
         "\\texttt{LC} = \\texttt{Llama-Centaur}; "
         "\\texttt{C-70B}$_r$ = Centaur-70B (reproduced); "
         "Cog.$_p$ = best cognitive model \\citep{binz2025foundation}; "
-        "\\texttt{Herm.} = Hermes \\citep{teknium2024hermes}; "
-        "\\texttt{Nemo.} = Nemotron \\citep{nvidia2025nemotron}; "
+        "\\texttt{Herm.} = Hermes \\citep{teknium2024hermes3technicalreport}; "
+        "\\texttt{Nemo.} = Nemotron \\citep{bercovich2025nemotron}; "
         "\\texttt{Socr.} = Socrates \\citep{kolluri2025finetuning}. "
         "Cognitive SFT models are finetuned on behavioural data "
         "(Psych-101 or domain-specific); "
@@ -1658,7 +1663,10 @@ def generate_family_comparison(rows, control_dir):
     lines.append("\\begin{sidewaystable}")
     lines.append("\\centering")
     lines.append("{\\tiny")
-    lines.append("\\setlength{\\tabcolsep}{3pt}")
+    # 22 columns -- the widest table here. At 3pt this overruns \textheight and
+    # has to be scaled to ~0.93, which would drag the 4pt inline citations down
+    # to 3.7pt; 2pt keeps the scale at ~0.99 and the type at its stated size.
+    lines.append("\\setlength{\\tabcolsep}{2pt}")
     lines.append("\\renewcommand{\\arraystretch}{1.15}")
 
     # Column spec with small gaps between families
@@ -1819,8 +1827,8 @@ def generate_family_comparison(rows, control_dir):
         "finetuned on non-Psych-101 behavioural data; "
         "``Non-cog.'' = models finetuned for general instruction-following "
         "or reasoning. "
-        "\\texttt{Herm.} = Hermes \\citep{teknium2024hermes}; "
-        "\\texttt{Nemo.} = Nemotron \\citep{nvidia2025nemotron}; "
+        "\\texttt{Herm.} = Hermes \\citep{teknium2024hermes3technicalreport}; "
+        "\\texttt{Nemo.} = Nemotron \\citep{bercovich2025nemotron}; "
         "\\texttt{Socr.} = Socrates \\citep{kolluri2025finetuning}; "
         "\\texttt{Be.FM} = \\citet{xie2025fm}. "
         "Base model versions differ within families: "
@@ -1831,20 +1839,138 @@ def generate_family_comparison(rows, control_dir):
         "\\texttt{Be.FM} uses Llama-3.1.}"
     )
     lines.append(
-        "\\caption{Comparison of cognitively finetuned models with "
+        "\\caption{\\textbf{Comparison of cognitively finetuned models with "
         "other behavioural foundation models and non-cognitive controls "
-        "on Psych-101, grouped by base-model family. "
+        "on Psych-101, grouped by base-model family.} "
         "Within each family, \\texttt{Qwentaur}/\\texttt{Llama-Centaur} "
         "(cognitive SFT on Psych-101) consistently outperform both "
-        "other behavioural FMs and non-cognitive controls, "
+        "other behavioural finetuned models and non-cognitive controls, "
         "demonstrating that alignment with human behavioural patterns "
         "requires cognitive finetuning on structured experimental data, "
         "not merely finetuning per se.}"
     )
-    lines.append("\\label{tab:family_comparison}")
+    lines.append("\\label{tab:psych101_pe_control}")
     lines.append("\\end{sidewaystable}")
 
     return "\n".join(lines)
+
+# =============================================================================
+# Splitting oversized sideways tables across two floats
+# =============================================================================
+
+# Width of the COLM text block in points. `sidewaystable` typesets the float
+# in a \textheight-wide box and rotates it 90 degrees, so it is the table's
+# *height* that has to fit this figure -- not its width.
+COLM_TEXTWIDTH_PT = 400.0
+
+
+def fit_notes_to_table(tex):
+    """Set the colour key, footnote and caption to the table's own width.
+
+    The upright tables already do this implicitly: they \\resizebox the tabular
+    to \\columnwidth, which is also the width their notes are set at. The
+    sideways floats had no such constraint, so the notes ran the full
+    \\textheight (648pt) while the tabular was 582-613pt -- notes 6-11% wider
+    than the table they annotate. `family_comparison` had the opposite
+    problem: at 673-689pt its tabular was *wider* than the float, overfull by
+    25-41pt and bleeding into the top margin.
+
+    Boxing the tabular first gives us its natural width, clamped to what the
+    float can actually offer, and everything below is then set to match.
+    """
+    lines = tex.split("\n")
+
+    def idx(pred, start=0):
+        for i in range(start, len(lines)):
+            if pred(lines[i]):
+                return i
+        raise ValueError("marker not found while fitting table notes")
+
+    i_open = idx(lambda l: l.strip() == "{\\tiny")
+    i_endtab = idx(lambda l: l.strip() == "\\end{tabular}%")
+    i_close = idx(lambda l: l.strip() == "}", i_endtab)
+    i_cap = idx(lambda l: l.startswith("\\caption{"))
+
+    table_block = lines[i_open:i_close + 1]
+    notes = lines[i_close + 1:i_cap]
+
+    out = lines[:i_open]
+    out.append("\\sbox{\\ctrtblbox}{%")
+    out.extend(table_block)
+    out.append("}%")
+    # Never exceed the width the rotated float actually has, less a small
+    # margin so cell rules cannot graze the top/bottom edge of the text block.
+    out.append("\\setlength{\\ctrtblwd}{\\wd\\ctrtblbox}%")
+    out.append("\\ifdim\\ctrtblwd>\\dimexpr\\textheight-8pt\\relax")
+    out.append("  \\setlength{\\ctrtblwd}{\\dimexpr\\textheight-8pt\\relax}%")
+    out.append("\\fi")
+    out.append("\\resizebox{\\ctrtblwd}{!}{\\usebox{\\ctrtblbox}}")
+    out.append("\\par")
+    out.append("\\begin{minipage}{\\ctrtblwd}")
+    out.extend(notes)
+    out.append("\\end{minipage}")
+    out.append("\\captionsetup{width=\\ctrtblwd}")
+    out.extend(lines[i_cap:])
+    return "\n".join(out)
+
+
+def split_sidewaystable(tex, cont_caption, cont_label=None):
+    """Split one sidewaystable float into two, cutting at a task-group rule.
+
+    At 46 experiments these tables run 480-515pt tall, against the 400pt the
+    rotated float has to fit, so they bleed into both side margins. Cutting at
+    the \\midrule nearest the halfway point brings each half to ~330pt.
+
+    The second float opens with \\ContinuedFloat so both halves share a single
+    table number; no \\ref in the body text has to change. The header, colour
+    key and footnote are repeated so each half reads on its own.
+    """
+    lines = tex.split("\n")
+
+    def find(pred, start=0):
+        for i in range(start, len(lines)):
+            if pred(lines[i]):
+                return i
+        raise ValueError("marker not found while splitting sideways table")
+
+    i_tab = find(lambda l: l.startswith("\\begin{tabular}"))
+    i_head = find(lambda l: l.strip() == "\\midrule", i_tab)  # closes the header
+    i_bot = find(lambda l: l.strip() == "\\bottomrule")
+
+    head = lines[:i_head + 1]
+    body = lines[i_head + 1:i_bot]
+    foot = lines[i_bot:]
+
+    is_row = lambda l: l.rstrip().endswith("\\\\")
+    n_rows = sum(1 for l in body if is_row(l))
+
+    # Candidate cuts are the interior \midrule lines, i.e. the task-type
+    # boundaries the generators already emit. Pick the one closest to halfway.
+    cuts, seen = [], 0
+    for i, l in enumerate(body):
+        if l.strip() == "\\midrule":
+            cuts.append((abs(seen - n_rows / 2.0), i, seen))
+        if is_row(l):
+            seen += 1
+    if not cuts:
+        raise ValueError("no task-group boundary available to split on")
+    _, cut, n_first = min(cuts)
+
+    part1 = head + body[:cut] + foot
+
+    head2 = [head[0], "\\ContinuedFloat"] + head[1:]
+    foot2 = []
+    for l in foot:
+        if l.startswith("\\caption{"):
+            foot2.append("\\caption{%s}" % cont_caption)
+        elif l.startswith("\\label{") and cont_label:
+            foot2.append("\\label{%s}" % cont_label)
+        else:
+            foot2.append(l)
+    part2 = head2 + body[cut + 1:] + foot2
+
+    return "\n".join(part1), "\n".join(part2), n_first, n_rows - n_first
+
 
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
@@ -1884,11 +2010,23 @@ def main():
     # Smoltaur/Olmotaur per-task NLLs (not in aggr) for the family tables.
     ext = load_family_ext(os.path.join(OUT_DIR, ".."))
 
+    def write_split(tex, fname, cont_caption, cont_label):
+        """Write a sideways table as two \\ContinuedFloat halves."""
+        p1, p2, n1, n2 = split_sidewaystable(tex, cont_caption, cont_label)
+        p1, p2 = fit_notes_to_table(p1), fit_notes_to_table(p2)
+        with open(os.path.join(OUT_DIR, fname), "w", encoding="utf-8") as f:
+            f.write(PREAMBLE + "\n" + p1 + "\n\n" + p2 + "\n")
+        print(f"  Wrote {OUT_DIR}/{fname}  (split {n1}+{n2} rows)")
+
     # ---- Table 1: All four finetuned families (bf16, LoRA r=16) ----
     tex1 = generate_ft_bf16_all_families(rows, os.path.join(OUT_DIR, ".."))
-    with open(os.path.join(OUT_DIR, "heatmap_ft_bf16_all.tex"), "w", encoding="utf-8") as f:
-        f.write(PREAMBLE + "\n" + tex1)
-    print(f"  Wrote {OUT_DIR}/heatmap_ft_bf16_all.tex")
+    write_split(
+        tex1, "heatmap_ft_bf16_all.tex",
+        "\\textbf{Per-experiment NLL on Psych-101 for all four finetuned "
+        "families (bf16, LoRA rank 16), continued.} Cell colour encodes "
+        "performance (green\\,=\\,better).",
+        "tab:psych101_pe_ft_all_cont",
+    )
 
     # ---- Table 3: Base vs FT bf16 ----
     tex3 = generate_heatmap_table(
@@ -1900,18 +2038,25 @@ def main():
         "NLL under bf16 (half-precision) inference. "
         "Reference columns report 4-bit values as originally published. "
         + fn_common_baseft,
-        "Base vs.\\ finetuned NLL on Psych-101 under bf16 inference. "
+        "\\textbf{Base vs.\\ finetuned NLL on Psych-101 under bf16 "
+        "inference.} "
         "Within each model size, the left column (base) shows the "
         "pretrained model and the right column (ft) shows the "
         "cognitively finetuned variant. "
-        "Cell colour encodes performance; the consistent colour shift "
-        "from base to ft demonstrates the effect of cognitive "
+        "Cell colour encodes performance (expressed as NLL); the consistent "
+        "colour shift from base to ft demonstrates the effect of cognitive "
         "finetuning across all scales.",
-        "tab:heatmap_baseft_bf16",
+        "tab:psych101_pe_bf16_base_v_ft",
     )
-    with open(os.path.join(OUT_DIR, "heatmap_baseft_bf16.tex"), "w", encoding="utf-8") as f:
-        f.write(PREAMBLE + "\n" + tex3)
-    print(f"  Wrote {OUT_DIR}/heatmap_baseft_bf16.tex")
+    write_split(
+        tex3, "heatmap_baseft_bf16.tex",
+        "\\textbf{Base vs.\\ finetuned NLL on Psych-101 under bf16 "
+        "inference (continued).} "
+        "Within each model size, the left column (base) shows the "
+        "pretrained model and the right column (ft) the cognitively "
+        "finetuned variant.",
+        "tab:psych101_pe_bf16_base_v_ft_cont",
+    )
 
     # ---- Table 4: Main-text task-type summary ----
     tex4 = generate_main_tasktype(data_rows, task_groups, ext)
@@ -1939,9 +2084,13 @@ def main():
 
     # ---- Table 7: Family-based comparison ----
     tex7 = generate_family_comparison(rows, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
-    with open(os.path.join(OUT_DIR, "family_comparison.tex"), "w", encoding="utf-8") as f:
-        f.write(PREAMBLE + "\n" + tex7)
-    print(f"  Wrote {OUT_DIR}/family_comparison.tex")
+    write_split(
+        tex7, "family_comparison.tex",
+        "\\textbf{Comparison of cognitively finetuned models with other "
+        "behavioural foundation models and non-cognitive controls on "
+        "Psych-101, grouped by base-model family (continued).}",
+        "tab:psych101_pe_control_cont",
+    )
 
     # ---- Table 8: Normalised main-text task-type ----
     tex8 = generate_main_tasktype_normalised(data_rows, task_groups, ext)

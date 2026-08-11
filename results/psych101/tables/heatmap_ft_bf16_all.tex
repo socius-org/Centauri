@@ -6,6 +6,11 @@
 % \usepackage{graphicx}
 % \usepackage{booktabs}
 % \usepackage{rotating}
+% \usepackage{caption}   % for \ContinuedFloat + \captionsetup in the sideways tables
+
+% ---- Scratch box/length used to align table notes to the table itself ----
+\newsavebox{\ctrtblbox}
+\newlength{\ctrtblwd}
 
 % ---- Heatmap colour bins (green=good to red=bad) ----
 \definecolor{c1}{HTML}{1a9850}
@@ -114,6 +119,7 @@
 
 \begin{sidewaystable}[p]
 \centering
+\sbox{\ctrtblbox}{%
 {\tiny
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.15}
@@ -149,6 +155,49 @@ Episodic long-term memory {\fontsize{4}{5}\selectfont\citep{popov2023intent}} & 
 N-back {\fontsize{4}{5}\selectfont\citep{enkavi2019large}} & Memory & \hc{0.42} & \hc{0.42} & \hc{0.41} & \hc{0.41} & \hcu{0.40} & \hc{0.42} & \hc{0.42} & \hc{0.41} & \hc{0.49} & \hc{0.47} & \hc{0.44} & \hc{0.41} & \hc{0.44} & \hc{0.42} & \hc{0.52} & \hcbu{0.40} & \hc{0.40} & \hc{0.58} & \hc{0.69} \\
 Recall and recognition {\fontsize{4}{5}\selectfont\citep{cox2018information}} & Memory & \hc{1.24} & \hc{1.18} & \hc{1.13} & \hc{1.12} & \hcu{1.09} & \hc{1.22} & \hc{1.14} & \hc{1.10} & \hc{1.69} & \hc{1.50} & \hc{1.25} & \hc{1.15} & \hc{1.41} & \hc{1.17} & \hc{1.38} & \hcbu{1.07} & \hc{1.06} & \hcn & \hcn \\
 Recent probes {\fontsize{4}{5}\selectfont\citep{enkavi2019large}} & Memory & \hc{0.26} & \hc{0.26} & \hc{0.26} & \hc{0.26} & \hcu{0.26} & \hc{0.27} & \hc{0.26} & \hcbu{0.26} & \hc{0.33} & \hc{0.28} & \hc{0.27} & \hc{0.26} & \hc{0.27} & \hc{0.26} & \hc{0.34} & \hc{0.26} & \hc{0.26} & \hc{0.39} & \hc{0.69} \\
+\bottomrule
+\end{tabular}%
+}
+}%
+\setlength{\ctrtblwd}{\wd\ctrtblbox}%
+\ifdim\ctrtblwd>\dimexpr\textheight-8pt\relax
+  \setlength{\ctrtblwd}{\dimexpr\textheight-8pt\relax}%
+\fi
+\resizebox{\ctrtblwd}{!}{\usebox{\ctrtblbox}}
+\par
+\begin{minipage}{\ctrtblwd}
+\vspace{4pt}
+\begin{center}\footnotesize
+\colorbox{c1!45}{\strut\hspace{5pt}} \scriptsize$<$0.20 \quad
+\colorbox{c2!40}{\strut\hspace{5pt}} \scriptsize 0.20--0.40 \quad
+\colorbox{c3!40}{\strut\hspace{5pt}} \scriptsize 0.40--0.60 \quad
+\colorbox{c4!45}{\strut\hspace{5pt}} \scriptsize 0.60--0.80 \quad
+\colorbox{c5!55}{\strut\hspace{5pt}} \scriptsize 0.80--1.00 \quad
+\colorbox{c6!50}{\strut\hspace{5pt}} \scriptsize 1.00--1.20 \quad
+\colorbox{c7!45}{\strut\hspace{5pt}} \scriptsize 1.20--1.50 \quad
+\colorbox{c8!40}{\strut\hspace{5pt}} \scriptsize 1.50--2.00 \quad
+\colorbox{c9!35}{\strut\hspace{5pt}} \scriptsize$>$2.00
+\end{center}
+\vspace{-2pt}
+{\tiny \underline{\textbf{Bold+underline}}\,=\,best; \underline{underline}\,=\,second-best (C$_p$ excluded; see below). Lower is better. ``---''\,=\,not available. All models finetuned at LoRA rank 16, bf16 inference. Reference columns (\citet{binz2025foundation}): L-70B$_p$\,=\,Llama-3.1-70B base, C$_r$\,=\,our reproduced Centaur-70B, C$_p$\,=\,published Centaur-70B, Cog.$_p$\,=\,domain-specific cognitive baseline. C$_p$ is included for reference but excluded from best/second-best marking, as it was evaluated under different software conditions. $^\dagger$Horizon and Two-step tasks are reported as single merged values by \citet{binz2025foundation}. Rounded to 2\,d.p.}
+\end{minipage}
+\captionsetup{width=\ctrtblwd}
+\caption{\textbf{Per-experiment NLL on Psych-101 for all four finetuned families (bf16, LoRA rank 16).} Cell colour encodes performance (green\,=\,better).}
+\label{tab:psych101_pe_ft_all}
+\end{sidewaystable}
+
+\begin{sidewaystable}[p]
+\ContinuedFloat
+\centering
+\sbox{\ctrtblbox}{%
+{\tiny
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}l l  r  r  r  r  r  r  r  r  r  r  r  r  r  r  rrrr  r@{}}
+\toprule
+& & \multicolumn{5}{c}{\texttt{\textbf{Qwentaur}}} & \multicolumn{3}{c}{\texttt{\textbf{Llama-Centaur}}} & \multicolumn{4}{c}{\texttt{\textbf{Smoltaur}}} & \multicolumn{2}{c}{\texttt{\textbf{Olmotaur}}} & \multicolumn{4}{c}{\citet{binz2025foundation}} & \textbf{Chance} \\
+\cmidrule(lr){3-7}\cmidrule(lr){8-10}\cmidrule(lr){11-14}\cmidrule(lr){15-16}
+\textbf{Experiment} & \textbf{Type} & 0.6B & 1.7B & 4B & 8B & 14B & 1B & 3B & 8B & 0.1B & 0.4B & 1.7B & 3B & 1B & 7B & L-70B$_p$ & C$_r$ & C$_p$ & Cog.$_p$ & $\ln(k)$ \\
 \midrule
 Grammar judgement {\fontsize{4}{5}\selectfont\citep{jansen2021rational}} & Misc. & \hc{1.47} & \hc{1.45} & \hc{1.45} & \hc{1.44} & \hcu{1.43} & \hc{1.48} & \hc{1.45} & \hc{1.44} & \hc{1.63} & \hc{1.54} & \hc{1.51} & \hc{1.46} & \hc{1.51} & \hc{1.46} & \hc{1.99} & \hc{1.44} & \hc{1.44} & \hcbu{1.41} & \hcn \\
 Probabilistic reasoning {\fontsize{4}{5}\selectfont\citep{zhu2020bayesian}} & Misc. & \hc{2.45} & \hc{2.40} & \hc{2.36} & \hcu{2.35} & \hcbu{2.34} & \hc{2.56} & \hc{2.47} & \hc{2.43} & \hc{2.67} & \hc{2.60} & \hc{2.50} & \hc{2.45} & \hc{2.61} & \hc{2.47} & \hc{2.64} & \hc{2.40} & \hc{2.37} & \hcn & \hcn \\
@@ -179,6 +228,14 @@ Weather prediction task {\fontsize{4}{5}\selectfont\citep{speekenbrink2008learni
 \bottomrule
 \end{tabular}%
 }
+}%
+\setlength{\ctrtblwd}{\wd\ctrtblbox}%
+\ifdim\ctrtblwd>\dimexpr\textheight-8pt\relax
+  \setlength{\ctrtblwd}{\dimexpr\textheight-8pt\relax}%
+\fi
+\resizebox{\ctrtblwd}{!}{\usebox{\ctrtblbox}}
+\par
+\begin{minipage}{\ctrtblwd}
 \vspace{4pt}
 \begin{center}\footnotesize
 \colorbox{c1!45}{\strut\hspace{5pt}} \scriptsize$<$0.20 \quad
@@ -193,6 +250,8 @@ Weather prediction task {\fontsize{4}{5}\selectfont\citep{speekenbrink2008learni
 \end{center}
 \vspace{-2pt}
 {\tiny \underline{\textbf{Bold+underline}}\,=\,best; \underline{underline}\,=\,second-best (C$_p$ excluded; see below). Lower is better. ``---''\,=\,not available. All models finetuned at LoRA rank 16, bf16 inference. Reference columns (\citet{binz2025foundation}): L-70B$_p$\,=\,Llama-3.1-70B base, C$_r$\,=\,our reproduced Centaur-70B, C$_p$\,=\,published Centaur-70B, Cog.$_p$\,=\,domain-specific cognitive baseline. C$_p$ is included for reference but excluded from best/second-best marking, as it was evaluated under different software conditions. $^\dagger$Horizon and Two-step tasks are reported as single merged values by \citet{binz2025foundation}. Rounded to 2\,d.p.}
-\caption{Per-experiment NLL on Psych-101 for all four finetuned families (bf16, LoRA rank 16). Cell colour encodes performance (green\,=\,better).}
-\label{tab:heatmap_ft_bf16_all}
+\end{minipage}
+\captionsetup{width=\ctrtblwd}
+\caption{\textbf{Per-experiment NLL on Psych-101 for all four finetuned families (bf16, LoRA rank 16), continued.} Cell colour encodes performance (green\,=\,better).}
+\label{tab:psych101_pe_ft_all_cont}
 \end{sidewaystable}

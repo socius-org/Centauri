@@ -157,6 +157,7 @@ Misc. (7) & \hcR{0.28} & \hcR{0.31} & \hcR{0.45} & \hcR{0.46} & \hcRu{0.49} & \h
 \label{tab:psych201_normalised}
 \end{table}
 \clearpage
+
 % ===================== psych201_appendix_raw.tex =====================
 \begin{sidewaystable}[p]
 \centering
@@ -212,7 +213,7 @@ Math arithmetic task {\fontsize{4}{5}\selectfont\citep{xu2023augmenting}} & Misc
 \vspace{-2pt}
 {\tiny \underline{\textbf{Bold+underline}}\,=\,best; \underline{underline}\,=\,second-best. Lower is better. ``---''\,=\,continuous or mixed response space. Size labels in billions of parameters.}
 \caption{Per-experiment NLL on Psych-201 (out-of-distribution). Psych-201 was not used during supervised fine-tuning; lower NLL indicates better generalisation. Within each model size, the left column (base) shows the pretrained model and the right column (ft) shows the cognitively finetuned variant. The $\ln(k)$ column shows the random-guessing baseline where $k$ is the number of per-trial response options.}
-\label{tab:psych201_appendix_raw}
+\label{tab:psych201_pe_bf16_base_v_ft}
 \end{sidewaystable}
 \clearpage
 % ===================== psych201_appendix_families.tex =====================
@@ -268,7 +269,7 @@ Math arithmetic task {\fontsize{4}{5}\selectfont\citep{xu2023augmenting}} & Misc
 \vspace{-2pt}
 {\tiny \underline{\textbf{Bold+underline}}\,=\,best; \underline{underline}\,=\,second-best (across the four families and Centaur-70B). Lower is better. ``---''\,=\,continuous or mixed response space. Size labels in billions of parameters. 70B is the reproduced Centaur-70B.}
 \caption{Per-experiment NLL on Psych-201 (out-of-distribution) for the four finetuned families. Psych-201 was not used during fine-tuning; lower NLL indicates better generalisation. The $\ln(k)$ column shows the random-guessing baseline where $k$ is the number of per-trial response options.}
-\label{tab:psych201_appendix_families}
+\label{tab:psych201_pe_ft_all}
 \end{sidewaystable}
 
 \end{document}
