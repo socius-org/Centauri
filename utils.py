@@ -82,7 +82,7 @@ FAMILIES = {
         "baseline_exists": True,   # main-paper run; skip unless --include_baseline
     },
     # ------------------------------------------------------------------
-    # New model families (docs/ADDITIONAL_EXPERIMENTS.md §7). Same L-shape as
+    # New model families (misc/ADDITIONAL_EXPERIMENTS.md §7). Same L-shape as
     # qwen/llama, but the rank-16/full-data baseline does NOT exist from the
     # main paper, so it is a launchable cell (baseline_exists=False).
     # NOTE: olmo has only two sizes, so its datasize interaction read is

@@ -7,7 +7,7 @@ ablated_data/
 *.svg
 
 # ─── internal docs (excluded from the public repo) ───
-docs/
+misc/
 
 # ─── Claude Code files (not for the public repo) ───
 CLAUDE.md
