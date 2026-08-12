@@ -270,6 +270,7 @@
     position: absolute; top: 16px; right: 16px;
     font-family: var(--sans); font-weight: 500; font-size: 13px;
   }
+  .bib pre .c { color: var(--fog); }
 
   /* ---------- footer ---------- */
   footer.site {
@@ -439,6 +440,52 @@
 
   <section class="block">
     <div class="wrap">
+      <h2>Run one</h2>
+      <p class="sub">Every adapter loads with stock
+        <code class="chip">transformers</code>&thinsp;+&thinsp;<code class="chip">peft</code>;
+        the base checkpoint resolves automatically from the adapter config.
+        These are completion models over experiment transcripts, not chat
+        assistants: give them a session in the Psych-101 format and read off
+        the distribution over what this participant does next.</p>
+      <div class="bib">
+        <pre id="runcode"><span class="c"># pip install torch transformers peft</span>
+import torch
+from peft import AutoPeftModelForCausalLM
+from transformers import AutoTokenizer
+
+model_id = "socius/Qwentaur-8B-LoRA-r16"   <span class="c"># any adapter from the table</span>
+model = AutoPeftModelForCausalLM.from_pretrained(
+    model_id, torch_dtype=torch.bfloat16, device_map="auto")
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+
+<span class="c"># Psych-101 transcripts: task instructions, then one line per trial with
+# the participant's choice between &lt;&lt; &gt;&gt; markers. Stop the prompt before a
+# choice and the model predicts what this participant presses next.</span>
+prompt = (
+    "In the following you will be presented with multiple choices between "
+    "two options W and F. Please name which option you would prefer by "
+    "pressing the corresponding key.\n\n"
+    "You have the choice between receiving 500$ immediately (press W) or "
+    "receiving 550$ in one year (press F). You press &lt;&lt;W&gt;&gt;.\n"
+    "You have the choice between receiving 500$ immediately (press W) or "
+    "receiving 750$ in one year (press F). You press &lt;&lt;F&gt;&gt;.\n"
+    "You have the choice between receiving 500$ immediately (press W) or "
+    "receiving 1000$ in two years (press F). You press &lt;&lt;"
+)
+
+inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+with torch.no_grad():
+    probs = model(**inputs).logits[0, -1].softmax(-1)
+for key in "WF":
+    token = tokenizer.encode(key, add_special_tokens=False)[0]
+    print(f"P({key}) = {probs[token]:.2f}")</pre>
+        <button class="btn secondary" id="copyrun" type="button">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
       <h2>Right for the right reasons?</h2>
       <p class="sub">Accuracy alone would settle nothing; an instrument must
         also respond to the right things. Two stress tests probe what the
@@ -565,18 +612,22 @@
 </footer>
 
 <script>
-  document.getElementById("copybib").addEventListener("click", function () {
-    var text = document.getElementById("bibtex").textContent;
-    var btn = this;
-    function done() { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy"; }, 1600); }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(done);
-    } else {
-      var ta = document.createElement("textarea");
-      ta.value = text; document.body.appendChild(ta); ta.select();
-      try { document.execCommand("copy"); done(); } catch (e) {}
-      document.body.removeChild(ta);
-    }
+  [["copybib", "bibtex"], ["copyrun", "runcode"]].forEach(function (pair) {
+    var btn = document.getElementById(pair[0]);
+    var src = document.getElementById(pair[1]);
+    if (!btn || !src) return;
+    btn.addEventListener("click", function () {
+      var text = src.textContent;
+      function done() { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy"; }, 1600); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done);
+      } else {
+        var ta = document.createElement("textarea");
+        ta.value = text; document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); done(); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+    });
   });
 </script>
 
