@@ -53,6 +53,11 @@ EXP_TITLES = {
     'ruggeri2022globalizability': ('Intertemporal choice', '(Ruggeri et al., 2022)'),
 }
 
+# 'a'/'b' panel labels on the grid figure. On by default (paper figure);
+# project_page/generate_figures.py switches it off for the standalone web
+# rendering, where the panels are not cross-referenced from any text.
+PANEL_LABELS = True
+
 
 def apply_style(fs=8, fl=5.5):
     plt.rcParams.update({
@@ -550,9 +555,9 @@ def fig_violin_ecdf_grid(ppv, outdir):
         # Row titles — bold label+name, normal citation, centered across row
         for exp, y in [(exp_top, title_y_top), (exp_bot, title_y_bot)]:
             name, cite = EXP_TITLES.get(exp, (exp, ''))
-            label = 'a' if exp == exp_top else 'b'
+            label = ('a' if exp == exp_top else 'b') if PANEL_LABELS else ''
             bold_part = TextArea(
-                f"{label}  {name} ",
+                f"{label}  {name} " if label else f"{name} ",
                 textprops=dict(fontweight='bold', fontsize=12),
             )
             cite_part = TextArea(
