@@ -44,6 +44,11 @@
     --c-qwen:  #8d7fd0;
     --c-smol:  #e3b93a;
     --c-olmo:  #e85d9f;
+    /* code theme: the family accents, darkened to hold contrast on mist */
+    --code-c: #8f8983;
+    --code-k: #6355a8;
+    --code-s: #23619f;
+    --code-n: #b0406f;
     --display: "Montagu Slab", Rockwell, "Roboto Slab", Georgia, serif;
     --sans: "GeneralSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
@@ -270,7 +275,25 @@
     position: absolute; top: 16px; right: 16px;
     font-family: var(--sans); font-weight: 500; font-size: 13px;
   }
-  .bib pre .c { color: var(--fog); }
+  .bib pre .c { color: var(--code-c); font-style: italic; }
+  .bib pre .k { color: var(--code-k); }
+  .bib pre .s { color: var(--code-s); }
+  .bib pre .n { color: var(--code-n); }
+
+  .seg {
+    display: inline-flex; gap: 4px; padding: 4px;
+    background: var(--mist); border-radius: 40px; margin-top: 28px;
+  }
+  .segbtn {
+    font-family: var(--sans); font-weight: 500; font-size: 13px;
+    padding: 7px 16px; border: none; border-radius: 40px;
+    background: transparent; color: var(--ink); cursor: pointer;
+    transition: background-color .2s ease-in-out, color .2s ease-in-out;
+  }
+  .segbtn:hover:not(.active) { opacity: .55; }
+  .segbtn.active { background: var(--ink); color: var(--paper); }
+  .segbtn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .seg + .bib { margin-top: 12px; }
 
   /* ---------- footer ---------- */
   footer.site {
@@ -442,43 +465,81 @@
     <div class="wrap">
       <h2>Run one</h2>
       <p class="sub">Every adapter loads with stock
-        <code class="chip">transformers</code>&thinsp;+&thinsp;<code class="chip">peft</code>;
-        the base checkpoint resolves automatically from the adapter config.
-        These are completion models over experiment transcripts, not chat
-        assistants: give them a session in the Psych-101 format and read off
-        the distribution over what this participant does next.</p>
-      <div class="bib">
-        <pre id="runcode"><span class="c"># pip install torch transformers peft</span>
-import torch
-from peft import AutoPeftModelForCausalLM
-from transformers import AutoTokenizer
+        <code class="chip">transformers</code>&thinsp;+&thinsp;<code class="chip">peft</code>
+        — or with <code class="chip">unsloth</code>, the loader our training
+        and evaluations use. The base checkpoint resolves automatically from
+        the adapter config. These are completion models over experiment
+        transcripts, not chat assistants: give them a session in the
+        Psych-101 format and read off the distribution over what this
+        participant does next.</p>
+      <div class="seg" role="tablist" aria-label="Loader">
+        <button class="segbtn active" type="button" role="tab" aria-selected="true" data-pane="runcode-tf">transformers + peft</button>
+        <button class="segbtn" type="button" role="tab" aria-selected="false" data-pane="runcode-us">unsloth</button>
+      </div>
+      <div class="bib" id="runpanes">
+        <pre id="runcode-tf"><span class="c"># pip install torch transformers peft</span>
+<span class="k">import</span> torch
+<span class="k">from</span> peft <span class="k">import</span> AutoPeftModelForCausalLM
+<span class="k">from</span> transformers <span class="k">import</span> AutoTokenizer
 
-model_id = "socius/Qwentaur-8B-LoRA-r16"   <span class="c"># any adapter from the table</span>
+model_id = <span class="s">"socius/Qwentaur-8B-LoRA-r16"</span>   <span class="c"># any adapter from the table</span>
 model = AutoPeftModelForCausalLM.from_pretrained(
-    model_id, torch_dtype=torch.bfloat16, device_map="auto")
+    model_id, torch_dtype=torch.bfloat16, device_map=<span class="s">"auto"</span>)
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 <span class="c"># Psych-101 transcripts: task instructions, then one line per trial with
 # the participant's choice between &lt;&lt; &gt;&gt; markers. Stop the prompt before a
 # choice and the model predicts what this participant presses next.</span>
 prompt = (
-    "In the following you will be presented with multiple choices between "
-    "two options W and F. Please name which option you would prefer by "
-    "pressing the corresponding key.\n\n"
-    "You have the choice between receiving 500$ immediately (press W) or "
-    "receiving 550$ in one year (press F). You press &lt;&lt;W&gt;&gt;.\n"
-    "You have the choice between receiving 500$ immediately (press W) or "
-    "receiving 750$ in one year (press F). You press &lt;&lt;F&gt;&gt;.\n"
-    "You have the choice between receiving 500$ immediately (press W) or "
-    "receiving 1000$ in two years (press F). You press &lt;&lt;"
+    <span class="s">"In the following you will be presented with multiple choices between "</span>
+    <span class="s">"two options W and F. Please name which option you would prefer by "</span>
+    <span class="s">"pressing the corresponding key.\n\n"</span>
+    <span class="s">"You have the choice between receiving 500$ immediately (press W) or "</span>
+    <span class="s">"receiving 550$ in one year (press F). You press &lt;&lt;W&gt;&gt;.\n"</span>
+    <span class="s">"You have the choice between receiving 500$ immediately (press W) or "</span>
+    <span class="s">"receiving 750$ in one year (press F). You press &lt;&lt;F&gt;&gt;.\n"</span>
+    <span class="s">"You have the choice between receiving 500$ immediately (press W) or "</span>
+    <span class="s">"receiving 1000$ in two years (press F). You press &lt;&lt;"</span>
 )
 
-inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-with torch.no_grad():
-    probs = model(**inputs).logits[0, -1].softmax(-1)
-for key in "WF":
-    token = tokenizer.encode(key, add_special_tokens=False)[0]
-    print(f"P({key}) = {probs[token]:.2f}")</pre>
+inputs = tokenizer(prompt, return_tensors=<span class="s">"pt"</span>).to(model.device)
+<span class="k">with</span> torch.no_grad():
+    probs = model(**inputs).logits[<span class="n">0</span>, <span class="n">-1</span>].softmax(<span class="n">-1</span>)
+<span class="k">for</span> key <span class="k">in</span> <span class="s">"WF"</span>:
+    token = tokenizer.encode(key, add_special_tokens=<span class="n">False</span>)[<span class="n">0</span>]
+    print(<span class="s">f"P({key}) = {probs[token]:.2f}"</span>)</pre>
+        <pre id="runcode-us" hidden><span class="c"># pip install unsloth</span>
+<span class="k">import</span> torch
+<span class="k">from</span> unsloth <span class="k">import</span> FastLanguageModel
+
+model, tokenizer = FastLanguageModel.from_pretrained(
+    model_name=<span class="s">"socius/Qwentaur-8B-LoRA-r16"</span>,   <span class="c"># any adapter from the table</span>
+    max_seq_length=<span class="n">32768</span>,
+    dtype=<span class="n">None</span>,
+    load_in_4bit=<span class="n">False</span>,
+)
+
+<span class="c"># Psych-101 transcripts: task instructions, then one line per trial with
+# the participant's choice between &lt;&lt; &gt;&gt; markers. Stop the prompt before a
+# choice and the model predicts what this participant presses next.</span>
+prompt = (
+    <span class="s">"In the following you will be presented with multiple choices between "</span>
+    <span class="s">"two options W and F. Please name which option you would prefer by "</span>
+    <span class="s">"pressing the corresponding key.\n\n"</span>
+    <span class="s">"You have the choice between receiving 500$ immediately (press W) or "</span>
+    <span class="s">"receiving 550$ in one year (press F). You press &lt;&lt;W&gt;&gt;.\n"</span>
+    <span class="s">"You have the choice between receiving 500$ immediately (press W) or "</span>
+    <span class="s">"receiving 750$ in one year (press F). You press &lt;&lt;F&gt;&gt;.\n"</span>
+    <span class="s">"You have the choice between receiving 500$ immediately (press W) or "</span>
+    <span class="s">"receiving 1000$ in two years (press F). You press &lt;&lt;"</span>
+)
+
+inputs = tokenizer(prompt, return_tensors=<span class="s">"pt"</span>).to(model.device)
+<span class="k">with</span> torch.no_grad():
+    probs = model(**inputs).logits[<span class="n">0</span>, <span class="n">-1</span>].softmax(<span class="n">-1</span>)
+<span class="k">for</span> key <span class="k">in</span> <span class="s">"WF"</span>:
+    token = tokenizer.encode(key, add_special_tokens=<span class="n">False</span>)[<span class="n">0</span>]
+    print(<span class="s">f"P({key}) = {probs[token]:.2f}"</span>)</pre>
         <button class="btn secondary" id="copyrun" type="button">Copy</button>
       </div>
     </div>
@@ -612,12 +673,11 @@ for key in "WF":
 </footer>
 
 <script>
-  [["copybib", "bibtex"], ["copyrun", "runcode"]].forEach(function (pair) {
-    var btn = document.getElementById(pair[0]);
-    var src = document.getElementById(pair[1]);
-    if (!btn || !src) return;
+  function bindCopy(btnId, getText) {
+    var btn = document.getElementById(btnId);
+    if (!btn) return;
     btn.addEventListener("click", function () {
-      var text = src.textContent;
+      var text = getText();
       function done() { btn.textContent = "Copied"; setTimeout(function () { btn.textContent = "Copy"; }, 1600); }
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(done);
@@ -627,6 +687,26 @@ for key in "WF":
         try { document.execCommand("copy"); done(); } catch (e) {}
         document.body.removeChild(ta);
       }
+    });
+  }
+  bindCopy("copybib", function () {
+    return document.getElementById("bibtex").textContent;
+  });
+  bindCopy("copyrun", function () {
+    return document.querySelector("#runpanes pre:not([hidden])").textContent;
+  });
+
+  var segbtns = document.querySelectorAll(".segbtn");
+  segbtns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      segbtns.forEach(function (x) {
+        var on = x === b;
+        x.classList.toggle("active", on);
+        x.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      document.querySelectorAll("#runpanes pre").forEach(function (p) {
+        p.hidden = p.id !== b.getAttribute("data-pane");
+      });
     });
   });
 </script>
