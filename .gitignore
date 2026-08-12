@@ -8,6 +8,7 @@ ablated_data/
 
 # ─── internal docs (excluded from the public repo) ───
 misc/
+project_page/
 
 # ─── Claude Code files (not for the public repo) ───
 CLAUDE.md
