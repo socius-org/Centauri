@@ -238,6 +238,9 @@ def train(
     wandb_run_name: str = None,
     wandb_entity: str = None,
     wandb_tags: List[str] = None,
+    wandb_run_id: str = None,
+    # crash recovery
+    resume_from_checkpoint: str = None,
 ):
     """
     Train Olmotaur model on Psych-101 dataset.
@@ -300,11 +303,20 @@ def train(
                 quant_str = "4bit" if load_in_4bit else "bf16"
                 wandb_run_name = f"olmo-{size.lower()}-{quant_str}"
 
+            # Resuming a crashed run: reattach to the existing wandb run so
+            # the loss curve continues at the checkpoint's global step
+            # instead of starting a new run. resume="must" fails loudly if
+            # the id does not exist (a silent new run would fork history).
+            resume_kwargs = {}
+            if wandb_run_id is not None:
+                resume_kwargs = {"id": wandb_run_id, "resume": "must"}
+
             # Initialize wandb
             wandb.init(
                 project=wandb_project,
                 name=wandb_run_name,
                 entity=wandb_entity,
+                **resume_kwargs,
                 tags=wandb_tags or [f"olmo-{size}", "olmotaur", "psych-101"],
                 config={
                     "model_family": "olmo",
@@ -486,8 +498,11 @@ def train(
     # ============================================
     # Train
     # ============================================
-    print("\nStarting training...")
-    trainer.train()
+    if resume_from_checkpoint:
+        print(f"\nResuming training from {resume_from_checkpoint}...")
+    else:
+        print("\nStarting training...")
+    trainer.train(resume_from_checkpoint=resume_from_checkpoint)
 
     # ============================================
     # Save
@@ -616,6 +631,22 @@ Examples:
         default=None,
         help="Wandb tags for the run (space-separated)"
     )
+    parser.add_argument(
+        "--wandb_run_id",
+        type=str,
+        default=None,
+        help="Existing wandb run id to resume (e.g. 28m8bu7y). Use together "
+             "with --resume_from_checkpoint so the curve continues in the "
+             "same run instead of starting a new one."
+    )
+    parser.add_argument(
+        "--resume_from_checkpoint",
+        type=str,
+        default=None,
+        help="Path to a COMPLETE checkpoint dir (must contain "
+             "trainer_state.json and optimizer.pt) to resume training from, "
+             "e.g. ./outputs/.../checkpoint-1000."
+    )
 
     args = parser.parse_args()
 
@@ -633,4 +664,6 @@ Examples:
         wandb_run_name=args.wandb_run,
         wandb_entity=args.wandb_entity,
         wandb_tags=args.wandb_tags,
+        wandb_run_id=args.wandb_run_id,
+        resume_from_checkpoint=args.resume_from_checkpoint,
     )

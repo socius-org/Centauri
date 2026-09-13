@@ -9,9 +9,10 @@ launches ``eval_model.py`` per cell against the adapter's socius HuggingFace
 repo.
 
 Covers all four families: qwen, llama, and the new families olmo/smollm
-(ADDITIONAL_EXPERIMENTS.md §7). For the new families the only cells are the
-rank-16/full-data baselines, which are evaluated by default (they are new
-adapters, not main-paper runs). Short-context models are evaluated at their
+(ADDITIONAL_EXPERIMENTS.md §7). The new families run the same full L-shape
+(rank sweep + fraction ladder); their rank-16/full-data baselines are new
+adapters rather than main-paper runs, so those cells are evaluated by
+default (no --include_baseline needed). Short-context models are evaluated at their
 native context automatically (OLMo-2-1B: 4096, SmolLM2: 8192; see
 cell_max_seq_length) so eval truncation matches training.
 

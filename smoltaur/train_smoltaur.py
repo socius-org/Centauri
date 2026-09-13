@@ -252,6 +252,9 @@ def train(
     wandb_run_name: str = None,
     wandb_entity: str = None,
     wandb_tags: List[str] = None,
+    wandb_run_id: str = None,
+    # crash recovery
+    resume_from_checkpoint: str = None,
 ):
     """
     Train Smoltaur model on Psych-101 dataset.
@@ -314,11 +317,20 @@ def train(
                 quant_str = "4bit" if load_in_4bit else "bf16"
                 wandb_run_name = f"smollm-{size.lower()}-{quant_str}"
 
+            # Resuming a crashed run: reattach to the existing wandb run so
+            # the loss curve continues at the checkpoint's global step
+            # instead of starting a new run. resume="must" fails loudly if
+            # the id does not exist (a silent new run would fork history).
+            resume_kwargs = {}
+            if wandb_run_id is not None:
+                resume_kwargs = {"id": wandb_run_id, "resume": "must"}
+
             # Initialize wandb
             wandb.init(
                 project=wandb_project,
                 name=wandb_run_name,
                 entity=wandb_entity,
+                **resume_kwargs,
                 tags=wandb_tags or [f"smollm-{size}", "smoltaur", "psych-101"],
                 config={
                     "model_family": "smollm",
@@ -425,10 +437,16 @@ def train(
     # Llama/Qwen scripts here — SmolLM2's token id 0 IS <|endoftext|>
     # (its bos AND eos token), so pad=0 would alias pad with eos.
     # The unsloth uploads ship dedicated pad tokens (49152 for SmolLM2,
-    # 128004 for SmolLM3), so we keep them. Fall back to 0 only if pad
-    # is missing or aliases eos.
+    # 128004 for SmolLM3), so we keep them. The fallback below is a last
+    # resort for non-standard checkpoints — note that on SmolLM2 id 0 IS
+    # <|endoftext|>, so the fallback itself aliases pad with eos; it only
+    # exists so training can proceed (labels on pad positions are masked
+    # by the collator either way), and it warns loudly.
     # ============================================
     if tokenizer.pad_token_id is None or tokenizer.pad_token_id == tokenizer.eos_token_id:
+        print("⚠ Tokenizer has no dedicated pad token (or pad == eos); "
+              "falling back to pad_token_id = 0. On SmolLM2 this aliases "
+              "pad with <|endoftext|> — check the checkpoint's tokenizer.")
         tokenizer.pad_token_id = 0
     tokenizer.padding_side = "right"
 
@@ -501,8 +519,11 @@ def train(
     # ============================================
     # Train
     # ============================================
-    print("\nStarting training...")
-    trainer.train()
+    if resume_from_checkpoint:
+        print(f"\nResuming training from {resume_from_checkpoint}...")
+    else:
+        print("\nStarting training...")
+    trainer.train(resume_from_checkpoint=resume_from_checkpoint)
 
     # ============================================
     # Save
@@ -633,6 +654,22 @@ Examples:
         default=None,
         help="Wandb tags for the run (space-separated)"
     )
+    parser.add_argument(
+        "--wandb_run_id",
+        type=str,
+        default=None,
+        help="Existing wandb run id to resume (e.g. 28m8bu7y). Use together "
+             "with --resume_from_checkpoint so the curve continues in the "
+             "same run instead of starting a new one."
+    )
+    parser.add_argument(
+        "--resume_from_checkpoint",
+        type=str,
+        default=None,
+        help="Path to a COMPLETE checkpoint dir (must contain "
+             "trainer_state.json and optimizer.pt) to resume training from, "
+             "e.g. ./outputs/.../checkpoint-1000."
+    )
 
     args = parser.parse_args()
 
@@ -650,4 +687,6 @@ Examples:
         wandb_run_name=args.wandb_run,
         wandb_entity=args.wandb_entity,
         wandb_tags=args.wandb_tags,
+        wandb_run_id=args.wandb_run_id,
+        resume_from_checkpoint=args.resume_from_checkpoint,
     )

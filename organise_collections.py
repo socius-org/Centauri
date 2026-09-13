@@ -177,7 +177,7 @@ def main():
                     help="Where to look for existing collections "
                          "(default: <namespace> then the logged-in user).")
     ap.add_argument("--family", choices=sorted(FAMILIES), default=None,
-                    help="Only process one family (default: both).")
+                    help="Only process one family (default: all four).")
     ap.add_argument("--private", dest="private", action="store_true", default=None,
                     help="Create per-size collections private "
                          "(default: match the existing per-family collection).")

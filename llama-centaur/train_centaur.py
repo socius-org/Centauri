@@ -232,13 +232,16 @@ def train(
     wandb_run_name: str = None,
     wandb_entity: str = None,
     wandb_tags: List[str] = None,
+    wandb_run_id: str = None,
+    # crash recovery
+    resume_from_checkpoint: str = None,
 ):
     """
     Train Centaur model on Psych-101 dataset.
 
     Args:
         size: Model size ("1B", "3B", "8B", "70B")
-        output_dir: Output directory (default: ./outputs/centaur-llama-{size})
+        output_dir: Output directory (default: ./outputs/llama-centaur-{size})
         load_in_4bit: Use 4-bit quantization (QLoRA)
         num_gpus: Number of GPUs to use
         data_fraction: Fraction of Psych-101 to train on. 1.0 uses the full
@@ -269,7 +272,11 @@ def train(
         quant_suffix = "-4bit" if load_in_4bit else "-bf16"
         rank_suffix = f"-r{lora_rank}" if lora_rank != model_config["lora_rank"] else ""
         frac_suffix = f"-f{data_fraction:g}" if abs(data_fraction - 1.0) > 1e-9 else ""
-        output_dir = f"./outputs/centaur-llama-{size.lower()}{rank_suffix}{frac_suffix}{quant_suffix}"
+        # NOTE: older versions of this script used a reversed
+        # "centaur-llama-" prefix here; the schedulers' baseline-fallback
+        # probes still recognise dirs trained under that legacy layout
+        # (utils.FAMILIES["llama"]["legacy_run_prefixes"]).
+        output_dir = f"./outputs/llama-centaur-{size.lower()}{rank_suffix}{frac_suffix}{quant_suffix}"
 
     # Training hyperparameters
     learning_rate = 5e-5
@@ -286,11 +293,20 @@ def train(
                 quant_str = "4bit" if load_in_4bit else "bf16"
                 wandb_run_name = f"llama-{size.lower()}-{quant_str}"
             
+            # Resuming a crashed run: reattach to the existing wandb run so
+            # the loss curve continues at the checkpoint's global step
+            # instead of starting a new run. resume="must" fails loudly if
+            # the id does not exist (a silent new run would fork history).
+            resume_kwargs = {}
+            if wandb_run_id is not None:
+                resume_kwargs = {"id": wandb_run_id, "resume": "must"}
+
             # Initialize wandb
             wandb.init(
                 project=wandb_project,
                 name=wandb_run_name,
                 entity=wandb_entity,
+                **resume_kwargs,
                 tags=wandb_tags or [f"llama-{size}", "centaur", "psych-101"],
                 config={
                     "model_size": size,
@@ -384,9 +400,27 @@ def train(
     tokenizer.pad_token_id = 0
     tokenizer.padding_side = "right"
 
-    l_id = tokenizer(" <<").input_ids[1:]
-    r_id = tokenizer(">>").input_ids[1:]
-    collator = DataCollatorForCompletionOnlyLM(response_template=l_id, instruction_template=r_id, tokenizer=tokenizer)
+    # ============================================
+    # Data Collator
+    # IMPORTANT: encode templates with add_special_tokens=False.
+    # For Llama 3.x (BOS-prepending) this is exactly equivalent to the
+    # historical [1:] strip, but it is the convention every family script
+    # now shares — and unlike [1:] it cannot drop a real token on a
+    # tokenizer that does not prepend BOS.
+    # ============================================
+    l_id = tokenizer(" <<", add_special_tokens=False).input_ids
+    r_id = tokenizer(">>", add_special_tokens=False).input_ids
+
+    if not l_id:
+        raise ValueError("Response template ' <<' produced empty token list!")
+    if not r_id:
+        raise ValueError("Instruction template '>>' produced empty token list!")
+
+    collator = DataCollatorForCompletionOnlyLM(
+        response_template=l_id,
+        instruction_template=r_id,
+        tokenizer=tokenizer,
+    )
     
     # ============================================
     # Training Arguments
@@ -433,8 +467,11 @@ def train(
     # ============================================
     # Train
     # ============================================
-    print("\nStarting training...")
-    trainer.train()
+    if resume_from_checkpoint:
+        print(f"\nResuming training from {resume_from_checkpoint}...")
+    else:
+        print("\nStarting training...")
+    trainer.train(resume_from_checkpoint=resume_from_checkpoint)
     
     # ============================================
     # Save
@@ -488,7 +525,7 @@ Examples:
         "--output_dir",
         type=str,
         default=None,
-        help="Output directory (default: ./outputs/centaur-llama-{size})"
+        help="Output directory (default: ./outputs/llama-centaur-{size})"
     )
     parser.add_argument(
         "--load_in_4bit",
@@ -556,9 +593,25 @@ Examples:
         default=None,
         help="Wandb tags for the run (space-separated)"
     )
-    
+    parser.add_argument(
+        "--wandb_run_id",
+        type=str,
+        default=None,
+        help="Existing wandb run id to resume (e.g. 28m8bu7y). Use together "
+             "with --resume_from_checkpoint so the curve continues in the "
+             "same run instead of starting a new one."
+    )
+    parser.add_argument(
+        "--resume_from_checkpoint",
+        type=str,
+        default=None,
+        help="Path to a COMPLETE checkpoint dir (must contain "
+             "trainer_state.json and optimizer.pt) to resume training from, "
+             "e.g. ./outputs/.../checkpoint-1000."
+    )
+
     args = parser.parse_args()
-    
+
     train(
         size=args.size,
         output_dir=args.output_dir,
@@ -572,4 +625,6 @@ Examples:
         wandb_run_name=args.wandb_run,
         wandb_entity=args.wandb_entity,
         wandb_tags=args.wandb_tags,
+        wandb_run_id=args.wandb_run_id,
+        resume_from_checkpoint=args.resume_from_checkpoint,
     )

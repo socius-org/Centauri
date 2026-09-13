@@ -25,9 +25,10 @@ Repo names (see ablation_naming.hf_repo_name):
     socius/Smoltaur-0.1B-LoRA-r16
 
 Covers all four families: qwen, llama, and the new families olmo/smollm
-(ADDITIONAL_EXPERIMENTS.md §7). For the new families the only cells are the
-rank-16/full-data baselines, which are uploaded by default (they are new
-adapters, not main-paper runs).
+(ADDITIONAL_EXPERIMENTS.md §7). The new families run the same full L-shape
+(rank sweep + fraction ladder); their rank-16/full-data baselines are new
+adapters rather than main-paper runs, so those cells are uploaded by
+default (no --include_baseline needed).
 
 Local adapter directories are resolved with the same cell_output_dir() the
 scheduler used to write them. Precision (bf16 vs 4bit) is auto-detected: for
@@ -80,10 +81,12 @@ def resolve_local_dir(output_root, fam, cell):
                            quantised))
     if cell["axis"] == "baseline":
         s = cell["size"].lower()
-        for quantised, q in ((False, "bf16"), (True, "4bit")):
-            candidates.append(
-                (os.path.join("./outputs", f"{fam['run_prefix']}-{s}-{q}"),
-                 quantised))
+        prefixes = [fam["run_prefix"]] + fam.get("legacy_run_prefixes", [])
+        for prefix in prefixes:
+            for quantised, q in ((False, "bf16"), (True, "4bit")):
+                candidates.append(
+                    (os.path.join("./outputs", f"{prefix}-{s}-{q}"),
+                     quantised))
     for path, quantised in candidates:
         if os.path.isdir(path):
             return path, quantised

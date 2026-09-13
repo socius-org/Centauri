@@ -46,16 +46,22 @@ FAMILIES = {
         "size_order": ["0.6B", "1.7B", "4B", "8B", "14B"],
         "rank_sweep": {
             "0.6B": [4, 8, 16, 32, 64],
-            # 1.7B carries only r=8: it completes the r=8 curve (the rank
-            # matched to Centaur-70B) without adding a full sweep column.
-            "1.7B": [8],
+            # 1.7B carries only r=8 (completing the r=8 curve, the rank
+            # matched to Centaur-70B) plus the r16 cell, which build_cells
+            # labels 'baseline' — no full sweep column at this size.
+            "1.7B": [8, 16],
             "4B":   [4, 8, 16, 32, 64],
             "8B":   [4, 8, 16, 32, 64],
+            # 14B carries only the endpoints {4, 64} (plus the r16 baseline):
+            # it brackets the rank axis at the largest scale without paying
+            # for a dense sweep column at 14B prices.
+            "14B":  [4, 16, 64],
         },
         "datasize": {
             "0.6B": [0.0625, 0.125, 0.25, 0.5],
             "4B":   [0.0625, 0.125, 0.25, 0.5],
             "8B":   [0.0625, 0.125, 0.25, 0.5],
+            "14B":  [0.0625, 0.125, 0.25, 0.5],
         },
         "train_script": "./qwentaur/train_qwentaur.py",
         "run_prefix": "qwentaur",
@@ -63,12 +69,11 @@ FAMILIES = {
         "baseline_exists": True,   # main-paper run; skip unless --include_baseline
     },
     "llama": {
-        # Llama has only three sizes, so the smallest (1B) and largest (8B)
-        # get the dense rank sweep, with 3B as the mid anchor.
+        # Llama has only three sizes; all three carry the dense rank sweep.
         "size_order": ["1B", "3B", "8B"],
         "rank_sweep": {
             "1B": [4, 8, 16, 32, 64],
-            "3B": [8, 16, 32],
+            "3B": [4, 8, 16, 32, 64],
             "8B": [4, 8, 16, 32, 64],
         },
         "datasize": {
@@ -78,6 +83,11 @@ FAMILIES = {
         },
         "train_script": "./llama-centaur/train_centaur.py",
         "run_prefix": "llama-centaur",
+        # train_centaur.py's default output dirs historically used the
+        # reversed "centaur-llama" prefix; the baseline-fallback probes in
+        # schedule_training_runs / upload_adapters check these too so that
+        # baselines trained under the old layout are still recognised.
+        "legacy_run_prefixes": ["centaur-llama"],
         "wandb_project": "llama-centaur-rank-and-datasize",
         "baseline_exists": True,   # main-paper run; skip unless --include_baseline
     },
@@ -272,8 +282,9 @@ def load_psych101_fraction(
 
     ds = load_dataset(dataset_name)[split]
     idx_path = os.path.join(indices_dir, "fractions_indices.json")
+    is_full = abs(fraction - 1.0) < 1e-9
 
-    if abs(fraction - 1.0) < 1e-9 and not os.path.exists(idx_path):
+    if is_full and not os.path.exists(idx_path):
         return ds.shuffle(seed=seed)
 
     if not os.path.exists(idx_path):
@@ -287,6 +298,10 @@ def load_psych101_fraction(
 
     key = str(fraction)
     if key not in all_idx:
+        if is_full:
+            # A full-data run never needs indices; an indices file built
+            # without the 1.0 entry must not break it.
+            return ds.shuffle(seed=seed)
         raise KeyError(
             f"Fraction {fraction} not found in {idx_path}. "
             f"Available: {sorted(all_idx.keys())}. "

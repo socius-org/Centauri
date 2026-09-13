@@ -129,8 +129,10 @@ def already_trained(entry, fam):
     dirs = [entry["output_dir"]]
     if entry["axis"] == "baseline":
         s = entry["size"].lower()
-        for q in ("bf16", "4bit"):
-            dirs.append(os.path.join("./outputs", f"{fam['run_prefix']}-{s}-{q}"))
+        prefixes = [fam["run_prefix"]] + fam.get("legacy_run_prefixes", [])
+        for prefix in prefixes:
+            for q in ("bf16", "4bit"):
+                dirs.append(os.path.join("./outputs", f"{prefix}-{s}-{q}"))
     return any(has_saved_model(d) for d in dirs)
 
 
@@ -221,13 +223,21 @@ def main():
         sys.exit(1)
 
     # Verify subset indices are present for every non-trivial fraction needed.
+    # A dry run only prints the plan, so a missing indices file downgrades to
+    # a warning there — the plan must stay inspectable before the (Psych-101-
+    # downloading) build_dataset_fractions.py step has ever been run.
     if "datasize" in args.axes:
         needed = sorted({c["fraction"] for c in cells})
         ok, msg = fractions_indices_ok(args.indices_dir, needed)
         if not ok:
-            print(f"ERROR: dataset-size cells requested but {msg}.")
-            print("Run build_dataset_fractions.py first (matching --indices_dir).")
-            sys.exit(1)
+            if args.dry_run:
+                print(f"WARNING: {msg} — fine for a dry run, but run "
+                      "build_dataset_fractions.py (matching --indices_dir) "
+                      "before launching the dataset-size cells.")
+            else:
+                print(f"ERROR: dataset-size cells requested but {msg}.")
+                print("Run build_dataset_fractions.py first (matching --indices_dir).")
+                sys.exit(1)
 
     # Order: cheapest first (small sizes, then small fractions, low ranks),
     # so failures surface fast and partial schedules still yield small-model

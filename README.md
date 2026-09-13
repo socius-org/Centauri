@@ -123,7 +123,8 @@ python results/psych101/figures/generate_scaling_plots.py          # scale + pre
 python results/psych101/figures/generate_ablation_plots.py --family qwen   # rank / data-size
 python results/psych101/figures/cognitive_baseline_comparison.py   # vs domain-specific models
 python results/psych101/tables/generate_heatmap_tables.py          # LaTeX tables
-python results/psych201/figures/generate_scaling_plots.py          # out-of-distribution
+python results/psych201/figures/viz_ood_scaling.py                 # out-of-distribution
+python results/psych201/figures/analyse_psych201.py                # OOD summary stats
 ```
 
 Per-task CSVs live flat in `results/psych101` and `results/psych201`, named
