@@ -223,9 +223,10 @@ def _strip_inline_instructions(line):
 def build_instruction_ablated(trial_lines):
     """Remove instruction header. Keep all trial content (stimuli, feedback, choices) unchanged.
 
-    Merges any pre-choice lines (stimulus/context before the first <<>>) into the
-    first choice line so the first trial has the same format as subsequent trials.
-    Also strips per-round/per-environment instructions embedded in trial lines.
+    Strips per-round/per-environment instruction phrases embedded in trial
+    lines (via _INLINE_INSTRUCTION_PATTERNS) and drops lines left empty by
+    that stripping; the trial lines themselves are otherwise passed through
+    unchanged.
     """
     if not trial_lines:
         return ''
@@ -420,17 +421,24 @@ Examples:
     # ============================================
     print("\nAblating prompts...")
     n_choices_total = {c: 0 for c in CONDITIONS}
+    n_mismatched_samples = {c: 0 for c in CONDITIONS}
 
     for sample in tqdm(dataset, desc="Processing"):
         text = sample['text']
         ablated = ablate_sample(text)
 
-        # Sanity check: all conditions must preserve the same choice count
+        # Sanity check: every condition must preserve the per-sample choice
+        # count — a drop here means an ablation regex ate a <<choice>>.
         orig_count = len(re.findall(r'<<[^>]+>>', text))
 
         for cond in CONDITIONS:
             cond_count = len(re.findall(r'<<[^>]+>>', ablated[cond]))
             n_choices_total[cond] += cond_count
+            if cond_count != orig_count:
+                n_mismatched_samples[cond] += 1
+                if n_mismatched_samples[cond] <= 3:  # don't flood the log
+                    print(f"\n  WARNING: [{sample['experiment']}] {cond} has "
+                          f"{cond_count} choices vs {orig_count} in original")
 
             row = {
                 "text": ablated[cond],
@@ -453,12 +461,15 @@ Examples:
         size_mb = os.path.getsize(path) / 1e6
         print(f"  {cond:23s} {size_mb:10.1f} {n_choices_total[cond]:15,}")
 
-    # Verify choice preservation
+    # Verify choice preservation (totals + per-sample mismatch counts)
     orig_choices = n_choices_total["original"]
     for cond in CONDITIONS:
         if n_choices_total[cond] != orig_choices:
             print(f"\n  WARNING: {cond} has {n_choices_total[cond]:,} choices "
                   f"vs {orig_choices:,} in original")
+        if n_mismatched_samples[cond]:
+            print(f"  WARNING: {cond}: {n_mismatched_samples[cond]:,} samples "
+                  f"with a per-sample choice-count mismatch")
 
 
 if __name__ == "__main__":

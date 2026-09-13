@@ -14,7 +14,7 @@ Usage:
         --model unsloth/Qwen3-8B \
         --experiments hebart2023things ruggeri2022globalizability \
         --n-permutations 50 \
-        --output-dir results/martingale/Qwen3-8B
+        --output-dir results/Qwen3-8B
 """
 
 import unsloth  # noqa: F401 — must precede HF imports

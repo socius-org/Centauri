@@ -19,23 +19,32 @@ def read_loss_mean(path):
     assert len(losses) == 46, f"{path} has {len(losses)} rows"
     return sum(losses) / len(losses), set(tasks)
 
-# Step 1: parse all ablation files
+# Step 1: parse the Llama-Centaur ablation files. The flat results dir also
+# holds baseline-model, Qwentaur/Olmotaur/Smoltaur and aggregate CSVs, so
+# non-matching files are simply skipped rather than asserted on.
 pat = re.compile(r"socius-Llama-Centaur-(\dB|\d+B)-LoRA-r(\d+)(?:-f([\d.]+))?\.csv$")
 files = sorted(glob.glob(os.path.join(ABL_DIR, "*.csv")))
 records = []  # (size, rank, fraction, mean)
 all_tasks = None
 for p in files:
     m = pat.search(os.path.basename(p))
-    assert m, f"no match: {p}"
+    if not m:
+        continue
     size = m.group(1)
     rank = int(m.group(2))
     frac = float(m.group(3)) if m.group(3) else 1.0
+    if rank == 16 and frac == 1.0:
+        # The rank-16/full-data corner is taken from psych101_aggr.csv (the
+        # main-paper baseline column) in step 2; the re-trained -r16 CSV
+        # would otherwise appear as a duplicate r16 point in rank_sweep.
+        continue
     mean, tasks = read_loss_mean(p)
     records.append((size, rank, frac, mean))
     if all_tasks is None:
         all_tasks = tasks
     else:
         assert all_tasks == tasks, f"task set mismatch in {p}"
+assert records, f"no socius-Llama-Centaur-*-LoRA-r*.csv files found in {ABL_DIR}"
 
 # Step 2: baseline rank16/full-data from aggregate over the 46 ablation tasks
 baselines = {}

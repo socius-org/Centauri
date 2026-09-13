@@ -1,14 +1,21 @@
-from datasets import load_dataset
+import os
 import random
+
+from datasets import load_dataset
 
 random.seed(3407)
 ds = load_dataset("marcelbinz/Psych-101-test", split="test")
+
+# Write next to this script (where the committed samples_*.txt live),
+# regardless of the cwd it is launched from.
+_HERE = os.path.dirname(os.path.abspath(__file__))
 
 for exp in ["hebart2023things", "ruggeri2022globalizability"]:
     samples = [ex for ex in ds if ex["experiment"].startswith(exp)]
     picked = random.sample(samples, min(3, len(samples)))
 
-    with open(f"samples_{exp}.txt", "w", encoding="utf-8") as f:
+    with open(os.path.join(_HERE, f"samples_{exp}.txt"), "w",
+              encoding="utf-8") as f:
         f.write(f"Experiment: {exp} ({len(samples)} total participants)\n")
         f.write("=" * 80 + "\n")
         for i, s in enumerate(picked):

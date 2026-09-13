@@ -208,53 +208,69 @@ class DataCollatorForCompletionOnlyLM(DataCollatorForLanguageModeling):
 def _detect_model_family(tokenizer) -> str:
     """
     Detect model family from tokenizer class/config rather than name string.
-    
+
     Checks (in order):
         1. Tokenizer class name (e.g. Qwen2Tokenizer, LlamaTokenizer)
         2. model_type from tokenizer config (e.g. 'qwen2', 'llama')
-        3. Fallback to name_or_path (least reliable, but better than crashing)
-    
+        3. Fallback to name_or_path (least reliable, but better than nothing)
+
+    Note that neither OLMo nor SmolLM2 uses a Llama tokenizer: OLMo ships
+    the dolma2 tokenizer and SmolLM2 its own 49k BPE (both GPT-2-style
+    tokenizer classes), while SmolLM3 reuses Llama-3's vocabulary inside a
+    generic fast-tokenizer class. The class name is therefore not
+    diagnostic for those families and detection usually resolves via
+    model_type or name. The label is informational only — template IDs are
+    always encoded with add_special_tokens=False regardless of family.
+
     Returns:
-        'qwen' or 'llama'
+        'qwen', 'llama', 'olmo', 'smollm', or 'unknown'
     """
-    # 1. Tokenizer class name (most reliable — survives renames and merges)
-    cls_name = type(tokenizer).__name__.lower()
-    if "qwen" in cls_name:
-        return "qwen"
-    if "llama" in cls_name:
-        return "llama"
-    
+    def _match(text):
+        text = str(text).lower()
+        # Most-specific substrings first ("olmotaur"/"smoltaur" must not
+        # fall through to another family; "smollm3" must not resolve as
+        # llama just because it borrows the Llama-3 vocabulary).
+        for key, family in (("olmo", "olmo"), ("smol", "smollm"),
+                            ("qwen", "qwen"), ("llama", "llama")):
+            if key in text:
+                return family
+        return None
+
+    # 1. Tokenizer class name (most reliable -- survives renames and merges)
+    family = _match(type(tokenizer).__name__)
+    if family:
+        return family
+
     # 2. model_type from tokenizer's init_kwargs or config
     model_type = getattr(tokenizer, "model_type", None)
     if model_type is None:
         init_kwargs = getattr(tokenizer, "init_kwargs", {})
         model_type = init_kwargs.get("model_type", "")
-    model_type = str(model_type).lower()
-    if "qwen" in model_type:
-        return "qwen"
-    if "llama" in model_type:
-        return "llama"
-    
-    # 3. Fallback: name_or_path (least reliable — custom names may not contain family)
-    name = getattr(tokenizer, "name_or_path", "").lower()
-    if "qwen" in name:
-        return "qwen"
-    
-    return "llama"  # default assumption
+    family = _match(model_type)
+    if family:
+        return family
+
+    # 3. Fallback: name_or_path (least reliable -- custom names may not contain family)
+    family = _match(getattr(tokenizer, "name_or_path", ""))
+    return family or "unknown"
 
 
 def get_response_template_ids(tokenizer):
-    """Get token IDs for response template based on model family."""
-    # Detect model family from tokenizer class/config (not name string)
-    is_qwen = _detect_model_family(tokenizer) == "qwen"
+    """
+    Get token IDs for the response/instruction templates.
 
-    if is_qwen:
-        l_id = tokenizer(" <<", add_special_tokens=False).input_ids
-        r_id = tokenizer(">>", add_special_tokens=False).input_ids
-    else:
-        l_id = tokenizer(" <<").input_ids[1:]
-        r_id = tokenizer(">>").input_ids[1:]
+    Always encoded with add_special_tokens=False: the templates are searched
+    for inside already-tokenized sequences, so they must never carry BOS.
+    For tokenizers that do prepend BOS (Llama 3.x) this is equivalent to the
+    old [1:] strip, and it matches the old Qwen path exactly. For tokenizers
+    that don't (SmolLM2/SmolLM3, OLMo) the [1:] strip dropped a real token --
+    ">>" is a single token there, leaving an empty template list.
 
+    Returns:
+        tuple: (response_template_ids, instruction_template_ids)
+    """
+    l_id = tokenizer(" <<", add_special_tokens=False).input_ids
+    r_id = tokenizer(">>", add_special_tokens=False).input_ids
     return l_id, r_id
 
 
@@ -652,8 +668,13 @@ Examples:
     # Same args as eval_model.py
     parser.add_argument("--model", type=str, required=True,
                         help="Local path or HuggingFace model ID")
-    parser.add_argument("--output_dir", type=str, default="./results",
-                        help="Directory to save results CSV (default: ./results)")
+    # Default to the ablation_results/ dir next to this script (matching the
+    # repo layout) regardless of the cwd it is launched from.
+    default_out = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                               "ablation_results")
+    parser.add_argument("--output_dir", type=str, default=default_out,
+                        help="Directory to save results CSV "
+                             "(default: <script dir>/ablation_results)")
     parser.add_argument("--load_in_4bit", action="store_true",
                         help="Enable 4-bit quantization")
     parser.add_argument("--device_map", type=str, default=None,
