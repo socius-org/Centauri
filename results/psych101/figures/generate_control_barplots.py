@@ -3,14 +3,21 @@
 Generate control model comparison plots for Psych-101 experiments.
 
 This script produces 2 figures comparing cognitive fine-tuned models
-(Llama-Centaur, Qwentaur) vs non-cognitive control models (Hermes, Nemotron, Be.FM).
+(Llama-Centaur, Qwentaur) vs non-cognitive control models (Hermes, Nemotron,
+Be.FM — and, with --with-socrates, the Socrates SFT models).
 
 Usage:
     python generate_control_barplots.py
+    python generate_control_barplots.py --with-socrates
+    python generate_control_barplots.py --with-socrates --cognitive-matched
 
 Output:
-    figures/control_grouped_by_size.{png,pdf}
-    figures/control_horizontal_delta.{png,pdf}
+    figures/control_grouped_by_size[_with_socrates][_cognitive_matched].{png,pdf}
+    figures/control_horizontal_delta[_with_socrates][_cognitive_matched].{png,pdf}
+
+The Socrates NLLs sit an order of magnitude above every other bar
+(~8.6-15.1 vs 0.64-1.72 nats), so their bars are clipped at the axis cap
+with a white break marker and annotated with the true value.
 """
 
 import os
@@ -39,6 +46,7 @@ COLORS = {
 HERMES = '#2E8B57'       # Sea green
 NEMOTRON = '#76B900'     # NVIDIA green
 BEFM = '#E6A800'         # Golden yellow
+SOCRATES = '#C0392B'     # Brick red
 
 
 def apply_style(fs=8, fl=5.5):
@@ -119,6 +127,13 @@ CONTROLS = [
     ('Be.FM 8B', 8, 0.9887),
 ]
 
+# Socrates SFT models (appended to CONTROLS by --with-socrates). Their NLLs
+# are far off the shared scale, so the plot functions clip their bars.
+SOCRATES_MODELS = [
+    ('Socrates 8B', 8, 15.0743),
+    ('Socrates 14B', 14, 8.6475),
+]
+
 # Per-task data source for each bar, so its NLL can be recomputed over the
 # cognitive-baseline subset. ('aggr', column) reads psych101_aggr.csv; ('flat',
 # filename) reads a per-task <task, loss> CSV in results/psych101. The hardcoded
@@ -143,6 +158,8 @@ SOURCES = {
     'Nemotron 4B':      ('flat', 'nvidia-Llama-3.1-Nemotron-Nano-4B-v1.1.csv'),
     'Nemotron 8B':      ('flat', 'nvidia-Llama-3.1-Nemotron-Nano-8B-v1.csv'),
     'Be.FM 8B':         ('flat', 'befm-Be.FM-8B.csv'),
+    'Socrates 8B':      ('flat', 'socratesft-socrates-llama3-8b-sft.csv'),
+    'Socrates 14B':     ('flat', 'socratesft-socrates-qwen2.5-14b-sft.csv'),
 }
 
 
@@ -207,6 +224,8 @@ def get_color(name):
         return NEMOTRON
     elif 'Be.FM' in name:
         return BEFM
+    elif 'Socrates' in name:
+        return SOCRATES
     return COLORS['cog']
 
 
@@ -266,12 +285,23 @@ def plot_grouped_by_size(output_dir):
                     fontsize=5, fontweight='bold')
             x_pos += 1
 
-        # Control models (solid, own colours)
+        # Control models (solid, own colours). Off-scale bars (Socrates)
+        # are clipped at y_cap with a white break marker; the annotation
+        # always carries the TRUE value.
+        y_cap = 1.78
         for name, nll in ctrl:
-            ax.bar(x_pos, nll, width=bar_width, color=get_color(name),
+            bar_top = min(nll, y_cap)
+            ax.bar(x_pos, bar_top, width=bar_width, color=get_color(name),
                    edgecolor='white', linewidth=0.5)
-            ax.text(x_pos, nll + 0.02, f'{nll:.2f}', ha='center', va='bottom',
-                    fontsize=5, fontweight='bold')
+            if nll > y_cap:
+                for dy in (0.10, 0.15):
+                    ax.plot([x_pos - bar_width / 2 - 0.08,
+                             x_pos + bar_width / 2 + 0.08],
+                            [y_cap - dy - 0.025, y_cap - dy + 0.025],
+                            color='white', linewidth=1.4, zorder=4,
+                            solid_capstyle='butt')
+            ax.text(x_pos, bar_top + 0.02, f'{nll:.2f}', ha='center',
+                    va='bottom', fontsize=5, fontweight='bold')
             x_pos += 1
 
         group_end = x_pos
@@ -300,9 +330,20 @@ def plot_grouped_by_size(output_dir):
         Patch(facecolor=BEFM, edgecolor='white', label='Be.FM'),
         Line2D([0], [0], color='gray', linestyle=':', linewidth=0.8, label='Cognitive model'),
     ]
-    ax.legend(handles=legend_elements, loc='upper right', framealpha=0.9,
-              borderpad=0.3, handlelength=1.5, handletextpad=0.4, labelspacing=0.3,
-              ncol=2)
+    has_socrates = any('Socrates' in name for name, _size, _nll in CONTROLS)
+    if has_socrates:
+        legend_elements.insert(-1, Patch(facecolor=SOCRATES, edgecolor='white',
+                                         label='Socrates'))
+        # The clipped Socrates 14B bar occupies the upper-right corner, so
+        # the legend moves above the axes for this variant.
+        ax.legend(handles=legend_elements, loc='lower center',
+                  bbox_to_anchor=(0.5, 1.0), ncol=5, framealpha=0.9,
+                  borderpad=0.3, handlelength=1.5, handletextpad=0.4,
+                  labelspacing=0.3, columnspacing=1.0)
+    else:
+        ax.legend(handles=legend_elements, loc='upper right', framealpha=0.9,
+                  borderpad=0.3, handlelength=1.5, handletextpad=0.4,
+                  labelspacing=0.3, ncol=2)
 
     fig.tight_layout()
     save_figure(fig, output_dir, 'control_grouped_by_size')
@@ -332,17 +373,30 @@ def plot_horizontal_delta(output_dir):
     y_pos = np.arange(len(all_models))
     bar_height = 0.7
 
+    # Off-scale deltas (Socrates: ~-8 to -14) are clipped a bit past the
+    # worst in-range bar, with a white break marker; the annotation always
+    # carries the TRUE delta. In-range bars are untouched.
+    in_range = [d for _n, _s, _nll, d, _t in all_models if d > -3.0]
+    x_cap = min(in_range + [0.0]) - 0.35
+
     for i, (name, size, nll, delta, mtype) in enumerate(all_models):
         color = get_color(name)
-        ax.barh(i, delta, height=bar_height, color=color,
+        bar_end = max(delta, x_cap)
+        ax.barh(i, bar_end, height=bar_height, color=color,
                 edgecolor='white', linewidth=0.5)
+        if delta < x_cap:
+            for dxo in (0.10, 0.16):
+                ax.plot([x_cap + dxo - 0.03, x_cap + dxo + 0.03],
+                        [i - bar_height / 2 - 0.10, i + bar_height / 2 + 0.10],
+                        color='white', linewidth=1.4, zorder=4,
+                        solid_capstyle='butt')
 
-        # Add delta value annotation
+        # Add delta value annotation (true value, even for clipped bars)
         if delta >= 0:
-            ax.text(delta + 0.01, i, f'+{delta:.3f}', ha='left', va='center',
+            ax.text(bar_end + 0.01, i, f'+{delta:.3f}', ha='left', va='center',
                     fontsize=5, fontweight='bold')
         else:
-            ax.text(delta - 0.01, i, f'{delta:.3f}', ha='right', va='center',
+            ax.text(bar_end - 0.01, i, f'{delta:.3f}', ha='right', va='center',
                     fontsize=5, fontweight='bold')
 
     # Vertical line at zero (cognitive model baseline)
@@ -365,11 +419,15 @@ def plot_horizontal_delta(output_dir):
         Patch(facecolor=BEFM, edgecolor='white', label='Be.FM'),
         Line2D([0], [0], color='gray', linestyle=':', linewidth=0.8, label='Cognitive model'),
     ]
+    if any('Socrates' in name for name, _size, _nll in CONTROLS):
+        legend_elements.insert(-1, Patch(facecolor=SOCRATES, edgecolor='white',
+                                         label='Socrates'))
     ax.legend(handles=legend_elements, loc='upper left', framealpha=0.9,
               borderpad=0.3, handlelength=1.5, handletextpad=0.4, labelspacing=0.3)
 
-    # Set x limits with padding
-    x_min = min(m[3] for m in all_models) - 0.15
+    # Set x limits with padding (from the drawn bar ends, so clipped bars
+    # don't blow up the scale; extra left room for their annotations)
+    x_min = min(max(m[3], x_cap) for m in all_models) - 0.30
     x_max = max(m[3] for m in all_models) + 0.15
     ax.set_xlim(x_min, x_max)
 
@@ -390,16 +448,27 @@ def main():
                              'reported cognitive model, so the delta-vs-cognitive '
                              'comparison is on the same tasks; write '
                              '*_cognitive_matched figures.')
+    parser.add_argument('--with-socrates', action='store_true',
+                        help='Also include the Socrates SFT control models '
+                             '(their off-scale bars are clipped with a break '
+                             'marker); write *_with_socrates figures, leaving '
+                             'the original figures untouched.')
     args = parser.parse_args()
+
+    global NAME_SUFFIX, COGNITIVE, BASE, CONTROLS, GRADED_COLORS
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     output_dir = script_dir
     data_dir = os.path.join(script_dir, '..')   # results/psych101
     os.makedirs(output_dir, exist_ok=True)
 
+    if args.with_socrates:
+        CONTROLS = CONTROLS + SOCRATES_MODELS
+        NAME_SUFFIX += '_with_socrates'
+        print("Including Socrates control models")
+
     if args.cognitive_matched:
-        global NAME_SUFFIX, COGNITIVE, BASE, CONTROLS, GRADED_COLORS
-        NAME_SUFFIX = '_cognitive_matched'
+        NAME_SUFFIX += '_cognitive_matched'
         keep = cognitive_matched_tasks(data_dir)
         COGNITIVE = recompute_over_subset(COGNITIVE, data_dir, keep)
         BASE = recompute_over_subset(BASE, data_dir, keep)
