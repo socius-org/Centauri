@@ -1,6 +1,34 @@
 {
   "aggregate": [
     {
+      "model": "Llama-3.1-Centaur-70B-adapter",
+      "experiment": "hebart2023things",
+      "type": "Finetuned",
+      "family": "llama",
+      "mean_variance": 0.0007657997843159891,
+      "median_variance": 0.0006864397737447289,
+      "std": 0.0004576530542884194,
+      "se": 1.6514132130554587e-05,
+      "ci_low": 0.0007333815238550974,
+      "ci_high": 0.0007982180447768807,
+      "p_value": 1.0437153162680247e-224,
+      "n": 768
+    },
+    {
+      "model": "Llama-3.1-Centaur-70B-adapter",
+      "experiment": "ruggeri2022globalizability",
+      "type": "Finetuned",
+      "family": "llama",
+      "mean_variance": 0.011959281396679487,
+      "median_variance": 0.0034701095414850793,
+      "std": 0.014353072525606591,
+      "se": 0.00039885036619533005,
+      "ci_low": 0.011176817164397333,
+      "ci_high": 0.01274174562896164,
+      "p_value": 1.9972580352834747e-150,
+      "n": 1295
+    },
+    {
       "model": "Llama-3.2-1B",
       "experiment": "hebart2023things",
       "type": "Base",
