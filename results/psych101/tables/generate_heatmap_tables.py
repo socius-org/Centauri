@@ -536,7 +536,7 @@ def generate_heatmap_table(
 
         if exp_code == "Mean":
             lines.append("\\midrule")
-            cell_exp = "\\textbf{Mean (all 48)}"
+            cell_exp = "\\textbf{Mean (all 46)}"
             cell_task = ""
         else:
             display, cite = CITE_MAP.get(exp_code, (task_name, exp_code))
