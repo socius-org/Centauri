@@ -27,6 +27,13 @@ Usage:
 import argparse
 import os
 from pathlib import Path
+import sys
+
+# Repo root on sys.path so `from utils import ...` works from any CWD.
+# utils is dependency-free apart from huggingface_hub, so importing it here
+# does not pre-empt the unsloth-before-transformers import order below.
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+from utils import detect_backend  # noqa: E402
 
 
 # ================================================================
@@ -37,23 +44,18 @@ from pathlib import Path
 # the transformers backend.
 # ================================================================
 def _pre_parse_backend():
-    """Resolve backend from CLI args before importing heavy packages."""
+    """Resolve backend from CLI args before importing heavy packages.
+
+    Delegates to utils.detect_backend, which checks whether the model is a
+    LoRA adapter (adapter_config.json locally or on the Hub) rather than
+    guessing from a name suffix -- so rank-/fraction-suffixed repos such as
+    socius/Qwentaur-8B-LoRA-r16-f0.5 resolve to unsloth without --backend.
+    """
     pre = argparse.ArgumentParser(add_help=False)
     pre.add_argument("--backend", default="auto", choices=["auto", "unsloth", "transformers"])
     pre.add_argument("--model", default="")
     args, _ = pre.parse_known_args()
-
-    if args.backend != "auto":
-        return args.backend
-
-    model_lower = args.model.lower().rstrip("/")
-    is_local = os.path.exists(args.model) if args.model else False
-    if (is_local
-        or model_lower.endswith("adapter")
-        or model_lower.endswith("lora")
-        or model_lower.startswith("unsloth/")):
-        return "unsloth"
-    return "transformers"
+    return detect_backend(args.model, args.backend)
 
 
 _BACKEND = _pre_parse_backend()
@@ -422,15 +424,10 @@ def evaluate(
     # Resolve backend (same as eval_model.py)
     # ============================================
     if backend == "auto":
-        model_path_lower = model_path.lower().rstrip("/")
-        is_local = os.path.exists(model_path)
-        if (is_local
-            or model_path_lower.endswith("adapter")
-            or model_path_lower.endswith("lora")
-            or model_path_lower.startswith("unsloth/")):
-            backend = "unsloth"
-        else:
-            backend = "transformers"
+        # Same rule as the pre-import step (utils.detect_backend): adapter
+        # repos (adapter_config.json present) and local dirs -> unsloth,
+        # full checkpoints -> transformers.
+        backend = detect_backend(model_path, backend)
         print(f"  Auto-detected backend: {backend}")
 
     # ============================================

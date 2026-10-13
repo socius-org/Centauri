@@ -79,8 +79,7 @@ python schedule_eval_runs.py --family smollm --eval_script ./eval_model_ood.py \
     --output_dir ./results/psych201 --resume
 
 # A single model, directly
-python eval_model.py --model socius/Qwentaur-8B-LoRA-r16 --backend unsloth \
-    --output_dir ./results/psych101
+python eval_model.py --model socius/Qwentaur-8B-LoRA-r16 --output_dir ./results/psych101
 ```
 
 The experiment grid (which size/rank/fraction cells exist per family) lives in one place —

@@ -13,10 +13,12 @@ Contents:
     / fractions_indices_ok  — the per-family experiment design and cell math.
   * hf_repo_name / hf_repo_id / DISPLAY_NAME  — adapter repo naming.
   * load_psych101_fraction  — fraction-aware Psych-101 loader for training.
+  * detect_backend  — unsloth-vs-transformers choice for the eval scripts.
 """
 
 import json
 import os
+import re
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -310,3 +312,70 @@ def load_psych101_fraction(
 
     indices = [int(i) for i in all_idx[key]]
     return ds.select(indices).shuffle(seed=seed)
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# Eval backend detection (shared by eval_model.py, eval_model_ood.py and
+# prompt_decomposition/ablation_sequential/eval_ablation.py)
+# ══════════════════════════════════════════════════════════════════════════
+# A bare LoRA adapter can only be loaded through Unsloth's FastLanguageModel
+# (which reads adapter_config.json and pulls the base model itself); a full
+# checkpoint goes through transformers' AutoModelForCausalLM. The decision has
+# to be made BEFORE any heavy import because unsloth monkey-patches
+# transformers/trl at import time, so this helper must stay dependency-free
+# apart from huggingface_hub (and must never import torch/transformers).
+
+_ADAPTER_NAME_RE = re.compile(r"(^|[-_/])(lora|qlora|adapter)([-_./]|$)")
+
+
+def _hub_has_file(repo_id, filename):
+    """True/False if the Hub answered, None if it could not be reached."""
+    try:
+        from huggingface_hub import file_exists
+        return bool(file_exists(repo_id, filename))
+    except Exception:  # offline, no token for a private repo, bad id, ...
+        return None
+
+
+def detect_backend(model_path, explicit="auto"):
+    """Pick the eval backend for ``model_path``.
+
+    Order of evidence:
+      1. an explicit ``--backend`` (anything but "auto") always wins;
+      2. a local directory is an adapter if it holds adapter_config.json,
+         otherwise a full checkpoint -- but local paths default to unsloth
+         either way (FastLanguageModel loads both), matching old behaviour;
+      3. a Hub id is an adapter if the repo contains adapter_config.json
+         (one lightweight metadata call, no download);
+      4. if the Hub is unreachable, fall back to the name: a "lora"/"qlora"/
+         "adapter" token anywhere in the id (``socius/Qwentaur-8B-LoRA-r16``,
+         ``...-LoRA-r16-f0.5``, ``marcelbinz/...-70B-adapter``) or the
+         ``unsloth/`` namespace means unsloth; everything else transformers.
+
+    The old heuristic only accepted names ENDING in "lora"/"adapter", so
+    every rank-/fraction-suffixed socius adapter repo was mis-routed to the
+    transformers backend, which cannot load a bare adapter.
+    """
+    if explicit and explicit != "auto":
+        return explicit
+    if not model_path:
+        return "transformers"
+
+    path = model_path.rstrip("/\\")
+    if os.path.isdir(path):
+        return "unsloth"
+
+    has_adapter = _hub_has_file(path, "adapter_config.json")
+    if has_adapter is True:
+        return "unsloth"
+    if has_adapter is False:
+        # Reachable repo without an adapter config -> full checkpoint. The
+        # unsloth/ namespace stays on the unsloth backend (as before): those
+        # are the pre-quantised / unsloth-patched bases the train scripts use.
+        return "unsloth" if path.lower().startswith("unsloth/") else "transformers"
+
+    # Hub unreachable: fall back to the name.
+    lower = path.lower()
+    if lower.startswith("unsloth/") or _ADAPTER_NAME_RE.search(lower):
+        return "unsloth"
+    return "transformers"

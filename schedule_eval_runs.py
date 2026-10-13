@@ -26,12 +26,13 @@ Pulling from the Hub (rather than the local output dir) is deliberate: it
 round-trips the upload, so a successful eval also confirms each adapter was
 uploaded and downloads correctly.
 
-IMPORTANT — backend.
-    eval_model.py's auto-backend picks `unsloth` only when the model name ENDS
-    in "lora"/"adapter". The ablation repos end in "-r64" / "-f0.5", so auto
-    would wrongly choose the `transformers` backend, which cannot load a bare
-    LoRA adapter. This scheduler therefore passes `--backend unsloth`
-    explicitly (override with --backend if you ever eval merged models).
+Backend.
+    Every cell is a bare LoRA adapter, so this scheduler passes
+    `--backend unsloth` explicitly. eval_model.py's auto-detection
+    (utils.detect_backend) would reach the same answer -- it checks the repo
+    for adapter_config.json -- but passing it saves one Hub metadata call per
+    cell and keeps the plan deterministic offline. Override with --backend if
+    you ever eval merged models.
 
 The grid is imported from utils.py and the repo names from
 utils.py, so the repos evaluated here are exactly those trained and
@@ -124,8 +125,9 @@ def main():
     parser.add_argument(
         "--backend", default="unsloth",
         choices=["auto", "unsloth", "transformers"],
-        help="eval_model.py backend. Default 'unsloth' because these adapter "
-             "repo names defeat auto-detection (see module docstring).",
+        help="eval_model.py backend. Default 'unsloth': every cell is a bare "
+             "LoRA adapter, so the explicit choice skips auto-detection's "
+             "Hub lookup (see module docstring).",
     )
     parser.add_argument(
         "--quantise_from", default=None,

@@ -9,19 +9,20 @@ Works with:
 - Full merged models from HuggingFace (e.g., socius/Llama-Qwentaur-14B)
 - Both Llama and Qwen3 model families
 
-Note on local models:
-    Local saved models are typically LoRA/QLoRA adapters. When --backend is set to "auto"
-    (the default), local paths default to Unsloth's FastLanguageModel for loading.
-    For HuggingFace Hub models, auto-detection checks the model name for "adapter", "LoRA",
-    or the "unsloth/" prefix to decide. 
+Note on backend auto-detection (--backend auto, the default):
+    Local paths load through Unsloth's FastLanguageModel (they are almost always
+    LoRA/QLoRA adapters). A Hub id is routed to unsloth when the repo contains
+    adapter_config.json (one metadata call, no download) and to transformers
+    otherwise; if the Hub cannot be reached the name is used instead (a
+    "lora"/"qlora"/"adapter" token anywhere in the id, or the "unsloth/"
+    namespace). See utils.detect_backend. Pass --backend explicitly to override.
 
 Usage:
     # Evaluate local adapter model (auto-load with unsloth's FastLanguageModel)
     python eval_model.py --model ./outputs/Llama-Centaur-1B-LoRA
 
-    # Evaluate a Hub adapter repo (rank-suffixed names defeat auto-detection,
-    # so pass the backend explicitly)
-    python eval_model.py --model socius/Qwentaur-8B-LoRA-r16 --backend unsloth
+    # Evaluate a Hub adapter repo (detected as an adapter -> unsloth)
+    python eval_model.py --model socius/Qwentaur-8B-LoRA-r16
 
     # Evaluate a Hub base model with transformers' AutoModelForCausalLM
     python eval_model.py --model unsloth/Qwen3-0.6B-Base --backend transformers
@@ -29,6 +30,13 @@ Usage:
 import argparse
 import os
 from pathlib import Path
+import sys
+
+# Repo root on sys.path so `from utils import ...` works from any CWD.
+# utils is dependency-free apart from huggingface_hub, so importing it here
+# does not pre-empt the unsloth-before-transformers import order below.
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+from utils import detect_backend  # noqa: E402
 
 
 # ================================================================
@@ -41,23 +49,18 @@ from pathlib import Path
 # tries to cast quantized models to fp16, which bitsandbytes rejects.
 # ================================================================
 def _pre_parse_backend():
-    """Resolve backend from CLI args before importing heavy packages."""
+    """Resolve backend from CLI args before importing heavy packages.
+
+    Delegates to utils.detect_backend, which checks whether the model is a
+    LoRA adapter (adapter_config.json locally or on the Hub) rather than
+    guessing from a name suffix -- so rank-/fraction-suffixed repos such as
+    socius/Qwentaur-8B-LoRA-r16-f0.5 resolve to unsloth without --backend.
+    """
     pre = argparse.ArgumentParser(add_help=False)
     pre.add_argument("--backend", default="auto", choices=["auto", "unsloth", "transformers"])
     pre.add_argument("--model", default="")
     args, _ = pre.parse_known_args()
-
-    if args.backend != "auto":
-        return args.backend
-
-    model_lower = args.model.lower().rstrip("/")
-    is_local = os.path.exists(args.model) if args.model else False
-    if (is_local
-        or model_lower.endswith("adapter")
-        or model_lower.endswith("lora")
-        or model_lower.startswith("unsloth/")):
-        return "unsloth"
-    return "transformers"
+    return detect_backend(args.model, args.backend)
 
 
 _BACKEND = _pre_parse_backend()
@@ -486,17 +489,10 @@ def evaluate(
     # Resolve backend
     # ============================================
     if backend == "auto":
-        model_path_lower = model_path.lower().rstrip("/")
-        is_local = os.path.exists(model_path)
-        if (is_local
-            or model_path_lower.endswith("adapter")
-            or model_path_lower.endswith("lora")
-            or model_path_lower.startswith("unsloth/")):
-            # Local paths are almost always LoRA/QLoRA adapters (unless you have abundance of GPUs and storage), so default to unsloth.
-            # For HF Hub models, match names ending in "adapter"/"lora" or from "unsloth/".
-            backend = "unsloth"
-        else:
-            backend = "transformers"
+        # Same rule as the pre-import step (utils.detect_backend): adapter
+        # repos (adapter_config.json present) and local dirs -> unsloth,
+        # full checkpoints -> transformers.
+        backend = detect_backend(model_path, backend)
         print(f"  Auto-detected backend: {backend}")
     
     # ============================================
@@ -749,7 +745,8 @@ Note:
         type=str,
         choices=["auto", "unsloth", "transformers"],
         default="auto",
-        help="Model loading backend. 'auto' uses unsloth for adapter/LoRA models, transformers otherwise (default: auto)"
+        help="Model loading backend. 'auto' uses unsloth for LoRA adapters (adapter_config.json "
+             "present, locally or on the Hub) and local paths, transformers otherwise (default: auto)"
     )
     
     args = parser.parse_args()
