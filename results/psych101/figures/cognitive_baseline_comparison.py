@@ -7,12 +7,12 @@ cognitive-model baselines on Psych-101, per family x size x rank.
 
 The aggregate figures draw one dotted line at the cognitive models' mean NLL
 (0.6851), but psych101_aggr.csv carries the baseline PER TASK ('Cognitive
-model (reported)', 39 of the 46 eval tasks), which supports paired,
+model (reported)', 38 of the 46 eval tasks), which supports paired,
 task-level statistics rather than a mean-vs-mean eyeball:
 
-  mean_nll   : model mean NLL over the 39 aligned tasks
+  mean_nll   : model mean NLL over the 38 aligned tasks
   delta      : cognitive mean - model mean on those tasks (>0 = model better)
-  win_rate   : fraction of the 39 tasks where the model's NLL is lower
+  win_rate   : fraction of the 38 tasks where the model's NLL is lower
   wilcoxon_p : one-sided Wilcoxon signed-rank p (H1: model NLL < cognitive)
 
 Per-task NLL sources: the ablation eval CSVs (eval_results/<family>/), and
