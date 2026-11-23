@@ -12,7 +12,7 @@ Contents:
   * FAMILIES / build_cells / is_quantised / cell_run_name / cell_output_dir
     / fractions_indices_ok  — the per-family experiment design and cell math.
   * hf_repo_name / hf_repo_id / DISPLAY_NAME  — adapter repo naming.
-  * result_csv_path  — eval CSV for a cell (handles legacy r16 names).
+  * result_csv_path  — eval CSV path for a cell.
   * load_psych101_fraction  — fraction-aware Psych-101 loader for training.
   * detect_backend  — unsloth-vs-transformers choice for the eval scripts.
 """
@@ -264,23 +264,10 @@ def hf_repo_id(namespace, family, cell):
 
 
 def result_csv_path(results_dir, namespace, family, cell):
-    """Path of the eval CSV for one cell, tolerant of the legacy r16 names.
-
-    The eval scripts write ``<repo id with '/'->'-'>.csv``. The main-paper
-    rank-16/full-data runs of qwen/llama were evaluated on Psych-201 from
-    their unsuffixed repos (``socius-Qwentaur-8B-LoRA.csv``), so for a
-    baseline cell whose ``-r16`` CSV is absent this returns the unsuffixed
-    file when that one exists. Otherwise the canonical path is returned
-    (whether or not it exists).
-    """
+    """Path of the eval CSV for one cell: ``<repo id with '/'->'-'>.csv``,
+    e.g. ``results/psych201/socius-Qwentaur-8B-LoRA-r16.csv``."""
     stem = hf_repo_id(namespace, family, cell).replace("/", "-")
-    path = os.path.join(results_dir, stem + ".csv")
-    suffix = f"-r{BASELINE_RANK}"
-    if not os.path.exists(path) and stem.endswith(suffix):
-        legacy = os.path.join(results_dir, stem[:-len(suffix)] + ".csv")
-        if os.path.exists(legacy):
-            return legacy
-    return path
+    return os.path.join(results_dir, stem + ".csv")
 
 
 # ══════════════════════════════════════════════════════════════════════════

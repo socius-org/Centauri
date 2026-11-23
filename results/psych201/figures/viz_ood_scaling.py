@@ -44,10 +44,10 @@ NAME_SUFFIX = ''
 # family -> series of (size_label, params_B, csv_path)
 FAMILIES = {
     'llama': dict(label='Llama-Centaur', color=COLORS['llama'], marker='o',
-                  cells=[(s, p, os.path.join(P201_DIR, f'socius-Llama-Centaur-{s}-LoRA.csv'))
+                  cells=[(s, p, os.path.join(P201_DIR, f'socius-Llama-Centaur-{s}-LoRA-r16.csv'))
                          for s, p in [('1B', 1.0), ('3B', 3.0), ('8B', 8.0)]]),
     'qwen': dict(label='Qwentaur', color=COLORS['qwen'], marker='s',
-                 cells=[(s, p, os.path.join(P201_DIR, f'socius-Qwentaur-{s}-LoRA.csv'))
+                 cells=[(s, p, os.path.join(P201_DIR, f'socius-Qwentaur-{s}-LoRA-r16.csv'))
                         for s, p in [('0.6B', 0.6), ('1.7B', 1.7), ('4B', 4.0),
                                      ('8B', 8.0), ('14B', 14.0)]]),
     'smollm': dict(label='Smoltaur', color='#FFD21E', dark='#B8860B', marker='o',

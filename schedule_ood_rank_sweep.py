@@ -12,9 +12,9 @@ names and per-size context lengths all come from utils.FAMILIES. Cells whose
 CSV already exists in the output dir are skipped, and a failed cell does not
 stop the sweep (it is logged in <output_dir>/eval_status.jsonl).
 
-The rank-16 cells of qwen/llama are not re-run: their OOD results already
-exist under the main-paper repo names (e.g. socius-Qwentaur-8B-LoRA.csv).
-Use utils.result_csv_path to locate any cell's CSV, legacy names included.
+The rank-16 cells of qwen/llama are not re-run: they are the main-paper runs,
+whose OOD results are already in the output dir (socius-<Name>-LoRA-r16.csv).
+Use utils.result_csv_path to locate any cell's CSV.
 
 Usage
 -----

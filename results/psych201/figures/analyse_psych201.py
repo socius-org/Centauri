@@ -63,6 +63,7 @@ def display_name(name):
     return (name
             .replace('socius-', '')
             .replace('unsloth-', '')
+            .replace('-LoRA-r16', '')
             .replace('-LoRA', '')
             .replace('-Base', '')
             .replace('Meta-', ''))

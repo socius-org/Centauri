@@ -60,6 +60,7 @@ def display_name(name):
     return (name
             .replace('socius-', '')
             .replace('unsloth-', '')
+            .replace('-LoRA-r16', '')
             .replace('-LoRA', '')
             .replace('-Base', '')
             .replace('Meta-', ''))
@@ -386,31 +387,31 @@ def fmt_norm(val, rank=None):
 
 # Appendix: base|ft paired columns per size, grouped by family
 QWEN_PAIRS = [
-    ("0.6B", "unsloth-Qwen3-0.6B-Base",   "socius-Qwentaur-0.6B-LoRA"),
-    ("1.7B", "unsloth-Qwen3-1.7B-Base",   "socius-Qwentaur-1.7B-LoRA"),
-    ("4B",   "unsloth-Qwen3-4B-Base",     "socius-Qwentaur-4B-LoRA"),
-    ("8B",   "unsloth-Qwen3-8B-Base",     "socius-Qwentaur-8B-LoRA"),
-    ("14B",  "unsloth-Qwen3-14B-Base",    "socius-Qwentaur-14B-LoRA"),
+    ("0.6B", "unsloth-Qwen3-0.6B-Base",   "socius-Qwentaur-0.6B-LoRA-r16"),
+    ("1.7B", "unsloth-Qwen3-1.7B-Base",   "socius-Qwentaur-1.7B-LoRA-r16"),
+    ("4B",   "unsloth-Qwen3-4B-Base",     "socius-Qwentaur-4B-LoRA-r16"),
+    ("8B",   "unsloth-Qwen3-8B-Base",     "socius-Qwentaur-8B-LoRA-r16"),
+    ("14B",  "unsloth-Qwen3-14B-Base",    "socius-Qwentaur-14B-LoRA-r16"),
 ]
 LLAMA_PAIRS = [
-    ("1B", "unsloth-Llama-3.2-1B",       "socius-Llama-Centaur-1B-LoRA"),
-    ("3B", "unsloth-Llama-3.2-3B",       "socius-Llama-Centaur-3B-LoRA"),
-    ("8B", "unsloth-Meta-Llama-3.1-8B",  "socius-Llama-Centaur-8B-LoRA"),
+    ("1B", "unsloth-Llama-3.2-1B",       "socius-Llama-Centaur-1B-LoRA-r16"),
+    ("3B", "unsloth-Llama-3.2-3B",       "socius-Llama-Centaur-3B-LoRA-r16"),
+    ("8B", "unsloth-Meta-Llama-3.1-8B",  "socius-Llama-Centaur-8B-LoRA-r16"),
 ]
 BINZ_MODEL = "marcelbinz-Llama-3.1-Centaur-70B-adapter"
 
 # Main-text column specs: (label, model_key)
 MAIN_QT_COLS = [
-    ("\\texttt{0.6B}", "socius-Qwentaur-0.6B-LoRA"),
-    ("\\texttt{1.7B}", "socius-Qwentaur-1.7B-LoRA"),
-    ("\\texttt{4B}",   "socius-Qwentaur-4B-LoRA"),
-    ("\\texttt{8B}",   "socius-Qwentaur-8B-LoRA"),
-    ("\\texttt{14B}",  "socius-Qwentaur-14B-LoRA"),
+    ("\\texttt{0.6B}", "socius-Qwentaur-0.6B-LoRA-r16"),
+    ("\\texttt{1.7B}", "socius-Qwentaur-1.7B-LoRA-r16"),
+    ("\\texttt{4B}",   "socius-Qwentaur-4B-LoRA-r16"),
+    ("\\texttt{8B}",   "socius-Qwentaur-8B-LoRA-r16"),
+    ("\\texttt{14B}",  "socius-Qwentaur-14B-LoRA-r16"),
 ]
 MAIN_LC_COLS = [
-    ("\\texttt{1B}",   "socius-Llama-Centaur-1B-LoRA"),
-    ("\\texttt{3B}",   "socius-Llama-Centaur-3B-LoRA"),
-    ("\\texttt{8B}",   "socius-Llama-Centaur-8B-LoRA"),
+    ("\\texttt{1B}",   "socius-Llama-Centaur-1B-LoRA-r16"),
+    ("\\texttt{3B}",   "socius-Llama-Centaur-3B-LoRA-r16"),
+    ("\\texttt{8B}",   "socius-Llama-Centaur-8B-LoRA-r16"),
 ]
 MAIN_SMOL_COLS = [
     ("\\texttt{0.1B}", "socius-Smoltaur-0.1B-LoRA-r16"),
@@ -787,16 +788,16 @@ def generate_appendix_raw(data):
 # Finetuned (one column per model) for the four families.
 FAMILY_FT_COLS = [
     ("\\texttt{\\textbf{Qwentaur}}", [
-        ("0.6B", "socius-Qwentaur-0.6B-LoRA"),
-        ("1.7B", "socius-Qwentaur-1.7B-LoRA"),
-        ("4B",   "socius-Qwentaur-4B-LoRA"),
-        ("8B",   "socius-Qwentaur-8B-LoRA"),
-        ("14B",  "socius-Qwentaur-14B-LoRA"),
+        ("0.6B", "socius-Qwentaur-0.6B-LoRA-r16"),
+        ("1.7B", "socius-Qwentaur-1.7B-LoRA-r16"),
+        ("4B",   "socius-Qwentaur-4B-LoRA-r16"),
+        ("8B",   "socius-Qwentaur-8B-LoRA-r16"),
+        ("14B",  "socius-Qwentaur-14B-LoRA-r16"),
     ]),
     ("\\texttt{\\textbf{Llama-Centaur}}", [
-        ("1B", "socius-Llama-Centaur-1B-LoRA"),
-        ("3B", "socius-Llama-Centaur-3B-LoRA"),
-        ("8B", "socius-Llama-Centaur-8B-LoRA"),
+        ("1B", "socius-Llama-Centaur-1B-LoRA-r16"),
+        ("3B", "socius-Llama-Centaur-3B-LoRA-r16"),
+        ("8B", "socius-Llama-Centaur-8B-LoRA-r16"),
     ]),
     ("\\texttt{\\textbf{Smoltaur}}", [
         ("0.1B", "socius-Smoltaur-0.1B-LoRA-r16"),
