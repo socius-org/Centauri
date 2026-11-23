@@ -198,7 +198,9 @@ def main():
     os.makedirs(args.output_dir, exist_ok=True)
 
     print("\n" + "=" * 78)
-    print(f"  Schedule Psych-101 eval -- family: {args.family}")
+    is_ood = "ood" in os.path.basename(args.eval_script).lower()
+    benchmark = "Psych-201-RT (OOD)" if is_ood else "Psych-101"
+    print(f"  Schedule {benchmark} eval -- family: {args.family}")
     print("=" * 78)
     print(f"  Axes            : {', '.join(args.axes)}")
     print(f"  Eval script     : {args.eval_script}")

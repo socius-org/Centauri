@@ -108,8 +108,13 @@ def load_all_results():
     files = glob.glob(os.path.join(RESULTS_DIR, "*.csv"))
     rows = []
     for f in files:
-        df = pd.read_csv(f)
         model = os.path.basename(f).replace('.csv', '')
+        # This analysis covers the rank-16 adapters only; skip the other
+        # rank-sweep cells (schedule_ood_rank_sweep.py) in the same folder.
+        rank = re.search(r'-LoRA-r(\d+)', model)
+        if rank and rank.group(1) != '16':
+            continue
+        df = pd.read_csv(f)
         for _, r in df.iterrows():
             rows.append({
                 'model': model,
