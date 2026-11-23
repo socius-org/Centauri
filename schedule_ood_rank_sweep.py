@@ -29,6 +29,7 @@ Any argument not listed here is forwarded to schedule_eval_runs.py
 """
 
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -67,6 +68,9 @@ def main():
     parser.add_argument("--dry_run", action="store_true")
     args, passthrough = parser.parse_known_args()
 
+    plan_path = os.path.join(args.output_dir, "eval_plan.json")
+    combined_plan = []
+
     for family in args.families:
         cmd = [
             sys.executable, "./schedule_eval_runs.py",
@@ -88,6 +92,15 @@ def main():
             print(f"Scheduler failed for family '{family}' "
                   f"(exit {result.returncode}); stopping.")
             sys.exit(result.returncode)
+        # The scheduler rewrites eval_plan.json on every call, so collect
+        # each family's plan before the next one overwrites it.
+        with open(plan_path) as fh:
+            combined_plan += json.load(fh)
+
+    with open(plan_path, "w") as fh:
+        json.dump(combined_plan, fh, indent=2)
+    print(f"\nWrote combined plan ({len(combined_plan)} evals, "
+          f"{len(args.families)} families) -> {plan_path}")
 
     if args.dry_run:
         return
