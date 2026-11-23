@@ -214,6 +214,7 @@ def main():
     print("-" * 78)
 
     plan = []
+    n_done = 0
     for i, cell in enumerate(launchable, 1):
         cmd, repo_id = build_command(fam, cell, args)
         quantised = is_quantised(fam, cell["size"], args.quantise_from)
@@ -226,10 +227,15 @@ def main():
             "result_csv": os.path.join(args.output_dir, result_csv_name(repo_id)),
             "command": cmd,
         })
+        # With --resume, flag cells that will be skipped at launch.
+        done = args.resume and os.path.exists(plan[-1]["result_csv"])
+        n_done += done
         print(f"  {i:>3}  {cell['size']:>5}  {cell['rank']:>4}  "
               f"{cell['fraction']:>7g}  {'4bit' if quantised else 'bf16':>4}  "
-              f"{repo_id}")
+              f"{repo_id}{'  [done, will skip]' if done else ''}")
     print("=" * 78)
+    if args.resume:
+        print(f"  {n_done} already evaluated, {len(plan) - n_done} to run.")
 
     plan_path = os.path.join(args.output_dir, "eval_plan.json")
     with open(plan_path, "w") as fh:

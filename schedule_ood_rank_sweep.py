@@ -12,9 +12,9 @@ names and per-size context lengths all come from utils.FAMILIES. Cells whose
 CSV already exists in the output dir are skipped, and a failed cell does not
 stop the sweep (it is logged in <output_dir>/eval_status.jsonl).
 
-The rank-16 cells of qwen/llama are not re-run: they are the main-paper runs,
-whose OOD results are already in the output dir (socius-<Name>-LoRA-r16.csv).
-Use utils.result_csv_path to locate any cell's CSV.
+The rank-16 cells are listed for every family but not re-run: their OOD
+results are already in the output dir (socius-<Name>-LoRA-r16.csv), so
+--resume skips them. Use utils.result_csv_path to locate any cell's CSV.
 
 Usage
 -----
@@ -80,6 +80,9 @@ def main():
             "--output_dir", args.output_dir,
             "--namespace", args.namespace,
             "--resume",
+            # List the qwen/llama r16 cells too (their CSVs already exist, so
+            # --resume skips them) -- same treatment as olmo/smollm.
+            "--include_baseline",
         ] + passthrough
         if args.quantise_from is not None:
             label = family_quantise_from(FAMILIES[family], args.quantise_from)
