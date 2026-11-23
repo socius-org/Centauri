@@ -58,6 +58,10 @@ def _pre_parse_backend():
     return detect_backend(args.model, args.backend)
 
 
+# Unsloth (2024.11+) returns empty logits unless this is set before it is
+# imported; the variable-length tasks need raw logits for per-response scoring.
+os.environ.setdefault("UNSLOTH_RETURN_LOGITS", "1")
+
 _BACKEND = _pre_parse_backend()
 
 if _BACKEND == "unsloth":
@@ -578,6 +582,9 @@ def evaluate(
                         trainer.args.fp16_full_eval = False
 
                 # ---- Evaluate ----
+                # Re-assert right before evaluating: the flag is read at forward
+                # time, and trainer construction may have reset it.
+                os.environ["UNSLOTH_RETURN_LOGITS"] = "1"
                 result = trainer.evaluate()
 
                 if has_quantized_attr:
