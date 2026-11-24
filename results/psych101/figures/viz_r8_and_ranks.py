@@ -268,22 +268,27 @@ def draw_bracket(ax, y_top, y_bot, fs):
 
 
 def draw_70b(ax, refs, annotate=True, scale=1.0):
-    """70B diamonds (+ labels), always 4-bit, sized like the data markers."""
+    """70B diamonds (+ labels), always 4-bit, sized like the data markers.
+    The hollow 'reported' diamond is drawn only when refs has a 'binz' value
+    (Psych-201 has a reproduced Centaur-70B but no published number)."""
+    reported = refs.get('binz')
     ax.plot([70], [refs['repl']], 'D', color=COLORS['llama_dk'],
             markersize=MS_70B * scale, markerfacecolor=COLORS['llama_dk'],
             markeredgecolor='white', markeredgewidth=MEW, zorder=6, clip_on=False)
-    ax.plot([70], [refs['binz']], 'D', color=COLORS['reported'],
-            markersize=MS_70B_HOLLOW * scale, markerfacecolor='none',
-            markeredgecolor=COLORS['reported'], markeredgewidth=MEW,
-            zorder=6, clip_on=False)
+    if reported is not None:
+        ax.plot([70], [reported], 'D', color=COLORS['reported'],
+                markersize=MS_70B_HOLLOW * scale, markerfacecolor='none',
+                markeredgecolor=COLORS['reported'], markeredgewidth=MEW,
+                zorder=6, clip_on=False)
     if not annotate:
         return
     ax.annotate('reproduced', (70, refs['repl']), xytext=(4, 3),
                 textcoords='offset points', fontsize=FS_70B_LABEL, ha='left',
                 va='bottom', color=COLORS['llama_dk'])
-    ax.annotate('reported', (70, refs['binz']), xytext=(4, -3),
-                textcoords='offset points', fontsize=FS_70B_LABEL, ha='left',
-                va='top', color=COLORS['reported'])
+    if reported is not None:
+        ax.annotate('reported', (70, reported), xytext=(4, -3),
+                    textcoords='offset points', fontsize=FS_70B_LABEL, ha='left',
+                    va='top', color=COLORS['reported'])
 
 
 def param_axis(ax, families=None):
@@ -323,14 +328,18 @@ def save_figure(fig, outdir, basename, dpi=600):
 # ═══════════════════════════════════════════════════════════════════════════
 
 def draw_r8_axes(ax, data, base, refs, fs, families=None, ylabel=True,
-                 gen_aware=False):
+                 gen_aware=False, cog=True):
     """r=8 scaling content: markers + fits + size labels + bases + 70B + bracket.
     `gen_aware` shapes markers by context window (circle >=32k, square <32k) and
     fits only generation-matched size groups (only affects smollm/olmo; llama and
-    qwen fit across all sizes as before, but their markers become circles)."""
+    qwen fit across all sizes as before, but their markers become circles).
+    `cog=False` omits the cognitive-baseline line; the base Llama-70B point and
+    the 4-bit bracket are drawn only when refs carries 'llama70b' / 'binz'
+    (Psych-201 has neither)."""
     fams = families or PLOT_FAMILIES
-    ax.axhline(COG_MODEL, color='gray', linewidth=0.8, linestyle=':',
-               alpha=0.7, zorder=1)
+    if cog:
+        ax.axhline(COG_MODEL, color='gray', linewidth=0.8, linestyle=':',
+                   alpha=0.7, zorder=1)
 
     # Llama and Qwen share an 8B model with near-identical r=8 NLLs; both sit at
     # x=8, blue circle drawn on top of the purple square (corners peek out).
@@ -383,10 +392,12 @@ def draw_r8_axes(ax, data, base, refs, fs, families=None, ylabel=True,
                 markeredgewidth=MEW, alpha=0.35, zorder=3)
 
     draw_70b(ax, refs)
-    ax.plot([70], [refs['llama70b']], 'o', color=COLORS['llama'], markersize=MS,
-            markerfacecolor='none', markeredgecolor=COLORS['llama'],
-            markeredgewidth=MEW, alpha=0.35, zorder=3, clip_on=False)
-    draw_bracket(ax, refs['llama70b'], refs['binz'], fs)
+    if refs.get('llama70b') is not None:
+        ax.plot([70], [refs['llama70b']], 'o', color=COLORS['llama'], markersize=MS,
+                markerfacecolor='none', markeredgecolor=COLORS['llama'],
+                markeredgewidth=MEW, alpha=0.35, zorder=3, clip_on=False)
+        if refs.get('binz') is not None:
+            draw_bracket(ax, refs['llama70b'], refs['binz'], fs)
 
     param_axis(ax, families)
     if ylabel:
@@ -430,7 +441,7 @@ def make_r8_figure(data, base, refs, outdir):
 
 def draw_sweep_content(ax, data, refs, fs, families=None, ylabel=True,
                        exclude_sizes=None, cog_ax=None, gen_aware=False,
-                       extrapolate=True):
+                       extrapolate=True, cog=True):
     """Per-family envelope bands (straight fitted boundaries) + shade-ramp
     markers + cognitive line + 70B refs + bracket.
 
@@ -441,10 +452,14 @@ def draw_sweep_content(ax, data, refs, fs, families=None, ylabel=True,
     sizes (Smoltaur -> SmolLM2 only, with a faint dotted extrapolation of the
     band boundaries to SmolLM3-3B; Olmotaur -> no envelope) and shape markers by
     context window (circle >=32k, square <32k).
+
+    `cog=False` omits the cognitive line; the 4-bit bracket needs a reported
+    70B value in refs (Psych-201 has neither).
     """
     exclude_sizes = exclude_sizes or {}
-    (cog_ax or ax).axhline(COG_MODEL, color='gray', linewidth=0.8, linestyle=':',
-                           alpha=0.7, zorder=1)
+    if cog:
+        (cog_ax or ax).axhline(COG_MODEL, color='gray', linewidth=0.8,
+                               linestyle=':', alpha=0.7, zorder=1)
 
     for fam_key in (families or PLOT_FAMILIES):
         fam, df = FAMILIES[fam_key], data[fam_key]
@@ -500,7 +515,8 @@ def draw_sweep_content(ax, data, refs, fs, families=None, ylabel=True,
                         markeredgecolor='white', markeredgewidth=MEW, zorder=4)
 
     draw_70b(ax, refs)
-    draw_bracket(ax, refs['repl'], refs['binz'], fs)
+    if refs.get('binz') is not None:
+        draw_bracket(ax, refs['repl'], refs['binz'], fs)
     param_axis(ax, families)
     if ylabel:
         ax.set_ylabel('Mean negative log-likelihood')
@@ -558,16 +574,18 @@ def make_rank_figure(data, refs, outdir):
 
 def draw_rank_series(ax, data, refs, rank, msize=None, lw=0.7, families=None,
                      exclude_sizes=None, cog_ax=None, gen_aware=False,
-                     extrapolate=True):
+                     extrapolate=True, cog=True):
     """One rank's scaling content: family series + dashed fits + cognitive
     line + 70B diamonds (no annotations). `cog_ax` routes the cognitive line to
     a broken-axis upper segment. `gen_aware` fits only generation/context-matched
     size groups (Smoltaur SmolLM2, dotted extrapolation to SmolLM3-3B; Olmotaur
-    none) and shapes markers by context window."""
+    none) and shapes markers by context window. `cog=False` omits the
+    cognitive line."""
     exclude_sizes = exclude_sizes or {}
     msize = MS * 0.85 if msize is None else msize
-    (cog_ax or ax).axhline(COG_MODEL, color='gray', linewidth=0.8, linestyle=':',
-                           alpha=0.7, zorder=1)
+    if cog:
+        (cog_ax or ax).axhline(COG_MODEL, color='gray', linewidth=0.8,
+                               linestyle=':', alpha=0.7, zorder=1)
     for fam_key in (families or PLOT_FAMILIES):
         fam = FAMILIES[fam_key]
         rows = series_by_rank(data[fam_key], rank)
