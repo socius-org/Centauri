@@ -68,6 +68,12 @@ def result_csv_name(model_id):
     return model_id.replace("/", "-") + ".csv"
 
 
+def result_done(path):
+    """A result CSV counts as done only if it is non-empty: a run that died on
+    a full disk can leave a 0-byte file behind, which --resume must retry."""
+    return os.path.exists(path) and os.path.getsize(path) > 0
+
+
 def cell_max_seq_length(fam, cell, args):
     """Per-cell eval context length.
 
@@ -228,7 +234,7 @@ def main():
             "command": cmd,
         })
         # With --resume, flag cells that will be skipped at launch.
-        done = args.resume and os.path.exists(plan[-1]["result_csv"])
+        done = args.resume and result_done(plan[-1]["result_csv"])
         n_done += done
         print(f"  {i:>3}  {cell['size']:>5}  {cell['rank']:>4}  "
               f"{cell['fraction']:>7g}  {'4bit' if quantised else 'bf16':>4}  "
@@ -251,7 +257,7 @@ def main():
 
     for entry in plan:
         # Resume: skip if the result CSV is already present.
-        if args.resume and os.path.exists(entry["result_csv"]):
+        if args.resume and result_done(entry["result_csv"]):
             print(f"[skip] {entry['model']} (result CSV exists)")
             continue
 

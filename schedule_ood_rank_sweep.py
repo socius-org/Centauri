@@ -23,14 +23,25 @@ Usage
     python schedule_ood_rank_sweep.py --families smollm olmo
     python schedule_ood_rank_sweep.py --quantise_from 8    # >= 8B in 4-bit
     python schedule_ood_rank_sweep.py --ranks 4 64 --device_map auto
+    python schedule_ood_rank_sweep.py --purge_model_cache  # small disks
+
+Disk space. Every size pulls its own base model (~2.5 GB per billion
+parameters in bf16), and the HuggingFace cache keeps them all, which fills a
+small pod disk part-way through the sweep. --purge_model_cache deletes the
+cached model weights after each (family, size) group -- a base model is only
+needed by the ranks of its own size -- so the disk only ever has to hold the
+largest single model. The sweep also stops early, before launching anything,
+when the disk is nearly full, rather than failing every remaining cell.
 
 Any argument not listed here is forwarded to schedule_eval_runs.py
-(e.g. --ranks, --device_map, --max_seq_length).
+(e.g. --device_map, --max_seq_length).
 """
 
 import argparse
 import json
+import glob
 import os
+import shutil
 import subprocess
 import sys
 
@@ -53,6 +64,47 @@ def family_quantise_from(fam, threshold):
     return None
 
 
+def hf_hub_cache():
+    """The HuggingFace hub cache directory (same resolution as huggingface_hub)."""
+    if os.environ.get("HF_HUB_CACHE"):
+        return os.environ["HF_HUB_CACHE"]
+    hf_home = os.environ.get("HF_HOME") or os.path.join(
+        os.path.expanduser("~"), ".cache", "huggingface")
+    return os.path.join(hf_home, "hub")
+
+
+def free_gb(path):
+    """Free space (GB) on the disk holding ``path`` (nearest existing parent)."""
+    path = os.path.abspath(path)
+    while not os.path.exists(path):
+        path = os.path.dirname(path)
+    return shutil.disk_usage(path).free / 1e9
+
+
+def purge_model_cache():
+    """Delete cached model weights (models--* only; datasets are kept)."""
+    for d in glob.glob(os.path.join(hf_hub_cache(), "models--*")):
+        shutil.rmtree(d, ignore_errors=True)
+    print(f"Purged cached models -> {free_gb(hf_hub_cache()):.0f} GB free "
+          f"in {hf_hub_cache()}")
+
+
+def check_disk(family, size, output_dir, quantised):
+    """Stop before a group that cannot succeed; warn when space looks tight."""
+    out_free, cache_free = free_gb(output_dir), free_gb(hf_hub_cache())
+    if min(out_free, cache_free) < 1:
+        print(f"ERROR: disk nearly full before {family} {size} "
+              f"(results dir {out_free:.1f} GB free, model cache "
+              f"{cache_free:.1f} GB free). Free space (or re-run with "
+              "--purge_model_cache) and run the same command again.")
+        sys.exit(1)
+    need = size_in_billions(size) * (1.0 if quantised else 2.5) + 2
+    if cache_free < need:
+        print(f"WARNING: {family} {size} needs roughly {need:.0f} GB for its "
+              f"base model if not already cached; only {cache_free:.0f} GB "
+              f"free in {hf_hub_cache()}.")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Psych-201-RT (OOD) eval across the rank sweep of all families.")
@@ -65,16 +117,50 @@ def main():
         help="Evaluate models of at least this many billion parameters in "
              "4-bit (e.g. 8 or 8B). Applied per family, so it need not be a "
              "size label of every family. Default: all bf16.")
+    parser.add_argument("--sizes", nargs="+", default=None,
+                        help="Only these sizes (e.g. --sizes 8B 14B).")
+    parser.add_argument("--ranks", nargs="+", type=int, default=None,
+                        help="Only these LoRA ranks (e.g. --ranks 4 64).")
+    parser.add_argument(
+        "--purge_model_cache", action="store_true",
+        help="Delete the cached HuggingFace model weights after each "
+             "(family, size) group, so the disk only holds one base model at "
+             "a time. Deletes ALL models--* entries in the hub cache.")
     parser.add_argument("--dry_run", action="store_true")
     args, passthrough = parser.parse_known_args()
+
+    # One scheduler call per (family, size) that has cells to evaluate.
+    groups = []
+    for family in args.families:
+        fam = FAMILIES[family]
+        for size in fam["size_order"]:
+            if args.sizes and size not in args.sizes:
+                continue
+            ranks = [c["rank"] for c in build_cells(fam, ["rank"])
+                     if c["size"] == size
+                     and (not args.ranks or c["rank"] in args.ranks)]
+            if ranks:
+                groups.append((family, size, ranks))
+    if not groups:
+        print("ERROR: the --families/--sizes/--ranks filter matched no cells.")
+        sys.exit(1)
 
     plan_path = os.path.join(args.output_dir, "eval_plan.json")
     combined_plan = []
 
-    for family in args.families:
+    for family, size, ranks in groups:
+        label = None
+        if args.quantise_from is not None:
+            label = family_quantise_from(FAMILIES[family], args.quantise_from)
+        if not args.dry_run:
+            quantised = (label is not None and
+                         size_in_billions(size) >= size_in_billions(label))
+            check_disk(family, size, args.output_dir, quantised)
         cmd = [
             sys.executable, "./schedule_eval_runs.py",
             "--family", family,
+            "--sizes", size,
+            "--ranks", *map(str, ranks),
             "--axes", "rank",
             "--eval_script", "./eval_model_ood.py",
             "--output_dir", args.output_dir,
@@ -84,42 +170,44 @@ def main():
             # --resume skips them) -- same treatment as olmo/smollm.
             "--include_baseline",
         ] + passthrough
-        if args.quantise_from is not None:
-            label = family_quantise_from(FAMILIES[family], args.quantise_from)
-            if label:
-                cmd += ["--quantise_from", label]
+        if label:
+            cmd += ["--quantise_from", label]
         if args.dry_run:
             cmd.append("--dry_run")
         result = subprocess.run(cmd)
         if result.returncode != 0:
-            print(f"Scheduler failed for family '{family}' "
+            print(f"Scheduler failed for {family} {size} "
                   f"(exit {result.returncode}); stopping.")
             sys.exit(result.returncode)
         # The scheduler rewrites eval_plan.json on every call, so collect
-        # each family's plan before the next one overwrites it.
+        # each group's plan before the next one overwrites it.
         with open(plan_path) as fh:
             combined_plan += json.load(fh)
+        if args.purge_model_cache and not args.dry_run:
+            purge_model_cache()
 
     with open(plan_path, "w") as fh:
         json.dump(combined_plan, fh, indent=2)
     print(f"\nWrote combined plan ({len(combined_plan)} evals, "
-          f"{len(args.families)} families) -> {plan_path}")
+          f"{len({g[0] for g in groups})} families) -> {plan_path}")
 
     if args.dry_run:
         return
 
     # Summary: which rank-sweep CSVs are still missing (failed cells).
     missing = []
-    for family in args.families:
+    for family, size, ranks in groups:
         for cell in build_cells(FAMILIES[family], ["rank"]):
+            if cell["size"] != size or cell["rank"] not in ranks:
+                continue
             csv = result_csv_path(args.output_dir, args.namespace, family, cell)
-            if not os.path.exists(csv):
+            if not (os.path.exists(csv) and os.path.getsize(csv) > 0):
                 missing.append(hf_repo_id(args.namespace, family, cell))
 
     print("\n" + "=" * 78)
     if missing:
         print(f"  {len(missing)} OOD result(s) still missing "
-              "(filtered out or failed; re-run to retry):")
+              "(failed; re-run to retry):")
         for repo_id in missing:
             print(f"    {repo_id}")
     else:
